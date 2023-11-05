@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ResourceFilter
  */
-@WebFilter("/resources/*")
+/*@WebFilter("/resources/*")
 public class ResourceFilter implements Filter {
 	
 	@Override
@@ -35,4 +35,4 @@ public class ResourceFilter implements Filter {
             }
         }
     }
-}
+}*/

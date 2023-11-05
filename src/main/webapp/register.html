@@ -230,7 +230,36 @@
                 registerFormErrorText.classList.remove('d-none');
                 
             	/* fetch api */
-            	
+            	let jsonData = {
+					"email": registerInputEmail.value,
+					"password": registerInputPassword.value,
+					"admin": 0,
+					"nome": registerInputName.value,
+					"cognome": registerInputSurname.value,
+					"telefono": registerInputNumber.value
+				}
+				
+				async function callRegistration() {
+					
+					const response = await fetch('http://localhost:8080/hrport/registration', {
+					    method: 'POST',
+					    headers: {
+					        'Content-Type': 'application/json'
+					    },
+					    body: JSON.stringify(jsonData)
+					});
+					
+					const result = await response.json();
+					 
+	            	console.log(result);
+	            	
+	            	setTimeout(() => {
+						
+		            	location.href = "http://localhost:8080/hrport/login.html";
+					}, 2000)
+				}
+				
+				callRegistration();
             }
 
             registerStepTwoForm.classList.add('was-validated');
