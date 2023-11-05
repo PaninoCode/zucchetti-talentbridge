@@ -72,6 +72,11 @@ public class Registration {
 			newUser.setString(5, getCognome());
 			
 			ResultSet resultSet = newUser.executeQuery();
+			
+			// definire bene cosa è null e cosa è nullable
+			
+			// manca registrazione profilo numero di telefono perché ci sono campi not nullable
+			
 			con.commit();
 		} catch (Exception e) {
 			

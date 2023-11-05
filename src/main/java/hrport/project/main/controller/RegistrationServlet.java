@@ -63,7 +63,7 @@ public class RegistrationServlet extends HttpServlet {
             out.flush();   
         }catch(Exception e) {
         	
-        	String error = "{'data' : " + e.getMessage() + "}";
+        	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
         	
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
