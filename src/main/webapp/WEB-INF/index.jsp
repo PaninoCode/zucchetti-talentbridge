@@ -15,10 +15,12 @@
             <!-- Data will be inserted here -->
         </tbody>
     </table>
- 
+
 <script type="text/javascript">
 	
 	let json = '<%=request.getAttribute("saluto")%>';
+	
+	console.log(json)
 
 </script>
  
