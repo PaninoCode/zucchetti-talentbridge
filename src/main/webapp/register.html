@@ -89,16 +89,6 @@
                                     </div>
                                 </div>
                                 <div class="position-relative  mb-3">
-                                    <label for="register_input_number" class="form-label">
-                                        <h4>Cellulare</h4>
-                                    </label>
-                                    <input id="register_input_number" type="number"
-                                        class="form-control appearance-textfield" minlength="10" placeholder="2255734425" required>
-                                    <div class="invalid-tooltip">
-                                        Inserisci un numero di cellulare valido
-                                    </div>
-                                </div>
-                                <div class="position-relative  mb-3">
                                     <label for="register_input_email" class="form-label">
                                         <h4>Email</h4>
                                     </label>
@@ -193,7 +183,6 @@
 
         let registerInputName = document.querySelector('#register_input_name');
         let registerInputSurname = document.querySelector('#register_input_surname');
-        let registerInputNumber = document.querySelector('#register_input_number');
         let registerInputEmail = document.querySelector('#register_input_email');
 
 
@@ -235,8 +224,7 @@
 					"password": registerInputPassword.value,
 					"admin": 0,
 					"nome": registerInputName.value,
-					"cognome": registerInputSurname.value,
-					"telefono": registerInputNumber.value
+					"cognome": registerInputSurname.value
 				}
 				
 				async function callRegistration() {

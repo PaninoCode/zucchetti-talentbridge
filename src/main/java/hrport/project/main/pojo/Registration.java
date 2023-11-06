@@ -13,7 +13,6 @@ public class Registration {
     private Boolean admin;
     private String nome;
     private String cognome;
-    private String telefono;
     
 	public String getEmail() {
 		return email;
@@ -45,12 +44,6 @@ public class Registration {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 	
 	public void registerNewUser() throws Exception {
 		
@@ -61,8 +54,7 @@ public class Registration {
 			
 			con.setAutoCommit(false);
 			String SQLUser = "INSERT INTO \"Utenti\" (\"email\", \"password\", \"admin\", \"nome\", \"cognome\")\r\n"
-					+ "VALUES (?, ?, ?, ?, ?);"
-					+ "SELECT TOP 1 Utenti.idUtente FROM Utenti ORDER BY Utenti.idUtente";
+					+ "VALUES (?, ?, ?, ?, ?);";
 			
 			PreparedStatement newUser = con.prepareStatement(SQLUser);
 			newUser.setString(1, getEmail());
@@ -71,11 +63,7 @@ public class Registration {
 			newUser.setString(4, getNome());
 			newUser.setString(5, getCognome());
 			
-			ResultSet resultSet = newUser.executeQuery();
-			
-			// definire bene cosa è not null e cosa è nullable
-			
-			// manca registrazione profilo numero di telefono perché ci sono campi not nullable
+			newUser.executeUpdate();
 			
 			con.commit();
 		} catch (Exception e) {
@@ -86,5 +74,32 @@ public class Registration {
 			
 			con.close();
 		}
+	}
+	
+	public static ResultSet getUser(String user, String password) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.email = ? AND u.password = ?";
+			
+			PreparedStatement User = con.prepareStatement(SQLUser);
+			User.setString(1, user);
+			User.setString(2, password);
+			
+			ResultSet resultSet = User.executeQuery();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+		
+		return null;
 	}
 }

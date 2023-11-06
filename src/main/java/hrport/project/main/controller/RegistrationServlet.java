@@ -55,7 +55,7 @@ public class RegistrationServlet extends HttpServlet {
         	
         	registration.registerNewUser();
         	
-        	String success = "{'data' : 'success'}";
+        	String success = "{\"data\" : \"success\"}";
 
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");
