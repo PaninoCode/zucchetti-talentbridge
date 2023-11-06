@@ -37,11 +37,12 @@ public class RegistrationServlet extends HttpServlet {
             }
         }catch(Exception e) {
         	
-        	String error = e.getMessage();
+        	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
         	
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             out.print(this.gson.toJson(error));
             out.flush();
         }
@@ -60,7 +61,7 @@ public class RegistrationServlet extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             out.print(success);
-            out.flush();   
+            out.flush();
         }catch(Exception e) {
         	
         	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
