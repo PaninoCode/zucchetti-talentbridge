@@ -66,7 +66,7 @@
                         <h4>Password</h4>
                     </label>
                     <div class="d-flex justify-content-center align-items-center position-relative">
-                        <input type="password" class="form-control" placeholder="••••••••••••" id="login_input_password"
+                        <input type="password" class="form-control" placeholder="password" id="login_input_password"
                             required>
                         <div class="position-absolute end-0 bg-white m-2">
                             <svg id="login_eye_show" xmlns="http://www.w3.org/2000/svg" width="26" height="26"
