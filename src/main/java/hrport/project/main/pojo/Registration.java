@@ -82,6 +82,9 @@ public class Registration {
 			
 			con.rollback();
 			throw e;
+		} finally {
+			
+			con.close();
 		}
 	}
 }
