@@ -26,7 +26,7 @@ public class TestServlet extends HttpServlet {
         // Set the JSON data as a request attribute
         request.setAttribute("saluto", ciao);
 		
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
     }
 }
 

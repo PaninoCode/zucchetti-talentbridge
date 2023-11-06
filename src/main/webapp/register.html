@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrati</title>
-    <link href="css/custom/custom.css" rel="stylesheet">
+    <link href="resources/css/custom/custom.css" rel="stylesheet">
 </head>
 
 <body class="bg-body-tertiary">
@@ -89,16 +89,6 @@
                                     </div>
                                 </div>
                                 <div class="position-relative  mb-3">
-                                    <label for="register_input_number" class="form-label">
-                                        <h4>Cellulare</h4>
-                                    </label>
-                                    <input id="register_input_number" type="number"
-                                        class="form-control appearance-textfield" minlength="10" placeholder="2255734425" required>
-                                    <div class="invalid-tooltip">
-                                        Inserisci un numero di cellulare valido
-                                    </div>
-                                </div>
-                                <div class="position-relative  mb-3">
                                     <label for="register_input_email" class="form-label">
                                         <h4>Email</h4>
                                     </label>
@@ -178,7 +168,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
     <script>
         let registerStepOneControl = document.querySelector('[data-bs-target="#register_steps_accordion_step_one"]');
         let registerStepOneContent = document.querySelector('#register_steps_accordion_step_one');
@@ -193,7 +183,6 @@
 
         let registerInputName = document.querySelector('#register_input_name');
         let registerInputSurname = document.querySelector('#register_input_surname');
-        let registerInputNumber = document.querySelector('#register_input_number');
         let registerInputEmail = document.querySelector('#register_input_email');
 
 
@@ -230,7 +219,38 @@
                 registerFormErrorText.classList.remove('d-none');
                 
             	/* fetch api */
-            	
+            	let jsonData = {
+					"email": registerInputEmail.value,
+					"password": registerInputPassword.value,
+					"admin": 0,
+					"nome": registerInputName.value,
+					"cognome": registerInputSurname.value
+				}
+				
+				async function callRegistration() {
+					
+					const response = await fetch('http://localhost:8080/hrport/registration', {
+					    method: 'POST',
+					    headers: {
+					        'Content-Type': 'application/json'
+					    },
+					    body: JSON.stringify(jsonData)
+					});
+					
+					const result = await response.json();
+					 
+	            	console.log(result);
+	            	
+	            	if(response.ok) {
+						
+		            	setTimeout(() => {
+							
+			            	location.href = "http://localhost:8080/hrport/login.html";
+						}, 2000)
+					}
+				}
+				
+				callRegistration();
             }
 
             registerStepTwoForm.classList.add('was-validated');

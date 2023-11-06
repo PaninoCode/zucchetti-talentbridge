@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test page - Bootstrap</title>
-    <link href="css/custom/custom.css" rel="stylesheet">
+    <link href="resources/css/custom/custom.css" rel="stylesheet">
 </head>
 
 <body class="bg-body-tertiary">
@@ -50,12 +50,12 @@
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                 </svg>
             </div>
-            <form id="login_form" class="needs-validation" novalidate>
+            <form action="/loginUser" id="login_form" class="needs-validation" novalidate>
                 <div class="position-relative mb-3">
                     <label for="login_input_email" class="form-label">
                         <h4>Email</h4>
                     </label>
-                    <input type="email" class="form-control" placeholder="namito.kawamoto@gmail.com"
+                    <input name="email" type="email" class="form-control" placeholder="namito.kawamoto@gmail.com"
                         id="login_input_email" required>
                     <div class="invalid-tooltip">
                         Inserisci la tua email
@@ -66,7 +66,7 @@
                         <h4>Password</h4>
                     </label>
                     <div class="d-flex justify-content-center align-items-center position-relative">
-                        <input type="password" class="form-control" placeholder="••••••••••••" id="login_input_password"
+                        <input name="password" type="password" class="form-control" placeholder="password" id="login_input_password"
                             required>
                         <div class="position-absolute end-0 bg-white m-2">
                             <svg id="login_eye_show" xmlns="http://www.w3.org/2000/svg" width="26" height="26"
@@ -102,7 +102,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
     <script>
         let loginForm = document.querySelector('#login_form');
         let loginBtnPasswordRecovery = document.querySelector('#login_btn_password_recovery');
