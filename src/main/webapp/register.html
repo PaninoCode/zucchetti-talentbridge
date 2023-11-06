@@ -253,10 +253,13 @@
 					 
 	            	console.log(result);
 	            	
-	            	setTimeout(() => {
+	            	if(response.ok) {
 						
-		            	location.href = "http://localhost:8080/hrport/login.html";
-					}, 2000)
+		            	setTimeout(() => {
+							
+			            	location.href = "http://localhost:8080/hrport/login.html";
+						}, 2000)
+					}
 				}
 				
 				callRegistration();

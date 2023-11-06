@@ -73,7 +73,7 @@ public class Registration {
 			
 			ResultSet resultSet = newUser.executeQuery();
 			
-			// definire bene cosa è null e cosa è nullable
+			// definire bene cosa è not null e cosa è nullable
 			
 			// manca registrazione profilo numero di telefono perché ci sono campi not nullable
 			

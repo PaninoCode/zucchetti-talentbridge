@@ -68,6 +68,7 @@ public class RegistrationServlet extends HttpServlet {
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             out.print(error);
             out.flush();
         }
