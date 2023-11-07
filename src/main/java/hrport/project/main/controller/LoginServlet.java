@@ -33,8 +33,8 @@ public class LoginServlet extends HttpServlet {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("user", email);
-				request.setAttribute("data", session.getAttribute("user"));
-				request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+				
+				response.sendRedirect(request.getContextPath() + "/user/home");
 			}
 		} catch (Exception e) {
 			
