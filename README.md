@@ -1,0 +1,2 @@
+# HRPortal
+Gestione dei candidati
