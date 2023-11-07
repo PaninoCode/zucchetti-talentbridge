@@ -28,8 +28,6 @@ public class StaticPageServlet extends HttpServlet {
          
         if(queryUrl.endsWith(".html")){
           response.sendRedirect(request.getContextPath() + queryUrl.replace(".html", ""));
-        }else if(queryUrl.endsWith(".css") || queryUrl.endsWith(".js") || queryUrl.endsWith(".png") || queryUrl.endsWith(".jpg")){
-          request.getRequestDispatcher("/WEB-INF/views/" + queryUrl);
         }else{
           request.getRequestDispatcher("/WEB-INF/views/" + queryUrl + ".jsp").forward(request, response);
         }
