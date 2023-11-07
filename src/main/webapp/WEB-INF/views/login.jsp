@@ -50,7 +50,7 @@
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                 </svg>
             </div>
-            <form action="/loginUser" id="login_form" class="needs-validation" novalidate>
+            <form action="/hrport/loginUser" method="post" id="login_form" class="needs-validation" novalidate>
                 <div class="position-relative mb-3">
                     <label for="login_input_email" class="form-label">
                         <h4>Email</h4>
@@ -118,6 +118,7 @@
             if (loginForm.checkValidity()) {
                 loginFormErrorText.innerHTML = "Niente...";
                 loginFormErrorText.classList.remove('d-none');
+                loginForm.submit();
             }
 
             loginForm.classList.add('was-validated');

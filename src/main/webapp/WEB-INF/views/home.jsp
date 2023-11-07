@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-center text-body-secondary">© 2023 TalentBridge</p>
+                <p class="text-center text-body-secondary">Â© 2023 TalentBridge</p>
             </footer>
         </div>
     </div>
