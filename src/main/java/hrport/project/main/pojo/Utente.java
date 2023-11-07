@@ -6,13 +6,22 @@ import java.sql.ResultSet;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 
-public class Registration {
+public class Utente {
 
 	private String email;
     private String password;
     private Boolean admin;
     private String nome;
     private String cognome;
+    
+    public Utente(String email, String password, Boolean admin, String nome, String cognome) {
+    	
+    	this.setEmail(email);
+    	this.setPassword(password);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
+    }
     
 	public String getEmail() {
 		return email;
@@ -76,9 +85,11 @@ public class Registration {
 		}
 	}
 	
-	public static ResultSet getUser(String user, String password) throws Exception {
+	public static Utente getUser(String user, String password) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSet = null;
 		try {
 			
 			con.setAutoCommit(false);
@@ -88,9 +99,14 @@ public class Registration {
 			User.setString(1, user);
 			User.setString(2, password);
 			
-			ResultSet resultSet = User.executeQuery();
+			resultSet = User.executeQuery();
 			
 			con.commit();
+			
+			resultSet.next();
+			Utente utente = new Utente(resultSet.getString(2), resultSet.getString(3), Boolean.valueOf(resultSet.getString(4)), resultSet.getString(5), resultSet.getString(6));
+			
+			return utente;
 		} catch (Exception e) {
 			
 			con.rollback();
@@ -99,7 +115,5 @@ public class Registration {
 			
 			con.close();
 		}
-		
-		return null;
 	}
 }

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <!DOCTYPE html>
 <html>
 
@@ -18,7 +19,7 @@
 
 <script type="text/javascript">
 	
-	let json = '<%=request.getAttribute("saluto")%>';
+	let json = `<%=request.getAttribute("data")%>`;
 	
 	console.log(json)
 
