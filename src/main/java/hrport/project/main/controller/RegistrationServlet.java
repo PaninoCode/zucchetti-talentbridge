@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
-import hrport.project.main.pojo.Registration;
+import hrport.project.main.pojo.Utente;
 
 /**
  * Servlet implementation class Registration
@@ -51,7 +51,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
         	
         	ObjectMapper objectMapper = new ObjectMapper();
-        	Registration registration = objectMapper.readValue(jsonContent.toString(), Registration.class);
+        	Utente registration = objectMapper.readValue(jsonContent.toString(), Utente.class);
         	
         	registration.registerNewUser();
         	
