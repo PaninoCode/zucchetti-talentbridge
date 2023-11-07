@@ -11,4 +11,14 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserHome</display-name>
+    <servlet-name>UserHome</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UserHome</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserHome</servlet-name>
+    <url-pattern>/UserHome</url-pattern>
+  </servlet-mapping>
 </web-app>
