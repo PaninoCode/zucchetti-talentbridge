@@ -39,4 +39,14 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.css</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>idk</display-name>
+    <servlet-name>idk</servlet-name>
+    <servlet-class>idk</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>idk</servlet-name>
+    <url-pattern>/idk</url-pattern>
+  </servlet-mapping>
 </web-app>
