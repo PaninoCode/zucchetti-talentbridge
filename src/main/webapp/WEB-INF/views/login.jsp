@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test page - Bootstrap</title>
+    <title>Login</title>
     <link href="resources/css/custom/custom.css" rel="stylesheet">
 </head>
 
