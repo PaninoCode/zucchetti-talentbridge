@@ -7,12 +7,6 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>hrport.project.main.controller.LoginServlet</servlet-class>
   </servlet>
-  <servlet>
-    <description></description>
-    <display-name>StaticPageServlet</display-name>
-    <servlet-name>StaticPageServlet</servlet-name>
-    <servlet-class>hrport.project.main.controller.StaticPageServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
@@ -27,6 +21,12 @@
     <servlet-name>UserHome</servlet-name>
     <url-pattern>/UserHome</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>StaticPageServlet</display-name>
+    <servlet-name>StaticPageServlet</servlet-name>
+    <servlet-class>hrport.project.main.controller.StaticPageServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>StaticPageServlet</servlet-name>
     <url-pattern>/</url-pattern>
