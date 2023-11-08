@@ -24,22 +24,4 @@
     <servlet-name>UserHome</servlet-name>
     <url-pattern>/UserHome</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>StaticPageServlet</display-name>
-    <servlet-name>StaticPageServlet</servlet-name>
-    <servlet-class>hrport.project.main.controller.StaticPageServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StaticPageServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>default</servlet-name>
-    <url-pattern>*.js</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>default</servlet-name>
-    <url-pattern>*.css</url-pattern>
-  </servlet-mapping>
 </web-app>
