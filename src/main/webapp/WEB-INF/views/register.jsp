@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,7 +126,7 @@
                                     <label for="register_input_password" class="form-label">
                                         <h4>Password</h4>
                                     </label>
-                                    <input type="password" class="form-control" placeholder="••••••••••••"
+                                    <input type="password" class="form-control" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢"
                                         id="register_input_password" minlength="8" required>
                                     <div class="invalid-tooltip">
                                         Inserisci una password valida
@@ -135,7 +136,7 @@
                                     <label for="register_input_confirm_password" class="form-label">
                                         <h4>Conferma Password</h4>
                                     </label>
-                                    <input type="password" class="form-control" placeholder="••••••••••••"
+                                    <input type="password" class="form-control" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢"
                                         id="register_input_confirm_password" minlength="8" required>
                                     <div class="invalid-tooltip">
                                         Conferma la password
@@ -162,7 +163,7 @@
 
             </div>
             <p class="text-center mb-4">
-                <a href="#">Hai già un account? &dash; Accedi</a>
+                <a href="#">Hai giÃ  un account? &dash; Accedi</a>
             </p>
         </div>
     </div>
