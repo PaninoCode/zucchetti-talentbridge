@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import hrport.project.main.pojo.Utente;
 
@@ -38,8 +39,13 @@ public class LoginServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			
-			request.setAttribute("data", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+			if(e instanceof SQLException) {
+				
+				String respError = "credenziali errate";
+				response.addHeader("data", respError);
+			}
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 		}
 	}
 }

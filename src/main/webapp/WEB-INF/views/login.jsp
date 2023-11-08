@@ -104,6 +104,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
     <script>
+    	let error = `<%=response.getHeader("data")%>`;
+    	if(error != "null") console.log(error)
+    
         let loginForm = document.querySelector('#login_form');
         let loginBtnPasswordRecovery = document.querySelector('#login_btn_password_recovery');
 
