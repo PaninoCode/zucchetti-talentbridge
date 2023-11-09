@@ -48,7 +48,34 @@ public class Quiz {
 		this.listaDomande= listaDomande;
 	}
 	
-	
+	public static void risposteDate(int idUtente, int idQuiz, int risUtente[]) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		try {
+			int idRisposte[]= new int[risUtente.length];
+			Quiz q= Quiz.initQuiz(idQuiz);
+			for(int i=0; i<risUtente.length; i++) {
+				idRisposte[i]=q.domandaIndex(i).rispostaIndex(risUtente[i]-1).getId(); //TOGLIERE IL "-1" SE L'INDEX è DA 0 A 3
+				System.out.println(idRisposte[i]);
+			}
+			
+			con.setAutoCommit(false);
+			String SQLUser="INSERT INTO \"RispostaData\" (\"idUtente\", \"idRisposta\") VALUES (?,?)";
+			PreparedStatement newRisp = con.prepareStatement(SQLUser);
+			for (int idRisposta : idRisposte) {
+			    newRisp.setInt(1, idUtente);
+			    newRisp.setInt(2, idRisposta);
+			    newRisp.addBatch();
+			}
+			newRisp.executeBatch();
+			con.commit();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			con.rollback();
+			throw e;
+		}
+	}
 	
 	public static Quiz initQuiz(int id) throws Exception {
 		List<Domanda> lista= new ArrayList<>();
@@ -96,6 +123,7 @@ public class Quiz {
 			
 			con.rollback();
 			throw e;
+			
 		} finally {
 			
 			con.close();

@@ -20,6 +20,10 @@ public class App {
 					"\nPunteggio domanda 1: "+q.domandaIndex(0).getPunteggio()+
 					"\nTesto risposta n2: "+q.domandaIndex(0).rispostaIndex(1).getTesto());
 			System.out.println(((Domanda)q.getDomande()[0]).getTesto());
+			
+			int[] array= {1,2,3,4};
+			Quiz.risposteDate(2, 1, array);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

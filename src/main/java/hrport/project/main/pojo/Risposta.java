@@ -6,6 +6,7 @@ public class Risposta {
 	private boolean giusta;
 	
 	public Risposta(int id, String testo, boolean giusta) {
+		this.setId(id);
 		this.setTesto(testo);
 		this.setGiusta(giusta);
 	}
