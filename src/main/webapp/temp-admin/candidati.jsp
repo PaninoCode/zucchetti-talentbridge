@@ -7,10 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>TalentBridge</title>
         <link href="resources/css/custom/custom.css" rel="stylesheet">
-
+        <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body class="bg-body-tertiary">
+        <jsp:include page='account_edit_modal.jsp'></jsp:include>
 
         <jsp:include page='admin_header.jsp'>
             <jsp:param name="activeLinkId" value="candidati" />
@@ -21,10 +22,7 @@
 
         </section>
 
-        <%@include file="admin_footer.jsp" %>
-
-            <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+        <jsp:include page='admin_footer.jsp'></jsp:include>
 
     </body>
 
