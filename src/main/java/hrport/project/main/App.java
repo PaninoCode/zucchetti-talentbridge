@@ -16,10 +16,9 @@ public class App {
 		try {
 			Quiz q= Quiz.initQuiz(1);
 			
-			System.out.println("Nome: "+q.getNome()+"\nPunteggio: "+q.getPunteggioTot()+
-					"\nTesto domanda 1: "+q.domandaIndex(0).getTesto()+
+			System.out.println("Nome: "+q.getNome()+
+					"\nPunteggio domanda 1: "+q.domandaIndex(0).getPunteggio()+
 					"\nTesto risposta n2: "+q.domandaIndex(0).rispostaIndex(1).getTesto());
-			
 			System.out.println(((Domanda)q.getDomande()[0]).getTesto());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

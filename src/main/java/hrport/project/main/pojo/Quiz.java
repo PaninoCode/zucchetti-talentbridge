@@ -10,12 +10,10 @@ import hrport.project.main.connectdb.ConnectDatabase;
 
 public class Quiz {
 	private String nome;
-	private int punteggioTot;
 	private List<Domanda> listaDomande= new ArrayList<>();
 	
-	public Quiz(int id, String nome, int punteggioTot, List<Domanda> listaDomande) {
+	public Quiz(String nome, List<Domanda> listaDomande) {
 		this.setNome(nome);
-		this.setPunteggioTot(punteggioTot);
 		this.setListaDomande(listaDomande);
 	}
 	
@@ -24,9 +22,6 @@ public class Quiz {
 		return nome;
 	}
 	
-	public int getPunteggioTot() {
-		return punteggioTot;
-	}
 	
 	public Object[] getDomande() {
 		return listaDomande.toArray();
@@ -38,10 +33,6 @@ public class Quiz {
 	
 	public void setNome(String nome) {
 		this.nome=nome;
-	}
-	
-	public void setPunteggioTot(int punteggioTot) {
-		this.punteggioTot=punteggioTot;
 	}
 	
 	public void setListaDomande(List<Domanda> listaDomande){
@@ -87,7 +78,7 @@ public class Quiz {
 	                lista.add(domanda);
 	            }
 
-	            Quiz quiz = new Quiz(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3), lista);
+	            Quiz quiz = new Quiz(resultSet.getString(2), lista);
 	            return quiz;
 	        } else {
 	            // Restituisci null o lancia un'eccezione se il quiz non è stato trovato
