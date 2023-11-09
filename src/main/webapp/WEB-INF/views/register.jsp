@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -136,7 +137,7 @@
 
             </div>
             <p class="text-center mb-4">
-                <a href="#">Hai già un account? &dash; Accedi</a>
+                <a href="/hrport/login">Hai giÃ  un account? &dash; Accedi</a>
             </p>
         </div>
     </div>

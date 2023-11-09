@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +96,7 @@
                     </button>
                 </div>
                 <p class="text-center m-0">
-                    <a href="#">Non hai un account? &dash; Registrati</a>
+                    <a href="/hrport/register">Non hai un account? &dash; Registrati</a>
                 </p>
             </form>
         </div>
