@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import hrport.project.main.connectdb.ConnectDatabase;
 
 public class Utente {
@@ -14,7 +17,8 @@ public class Utente {
     private String nome;
     private String cognome;
     
-    public Utente(String email, String password, Boolean admin, String nome, String cognome) {
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    Utente(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("admin") Boolean admin, @JsonProperty("nome") String nome, @JsonProperty("cognome") String cognome) {
     	
     	this.setEmail(email);
     	this.setPassword(password);
