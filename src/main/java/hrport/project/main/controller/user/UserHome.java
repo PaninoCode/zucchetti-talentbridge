@@ -8,6 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
+
+import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Utente;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class UserHome
@@ -23,8 +29,22 @@ public class UserHome extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		String token = (String) session.getAttribute("role");
+		String dataUser = null;
+		Gson gson = new Gson();
 		
-		request.setAttribute("data", token);
+		try {
+			
+			Utente utente = Utente.getUser("utente1@example.com", "password123");
+			if(utente != null) {
+				
+				String isAdmin = utente.isAdmin() ? "true" : "false";
+				dataUser = gson.toJson(utente.getPosizioni());
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		request.setAttribute("data", dataUser);
 		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
 

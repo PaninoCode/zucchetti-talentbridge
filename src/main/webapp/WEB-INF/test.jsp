@@ -20,8 +20,9 @@
 <script type="text/javascript">
 	
 	let json = `<%=request.getAttribute("data")%>`;
+	let jsonOK = JSON.parse(json);
 	
-	console.log(json)
+	console.log(jsonOK);
 
 </script>
  

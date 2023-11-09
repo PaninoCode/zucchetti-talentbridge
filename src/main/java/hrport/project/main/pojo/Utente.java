@@ -28,6 +28,7 @@ public class Utente {
     	this.setAdmin(admin);
     	this.setNome(nome);
     	this.setCognome(cognome);
+    	this.setPosizioni(posizioni);
     }
     
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -76,6 +77,12 @@ public class Utente {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
+	public List<Posizione> getPosizioni() {
+		return posizioni;
+	}
+	public void setPosizioni(List<Posizione> posizioni) {
+		this.posizioni = posizioni;
+	}
 	
 	public void registerNewUser() throws Exception {
 		
@@ -112,7 +119,7 @@ public class Utente {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		ResultSet resultSet = null;
+		ResultSet resultSetUser = null;
 		try {
 			
 			con.setAutoCommit(false);
@@ -122,16 +129,20 @@ public class Utente {
 			User.setString(1, user);
 			User.setString(2, password);
 			
-			resultSet = User.executeQuery();
+			resultSetUser = User.executeQuery();
 			
+			resultSetUser.next();
+			
+			List<Posizione> positions = Posizione.getPositionsByIdUtente(resultSetUser.getString(1));
+				
+			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString(1)), resultSetUser.getString(2), resultSetUser.getString(3), Boolean.valueOf(resultSetUser.getString(4)), resultSetUser.getString(5), resultSetUser.getString(6), positions);
+			
+			resultSetUser.close();
 			con.commit();
-			
-			resultSet.next();
-			Utente utente = new Utente(Integer.valueOf(resultSet.getString(1)), resultSet.getString(2), resultSet.getString(3), Boolean.valueOf(resultSet.getString(4)), resultSet.getString(5), resultSet.getString(6));
-			
 			return utente;
 		} catch (Exception e) {
 			
+			resultSetUser.close();
 			con.rollback();
 			throw e;
 		} finally {
