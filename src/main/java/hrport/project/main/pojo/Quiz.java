@@ -9,19 +9,23 @@ import java.util.List;
 import hrport.project.main.connectdb.ConnectDatabase;
 
 public class Quiz {
+	private int id;
 	private String nome;
 	private List<Domanda> listaDomande= new ArrayList<>();
 	
-	public Quiz(String nome, List<Domanda> listaDomande) {
+	public Quiz(int id, String nome, List<Domanda> listaDomande) {
+		this.setId(id);
 		this.setNome(nome);
 		this.setListaDomande(listaDomande);
 	}
 	
+	public int getId() {
+		return id;
+	}
 	
 	public String getNome() {
 		return nome;
 	}
-	
 	
 	public Object[] getDomande() {
 		return listaDomande.toArray();
@@ -29,6 +33,10 @@ public class Quiz {
 	
 	public Domanda domandaIndex(int index) {
 		return listaDomande.get(index);
+	}
+	
+	public void setId(int id) {
+		this.id=id;
 	}
 	
 	public void setNome(String nome) {
@@ -78,7 +86,7 @@ public class Quiz {
 	                lista.add(domanda);
 	            }
 
-	            Quiz quiz = new Quiz(resultSet.getString(2), lista);
+	            Quiz quiz = new Quiz(resultSet.getInt(1), resultSet.getString(2), lista);
 	            return quiz;
 	        } else {
 	            // Restituisci null o lancia un'eccezione se il quiz non è stato trovato

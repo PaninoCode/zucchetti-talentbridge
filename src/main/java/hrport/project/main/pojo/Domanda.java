@@ -6,17 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Domanda {
+	private int id;
 	private String testo;
 	private int punteggio;
 	private Risposta r[]= new Risposta[4];
 
 	
 	public Domanda(int id, String testo, int punteggio) {
+		this.setId(id);
 		this.setTesto(testo);
 		this.setPunteggio(punteggio);
 	}
 	
-	
+	public int getId() {
+		return id;
+	}
 	
 	public String getTesto() {
 		return testo;
@@ -32,6 +36,10 @@ public class Domanda {
 	
 	public Risposta rispostaIndex(int index) {
 		return r[index];
+	}
+	
+	public void setId(int id) {
+		this.id=id;
 	}
 	
 	public void setTesto(String testo) {
@@ -53,9 +61,10 @@ public class Domanda {
 			resultSet = Ris.executeQuery();
 			
 			for(int i=0;resultSet.next(); i++) {
+				int rispostaId=resultSet.getInt(2);
 				String testo=resultSet.getString(3);
 				boolean giusta=resultSet.getBoolean(4);
-				r[i]= new Risposta(testo, giusta);
+				r[i]= new Risposta(rispostaId, testo, giusta);
 			}
 			
 		} catch (SQLException e) {
