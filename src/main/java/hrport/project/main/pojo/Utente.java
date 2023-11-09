@@ -3,6 +3,7 @@ package hrport.project.main.pojo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,11 +12,23 @@ import hrport.project.main.connectdb.ConnectDatabase;
 
 public class Utente {
 
+	private Integer idUtente;
 	private String email;
     private String password;
     private Boolean admin;
     private String nome;
     private String cognome;
+    private List<Posizione> posizioni;
+    
+    Utente(Integer idUtente, String email, String password, Boolean admin, String nome, String cognome, List<Posizione> posizioni) {
+    	
+    	this.setIdUtente(idUtente);
+    	this.setEmail(email);
+    	this.setPassword(password);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
+    }
     
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     Utente(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("admin") Boolean admin, @JsonProperty("nome") String nome, @JsonProperty("cognome") String cognome) {
@@ -27,6 +40,12 @@ public class Utente {
     	this.setCognome(cognome);
     }
     
+    public Integer getIdUtente() {
+		return idUtente;
+	}
+	public void setIdUtente(Integer idUtente) {
+		this.idUtente = idUtente;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -39,7 +58,7 @@ public class Utente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Boolean getAdmin() {
+	public Boolean isAdmin() {
 		return admin;
 	}
 	public void setAdmin(Boolean admin) {
@@ -72,7 +91,7 @@ public class Utente {
 			PreparedStatement newUser = con.prepareStatement(SQLUser);
 			newUser.setString(1, getEmail());
 			newUser.setString(2, getPassword());
-			newUser.setBoolean(3, getAdmin());
+			newUser.setBoolean(3, isAdmin());
 			newUser.setString(4, getNome());
 			newUser.setString(5, getCognome());
 			
@@ -108,7 +127,7 @@ public class Utente {
 			con.commit();
 			
 			resultSet.next();
-			Utente utente = new Utente(resultSet.getString(2), resultSet.getString(3), Boolean.valueOf(resultSet.getString(4)), resultSet.getString(5), resultSet.getString(6));
+			Utente utente = new Utente(Integer.valueOf(resultSet.getString(1)), resultSet.getString(2), resultSet.getString(3), Boolean.valueOf(resultSet.getString(4)), resultSet.getString(5), resultSet.getString(6));
 			
 			return utente;
 		} catch (Exception e) {

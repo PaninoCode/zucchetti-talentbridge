@@ -22,7 +22,7 @@ public class UserHome extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
-		String token = (String) session.getAttribute("user");
+		String token = (String) session.getAttribute("role");
 		
 		request.setAttribute("data", token);
 		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
