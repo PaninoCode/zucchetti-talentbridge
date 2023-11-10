@@ -219,7 +219,7 @@
 						
 		            	setTimeout(() => {
 							
-			            	location.href = "http://localhost:8080/hrport/index.jsp";
+			            	location.href = "http://localhost:8080/hrport/login";
 						}, 2000)
 					}
 				}

@@ -6,6 +6,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
 import hrport.project.main.connectdb.ConnectDatabase;
+import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.UtenteService;
 
 public class App {
 
@@ -14,6 +16,7 @@ public class App {
 		System.out.println("HelloWorld");
 		
         try {
+        	/*
         	Connection connection = ConnectDatabase.getConnection();
         	String query = "";
             Statement statement = connection.createStatement();
@@ -32,6 +35,9 @@ public class App {
             resultSet.close();
             statement.close();
             connection.close();
+            */
+        	Utente utente = UtenteService.getUserByEmailAndPassword("utente1@example.com", "password123");
+        	System.out.println(utente.getPosizioni());
         } catch (Exception e) {
             e.printStackTrace();
         }

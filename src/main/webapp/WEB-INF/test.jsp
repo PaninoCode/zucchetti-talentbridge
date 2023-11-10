@@ -19,9 +19,13 @@
 
 <script type="text/javascript">
 	
-	let json = `<%=request.getAttribute("data")%>`;
+	let jsonDataUser = `<%=request.getAttribute("dataUser")%>`;
+	let jsonDataPositions = `<%=request.getAttribute("dataAllPositions")%>`;
+	let jsonUserOK = JSON.parse(jsonDataUser);
+	let jsonPositionsOK = JSON.parse(jsonDataPositions);
 	
-	console.log(json)
+	console.log(jsonUserOK);
+	console.log(jsonPositionsOK);
 
 </script>
  

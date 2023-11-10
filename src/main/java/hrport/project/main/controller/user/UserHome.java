@@ -8,6 +8,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
+
+import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.PosizioneService;
+import hrport.project.main.service.UtenteService;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class UserHome
@@ -22,9 +30,28 @@ public class UserHome extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
-		String token = (String) session.getAttribute("user");
+		Integer idUtente = (Integer) session.getAttribute("idUtente");
+		String dataUser = null;
+		String dataPositions = null;
+		Gson gson = new Gson();
 		
-		request.setAttribute("data", token);
+		try {
+			
+			List<Posizione> positions = PosizioneService.getAllPositions();
+			Utente utente = UtenteService.getUserByIdUtente(idUtente);
+				
+			dataUser = gson.toJson(utente);
+			dataPositions = gson.toJson(positions);
+		} catch (Exception e) {
+
+			String error = gson.toJson(e);
+			request.setAttribute("data", error);
+			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+			return;
+		}
+		
+		request.setAttribute("dataUser", dataUser);
+		request.setAttribute("dataAllPositions", dataPositions);
 		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
 
