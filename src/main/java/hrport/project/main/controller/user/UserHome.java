@@ -38,7 +38,7 @@ public class UserHome extends HttpServlet {
 		try {
 			
 			List<Posizione> positions = PosizioneService.getAllPositions();
-			Utente utente = UtenteService.getUserByIdUtente(idUtente);
+			Utente utente = UtenteService.getUserByIdUtenteWithPositions(idUtente);
 				
 			dataUser = gson.toJson(utente);
 			dataPositions = gson.toJson(positions);
@@ -54,5 +54,4 @@ public class UserHome extends HttpServlet {
 		request.setAttribute("dataAllPositions", dataPositions);
 		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
-
 }

@@ -30,7 +30,7 @@ public class PosizioneService {
 			
 			while(resultSetUserPositions.next()) {
 				
-				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString(1)), resultSetUserPositions.getString(2), Boolean.valueOf(resultSetUserPositions.getString(3)), resultSetUserPositions.getString(4)));
+				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString(1)), resultSetUserPositions.getString(2), Boolean.valueOf(resultSetUserPositions.getString(3)), resultSetUserPositions.getString(4), resultSetUserPositions.getString(5)));
 			}
 			
 			resultSetUserPositions.close();
@@ -66,7 +66,7 @@ public class PosizioneService {
 			
 			while(resultSetUserPositions.next()) {
 				
-				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString(1)), resultSetUserPositions.getString(2), Boolean.valueOf(resultSetUserPositions.getString(3)), resultSetUserPositions.getString(4)));
+				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString(1)), resultSetUserPositions.getString(2), Boolean.valueOf(resultSetUserPositions.getString(3)), resultSetUserPositions.getString(4), resultSetUserPositions.getString(5)));
 			}
 			
 			resultSetUserPositions.close();
