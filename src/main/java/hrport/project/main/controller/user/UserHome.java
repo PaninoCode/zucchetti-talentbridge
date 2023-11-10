@@ -38,7 +38,11 @@ public class UserHome extends HttpServlet {
 				
 			dataUser = gson.toJson(utente);
 		} catch (Exception e) {
-			// TODO: handle exception
+
+			String error = gson.toJson(e);
+			request.setAttribute("data", error);
+			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+			return;
 		}
 		
 		request.setAttribute("data", dataUser);
