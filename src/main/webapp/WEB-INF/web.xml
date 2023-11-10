@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xs" version="6.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee http://xmlns.jcp.org/xml/ns/javaee" version="6.0">
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <description></description>
@@ -38,5 +38,15 @@
   <servlet-mapping>
     <servlet-name>EditUtente</servlet-name>
     <url-pattern>/EditUtente</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateUtente</display-name>
+    <servlet-name>UpdateUtente</servlet-name>
+    <servlet-class>hrport.project.main.controller.UpdateUtente</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateUtente</servlet-name>
+    <url-pattern>/UpdateUtente</url-pattern>
   </servlet-mapping>
 </web-app>
