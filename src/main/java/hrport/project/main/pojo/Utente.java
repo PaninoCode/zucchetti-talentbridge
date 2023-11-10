@@ -2,7 +2,6 @@ package hrport.project.main.pojo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,15 +19,23 @@ public class Utente {
     private String cognome;
     private List<Posizione> posizioni;
     
-    Utente(Integer idUtente, String email, String password, Boolean admin, String nome, String cognome, List<Posizione> posizioni) {
+    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, List<Posizione> posizioni) {
     	
     	this.setIdUtente(idUtente);
     	this.setEmail(email);
-    	this.setPassword(password);
     	this.setAdmin(admin);
     	this.setNome(nome);
     	this.setCognome(cognome);
     	this.setPosizioni(posizioni);
+    }
+    
+    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome) {
+    	
+    	this.setIdUtente(idUtente);
+    	this.setEmail(email);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
     }
     
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -107,42 +114,6 @@ public class Utente {
 			con.commit();
 		} catch (Exception e) {
 			
-			con.rollback();
-			throw e;
-		} finally {
-			
-			con.close();
-		}
-	}
-	
-	public static Utente getUser(String user, String password) throws Exception {
-		
-		Connection con = ConnectDatabase.getConnection();
-		
-		ResultSet resultSetUser = null;
-		try {
-			
-			con.setAutoCommit(false);
-			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.email = ? AND u.password = ?";
-			
-			PreparedStatement User = con.prepareStatement(SQLUser);
-			User.setString(1, user);
-			User.setString(2, password);
-			
-			resultSetUser = User.executeQuery();
-			
-			resultSetUser.next();
-			
-			List<Posizione> positions = Posizione.getPositionsByIdUtente(resultSetUser.getString(1));
-				
-			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString(1)), resultSetUser.getString(2), resultSetUser.getString(3), Boolean.valueOf(resultSetUser.getString(4)), resultSetUser.getString(5), resultSetUser.getString(6), positions);
-			
-			resultSetUser.close();
-			con.commit();
-			return utente;
-		} catch (Exception e) {
-			
-			resultSetUser.close();
 			con.rollback();
 			throw e;
 		} finally {

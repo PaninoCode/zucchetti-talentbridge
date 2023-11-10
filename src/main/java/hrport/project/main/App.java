@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.UtenteService;
 
 public class App {
 
@@ -35,7 +36,7 @@ public class App {
             statement.close();
             connection.close();
             */
-        	Utente utente = Utente.getUser("utente1@example.com", "password123");
+        	Utente utente = UtenteService.getUserByEmailAndPassword("utente1@example.com", "password123");
         	System.out.println(utente.getPosizioni());
         } catch (Exception e) {
             e.printStackTrace();
