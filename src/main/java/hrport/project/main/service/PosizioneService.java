@@ -47,4 +47,40 @@ public class PosizioneService {
 		
 		return positions;
 	}
+	
+	public static List<Posizione> getAllPositions() throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSetUserPositions = null;
+		List<Posizione> positions = new ArrayList<>();
+		
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz";
+			
+			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
+			
+			resultSetUserPositions = UserPositions.executeQuery();
+			
+			while(resultSetUserPositions.next()) {
+				
+				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString(1)), resultSetUserPositions.getString(2), Boolean.valueOf(resultSetUserPositions.getString(3)), resultSetUserPositions.getString(4)));
+			}
+			
+			resultSetUserPositions.close();
+			con.commit();
+		} catch (Exception e) {
+			
+			resultSetUserPositions.close();
+			con.rollback();
+			positions = new ArrayList<>();
+		} finally {
+			
+			con.close();
+		}
+		
+		return positions;
+	}
 }

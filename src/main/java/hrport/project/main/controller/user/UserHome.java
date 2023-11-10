@@ -8,8 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
+import hrport.project.main.pojo.Posizione;
 import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.PosizioneService;
 import hrport.project.main.service.UtenteService;
 
 import com.google.gson.Gson;
@@ -28,15 +31,17 @@ public class UserHome extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
-		String role = (String) session.getAttribute("admin");
 		String dataUser = null;
+		String dataPositions = null;
 		Gson gson = new Gson();
 		
 		try {
 			
+			List<Posizione> positions = PosizioneService.getAllPositions();
 			Utente utente = UtenteService.getUserByIdUtente(idUtente);
 				
 			dataUser = gson.toJson(utente);
+			dataPositions = gson.toJson(positions);
 		} catch (Exception e) {
 
 			String error = gson.toJson(e);
@@ -45,7 +50,8 @@ public class UserHome extends HttpServlet {
 			return;
 		}
 		
-		request.setAttribute("data", dataUser);
+		request.setAttribute("dataUser", dataUser);
+		request.setAttribute("dataAllPositions", dataPositions);
 		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
 
