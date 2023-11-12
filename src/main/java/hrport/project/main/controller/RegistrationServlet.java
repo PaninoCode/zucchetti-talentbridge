@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import hrport.project.main.pojo.Utente;
 
@@ -23,7 +22,6 @@ import hrport.project.main.pojo.Utente;
 public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private Gson gson = new Gson();
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -43,7 +41,7 @@ public class RegistrationServlet extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.print(this.gson.toJson(error));
+            out.print(error);
             out.flush();
         }
 
