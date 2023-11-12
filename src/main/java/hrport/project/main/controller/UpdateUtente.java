@@ -7,9 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.UtenteService;
@@ -28,23 +32,51 @@ public class UpdateUtente extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
-		String oldPassword = (String) request.getAttribute("oldPassword");
-		String newPassword = (String) request.getAttribute("newPassword");
-		Gson gson = new Gson();
+		
+		StringBuilder jsonContent = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonContent.append(line);
+            }
+        }catch(Exception e) {
+        	
+        	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print(error);
+            out.flush();
+        }
 		
 		try {
 			
+			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
+			String oldPassword = json.get("oldPassword").getAsString();
+			String newPassword = json.get("newPassword").getAsString();
+			
 			Utente utente = UtenteService.getUserByIdUtente(idUtente);
 			utente.updatePassword(oldPassword, newPassword);
+			
+			String error = "{\"data\" : \"success\"}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            out.print(error);
+            out.flush();
 		} catch (Exception e) {
 			
-			String error = gson.toJson(e);
-			request.setAttribute("data", error);
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
-			return;
+			String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print(error);
+            out.flush();
 		}
-		
-		request.setAttribute("data", "success");
-		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
 }
