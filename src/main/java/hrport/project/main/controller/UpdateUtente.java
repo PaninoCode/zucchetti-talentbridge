@@ -51,6 +51,7 @@ public class UpdateUtente extends HttpServlet {
             out.flush();
         }
 		
+        // parse the json String and take the attributes
 		try {
 			
 			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
