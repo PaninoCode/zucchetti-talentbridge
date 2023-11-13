@@ -68,14 +68,9 @@ public class Quiz {
 			
 			resultSet = RispDate.executeQuery();
 			con.commit();
+			resultSet.next();
+			return resultSet.getInt(1);
 			
-			
-			while(resultSet.next()) {
-				System.out.println(resultSet.getInt(1));
-			}
-			
-			
-			return 0;
 		} catch(Exception e) {
 			con.rollback();
 			throw e;
