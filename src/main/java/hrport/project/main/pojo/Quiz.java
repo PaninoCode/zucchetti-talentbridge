@@ -48,12 +48,50 @@ public class Quiz {
 		this.listaDomande= listaDomande;
 	}
 	
+	public static int getPunteggio(int idQuiz, int idUtente) throws Exception{
+		Connection con = ConnectDatabase.getConnection();
+		try {
+			con.setAutoCommit(false);
+			ResultSet resultSet= null;
+			Quiz q= Quiz.initQuiz(idQuiz);
+			String SQLUser="SELECT SUM(d.punteggio) as totale\r\n"
+					+ "FROM RispostaData rd\r\n"
+					+ "JOIN Risposta r ON rd.idRisposta = r.idRisposta\r\n"
+					+ "JOIN Domanda d ON r.idDomanda = d.idDomanda\r\n"
+					+ "WHERE r.giusta=1 AND d.idQuiz=? AND idUtente = ?";
+			
+			PreparedStatement RispDate = con.prepareStatement(SQLUser);
+			
+			RispDate.setInt(1, idQuiz);
+			RispDate.setInt(2, idUtente);
+			
+			
+			resultSet = RispDate.executeQuery();
+			con.commit();
+			
+			
+			while(resultSet.next()) {
+				System.out.println(resultSet.getInt(1));
+			}
+			
+			
+			return 0;
+		} catch(Exception e) {
+			con.rollback();
+			throw e;
+		} finally {
+			con.close();
+		}
+		
+	}
+	
 	public static void risposteDate(int idUtente, int idQuiz, int risUtente[]) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		try {
 			int idRisposte[]= new int[risUtente.length];
 			Quiz q= Quiz.initQuiz(idQuiz);
+			
 			for(int i=0; i<risUtente.length; i++) {
 				idRisposte[i]=q.domandaIndex(i).rispostaIndex(risUtente[i]-1).getId(); //TOGLIERE IL "-1" SE L'INDEX è DA 0 A 3
 				System.out.println(idRisposte[i]);
@@ -74,6 +112,9 @@ public class Quiz {
 			// TODO Auto-generated catch block
 			con.rollback();
 			throw e;
+		} finally {
+			
+			con.close();
 		}
 	}
 	
