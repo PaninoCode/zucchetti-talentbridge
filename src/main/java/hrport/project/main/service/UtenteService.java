@@ -45,7 +45,40 @@ public class UtenteService {
 		}
 	}
 	
-	public static Utente getUserByIdUtente(Integer idUtente) throws Exception {
+public static Utente getUserByIdUtente(Integer idUtente) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSetUser = null;
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.idUtente = ?";
+			
+			PreparedStatement User = con.prepareStatement(SQLUser);
+			User.setString(1, idUtente.toString());
+			
+			resultSetUser = User.executeQuery();
+			
+			resultSetUser.next();
+				
+			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString(1)), resultSetUser.getString(2), Boolean.valueOf(resultSetUser.getString(4)), resultSetUser.getString(5), resultSetUser.getString(6));
+			
+			resultSetUser.close();
+			con.commit();
+			return utente;
+		} catch (Exception e) {
+			
+			resultSetUser.close();
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+	}
+	
+	public static Utente getUserByIdUtenteWithPositions(Integer idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		

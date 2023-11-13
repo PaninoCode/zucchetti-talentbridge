@@ -121,4 +121,42 @@ public class Utente {
 			con.close();
 		}
 	}
+	
+	private Boolean authenticationOldPassword(String oldPassword) {
+		
+		return this.getPassword() == oldPassword ? true : false;
+	}
+	
+	public void updatePassword(String oldPassword, String newPassword) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		if(authenticationOldPassword(oldPassword)) {
+			
+			try {
+				
+				con.setAutoCommit(false);
+				String SQLUser = "UPDATE \"Utenti\" (\"password\")\r\n"
+						+ "SET password = ?"
+						+ "WHERE Utenti.idUtente = " + this.getIdUtente();
+				
+				PreparedStatement newUser = con.prepareStatement(SQLUser);
+				newUser.setString(1, getPassword());
+				
+				newUser.executeUpdate();
+				
+				con.commit();
+			} catch (Exception e) {
+				
+				con.rollback();
+				throw e;
+			} finally {
+				
+				con.close();
+			}
+		} else {
+			
+			throw new Exception("password precedente non corretta");
+		}
+	}
 }
