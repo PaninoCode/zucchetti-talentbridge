@@ -1,4 +1,4 @@
-package hrport.project.main.controller.user;
+package hrport.project.main.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,40 +8,33 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
-
-import hrport.project.main.pojo.Posizione;
-import hrport.project.main.pojo.Utente;
-import hrport.project.main.service.PosizioneService;
-import hrport.project.main.service.UtenteService;
 
 import com.google.gson.Gson;
 
+import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.UtenteService;
+
 /**
- * Servlet implementation class UserHome
+ * Servlet implementation class EditUtente
  */
-@WebServlet("/user/home")
-public class UserHome extends HttpServlet {
+@WebServlet("/app/edit-info-user")
+public class EditUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		String dataUser = null;
-		String dataPositions = null;
 		Gson gson = new Gson();
 		
 		try {
 			
-			List<Posizione> positions = PosizioneService.getAllPositions();
-			Utente utente = UtenteService.getUserByIdUtenteWithPositions(idUtente);
-				
+			Utente utente = UtenteService.getUserByIdUtente(idUtente);
 			dataUser = gson.toJson(utente);
-			dataPositions = gson.toJson(positions);
 		} catch (Exception e) {
 
 			String error = gson.toJson(e);
@@ -51,7 +44,6 @@ public class UserHome extends HttpServlet {
 		}
 		
 		request.setAttribute("dataUser", dataUser);
-		request.setAttribute("dataAllPositions", dataPositions);
 		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
 }

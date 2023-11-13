@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,8 +24,7 @@
                     <p id="password_recovery_modal_status_text"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -95,15 +95,17 @@
                     </button>
                 </div>
                 <p class="text-center m-0">
-                    <a href="#">Non hai un account? &dash; Registrati</a>
+                    <a href="/hrport/register">Non hai un account? &dash; Registrati</a>
                 </p>
             </form>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
     <script>
+    	let error = `<%=response.getHeader("data")%>`;
+    	if(error != "null") console.log(error)
+    
         let loginForm = document.querySelector('#login_form');
         let loginBtnPasswordRecovery = document.querySelector('#login_btn_password_recovery');
 

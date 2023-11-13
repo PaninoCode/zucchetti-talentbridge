@@ -8,8 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.UtenteService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -28,18 +30,33 @@ public class LoginServlet extends HttpServlet {
 		
 		try {
 			
-			Utente utente = Utente.getUser(email, password);
+			Utente utente = UtenteService.getUserByEmailAndPassword(email, password);
 			if(utente != null) {
 				
-				HttpSession session = request.getSession();
-				session.setAttribute("user", email);
+				HttpSession session = request.getSession(true);
 				
-				response.sendRedirect(request.getContextPath() + "/user/home");
+				session.setAttribute("idUtente", utente.getIdUtente());
+				
+				String isAdmin = utente.isAdmin() ? "true" : "false";
+				session.setAttribute("admin", isAdmin);
+				
+				if(isAdmin.equalsIgnoreCase("false")) {
+					
+					response.sendRedirect(request.getContextPath() + "/user/home");
+				} else {
+					
+					/* inserire la redirect alla admin/user */
+				}
 			}
 		} catch (Exception e) {
 			
-			request.setAttribute("data", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+			if(e instanceof SQLException) {
+				
+				String respError = "credenziali errate";
+				response.addHeader("data", respError);
+			}
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 		}
 	}
 }

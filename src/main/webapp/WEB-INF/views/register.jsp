@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,32 +10,6 @@
 </head>
 
 <body class="bg-body-tertiary">
-
-    <!-- <nav class="navbar navbar-expand-lg bg-white" data-bs-theme="light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
 
     <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
         <div class="mb-5">
@@ -125,7 +100,7 @@
                                     <label for="register_input_password" class="form-label">
                                         <h4>Password</h4>
                                     </label>
-                                    <input type="password" class="form-control" placeholder="••••••••••••"
+                                    <input type="password" class="form-control" placeholder="password"
                                         id="register_input_password" minlength="8" required>
                                     <div class="invalid-tooltip">
                                         Inserisci una password valida
@@ -135,7 +110,7 @@
                                     <label for="register_input_confirm_password" class="form-label">
                                         <h4>Conferma Password</h4>
                                     </label>
-                                    <input type="password" class="form-control" placeholder="••••••••••••"
+                                    <input type="password" class="form-control" placeholder="password"
                                         id="register_input_confirm_password" minlength="8" required>
                                     <div class="invalid-tooltip">
                                         Conferma la password
@@ -162,12 +137,11 @@
 
             </div>
             <p class="text-center mb-4">
-                <a href="#">Hai già un account? &dash; Accedi</a>
+                <a href="/hrport/login">Hai giÃ  un account? &dash; Accedi</a>
             </p>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
     <script>
         let registerStepOneControl = document.querySelector('[data-bs-target="#register_steps_accordion_step_one"]');
@@ -245,7 +219,7 @@
 						
 		            	setTimeout(() => {
 							
-			            	location.href = "http://localhost:8080/hrport/index.jsp";
+			            	location.href = "http://localhost:8080/hrport/login";
 						}, 2000)
 					}
 				}

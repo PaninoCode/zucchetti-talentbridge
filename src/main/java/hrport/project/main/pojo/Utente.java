@@ -2,19 +2,44 @@ package hrport.project.main.pojo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 
 public class Utente {
 
+	private Integer idUtente;
 	private String email;
     private String password;
     private Boolean admin;
     private String nome;
     private String cognome;
+    private List<Posizione> posizioni;
     
-    public Utente(String email, String password, Boolean admin, String nome, String cognome) {
+    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, List<Posizione> posizioni) {
+    	
+    	this.setIdUtente(idUtente);
+    	this.setEmail(email);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
+    	this.setPosizioni(posizioni);
+    }
+    
+    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome) {
+    	
+    	this.setIdUtente(idUtente);
+    	this.setEmail(email);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
+    }
+    
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    Utente(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("admin") Boolean admin, @JsonProperty("nome") String nome, @JsonProperty("cognome") String cognome) {
     	
     	this.setEmail(email);
     	this.setPassword(password);
@@ -23,6 +48,12 @@ public class Utente {
     	this.setCognome(cognome);
     }
     
+    public Integer getIdUtente() {
+		return idUtente;
+	}
+	public void setIdUtente(Integer idUtente) {
+		this.idUtente = idUtente;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -35,7 +66,7 @@ public class Utente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Boolean getAdmin() {
+	public Boolean isAdmin() {
 		return admin;
 	}
 	public void setAdmin(Boolean admin) {
@@ -53,6 +84,12 @@ public class Utente {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
+	public List<Posizione> getPosizioni() {
+		return posizioni;
+	}
+	public void setPosizioni(List<Posizione> posizioni) {
+		this.posizioni = posizioni;
+	}
 	
 	public void registerNewUser() throws Exception {
 		
@@ -68,7 +105,7 @@ public class Utente {
 			PreparedStatement newUser = con.prepareStatement(SQLUser);
 			newUser.setString(1, getEmail());
 			newUser.setString(2, getPassword());
-			newUser.setBoolean(3, getAdmin());
+			newUser.setBoolean(3, isAdmin());
 			newUser.setString(4, getNome());
 			newUser.setString(5, getCognome());
 			
@@ -85,35 +122,41 @@ public class Utente {
 		}
 	}
 	
-	public static Utente getUser(String user, String password) throws Exception {
+	private Boolean authenticationOldPassword(String oldPassword) {
+		
+		return this.getPassword() == oldPassword ? true : false;
+	}
+	
+	public void updatePassword(String oldPassword, String newPassword) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		ResultSet resultSet = null;
-		try {
+		if(authenticationOldPassword(oldPassword)) {
 			
-			con.setAutoCommit(false);
-			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.email = ? AND u.password = ?";
+			try {
+				
+				con.setAutoCommit(false);
+				String SQLUser = "UPDATE \"Utenti\" (\"password\")\r\n"
+						+ "SET password = ?"
+						+ "WHERE Utenti.idUtente = " + this.getIdUtente();
+				
+				PreparedStatement newUser = con.prepareStatement(SQLUser);
+				newUser.setString(1, getPassword());
+				
+				newUser.executeUpdate();
+				
+				con.commit();
+			} catch (Exception e) {
+				
+				con.rollback();
+				throw e;
+			} finally {
+				
+				con.close();
+			}
+		} else {
 			
-			PreparedStatement User = con.prepareStatement(SQLUser);
-			User.setString(1, user);
-			User.setString(2, password);
-			
-			resultSet = User.executeQuery();
-			
-			con.commit();
-			
-			resultSet.next();
-			Utente utente = new Utente(resultSet.getString(2), resultSet.getString(3), Boolean.valueOf(resultSet.getString(4)), resultSet.getString(5), resultSet.getString(6));
-			
-			return utente;
-		} catch (Exception e) {
-			
-			con.rollback();
-			throw e;
-		} finally {
-			
-			con.close();
+			throw new Exception("password precedente non corretta");
 		}
 	}
 }

@@ -5,7 +5,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import hrport.project.main.connectdb.ConnectDatabase;
-import hrport.project.main.pojo.*;
+import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.UtenteService;
 
 public class App {
 
