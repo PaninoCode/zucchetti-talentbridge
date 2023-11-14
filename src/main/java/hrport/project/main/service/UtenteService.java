@@ -29,7 +29,7 @@ public class UtenteService {
 			
 			resultSetUser.next();
 				
-			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf(resultSetUser.getString("admin")), resultSetUser.getString("nome"), resultSetUser.getString("cognome"));
+			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"));
 			
 			resultSetUser.close();
 			con.commit();
@@ -62,7 +62,7 @@ public static Utente getUserByIdUtente(Integer idUtente) throws Exception {
 			
 			resultSetUser.next();
 				
-			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf(resultSetUser.getString("admin")), resultSetUser.getString("nome"), resultSetUser.getString("cognome"));
+			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"));
 			
 			resultSetUser.close();
 			con.commit();
@@ -97,7 +97,7 @@ public static Utente getUserByIdUtente(Integer idUtente) throws Exception {
 			
 			List<Posizione> positions = PosizioneService.getPositionsByIdUtente(resultSetUser.getString(1));
 				
-			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf(resultSetUser.getString("admin")), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), positions);
+			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), positions);
 			
 			resultSetUser.close();
 			con.commit();
