@@ -45,7 +45,7 @@ public class UtenteService {
 		}
 	}
 	
-public static Utente getUserByIdUtente(Integer idUtente) throws Exception {
+	public static Utente getUserByIdUtente(Integer idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
