@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class EspLavorativa {
 	
+	private Integer idEl;
 	private Integer idCv;
 	private String azienda;
 	private LocalDate dInizio;
