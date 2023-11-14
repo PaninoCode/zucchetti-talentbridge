@@ -1,7 +1,6 @@
 package hrport.project.main.pojo;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 public class ProfiloUtente {
@@ -65,7 +64,7 @@ public class ProfiloUtente {
 	public void setFotoUrl(String fotoUrl) {
 		this.fotoUrl = fotoUrl;
 	}
-	public Boolean getGender() {
+	public Boolean isGender() {
 		return gender;
 	}
 	public void setGender(Boolean gender) {

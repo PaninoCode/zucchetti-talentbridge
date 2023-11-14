@@ -18,6 +18,17 @@ public class Utente {
     private String nome;
     private String cognome;
     private List<Posizione> posizioni;
+    private ProfiloUtente profile;
+    
+    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, ProfiloUtente profile) {
+    	
+    	this.setIdUtente(idUtente);
+    	this.setEmail(email);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
+    	this.setProfile(profile);
+    }
     
     public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, List<Posizione> posizioni) {
     	
@@ -89,6 +100,12 @@ public class Utente {
 	}
 	public void setPosizioni(List<Posizione> posizioni) {
 		this.posizioni = posizioni;
+	}
+	public String getProfile() {
+		return cognome;
+	}
+	public void setProfile(ProfiloUtente profile) {
+		this.profile = profile;
 	}
 	
 	public void registerNewUser() throws Exception {
