@@ -49,4 +49,14 @@
     <servlet-name>UpdateUtente</servlet-name>
     <url-pattern>/UpdateUtente</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserProfile</display-name>
+    <servlet-name>UserProfile</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UserProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserProfile</servlet-name>
+    <url-pattern>/UserProfile</url-pattern>
+  </servlet-mapping>
 </web-app>

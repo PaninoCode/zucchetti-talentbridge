@@ -6,15 +6,15 @@ public class Posizione {
 	private String nome;
 	private Boolean aperta;
 	private String fotoUrl;
-	private String description;
+	private String descrizione;
 	
-	public Posizione(Integer idPos, String nome, Boolean aperta, String fotoUrl, String description){
+	public Posizione(Integer idPos, String nome, Boolean aperta, String fotoUrl, String descrizione){
 		
 		setIdPos(idPos);
 		setNome(nome);
 		setAperta(aperta);
 		setFotoUrl(fotoUrl);
-		setDescription(description);
+		setDescrizione(descrizione);
 	}
 
 	public Integer getIdPos() {
@@ -41,10 +41,10 @@ public class Posizione {
 	public void setFotoUrl(String fotoUrl) {
 		this.fotoUrl = fotoUrl;
 	}
-	public String getDescription() {
+	public String getDescrizione() {
 		return fotoUrl;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 }

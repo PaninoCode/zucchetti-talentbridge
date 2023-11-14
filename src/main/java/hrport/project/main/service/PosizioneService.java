@@ -30,7 +30,7 @@ public class PosizioneService {
 			
 			while(resultSetUserPositions.next()) {
 				
-				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString(1)), resultSetUserPositions.getString(2), Boolean.valueOf(resultSetUserPositions.getString(3)), resultSetUserPositions.getString(4), resultSetUserPositions.getString(5)));
+				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString("idPos")), resultSetUserPositions.getString("nome"), Boolean.valueOf((resultSetUserPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUserPositions.getString("fotoUrl"), resultSetUserPositions.getString("descrizione")));
 			}
 			
 			resultSetUserPositions.close();
@@ -66,7 +66,7 @@ public class PosizioneService {
 			
 			while(resultSetUserPositions.next()) {
 				
-				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString(1)), resultSetUserPositions.getString(2), Boolean.valueOf(resultSetUserPositions.getString(3)), resultSetUserPositions.getString(4), resultSetUserPositions.getString(5)));
+				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString("idPos")), resultSetUserPositions.getString("nome"), Boolean.valueOf((resultSetUserPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUserPositions.getString("fotoUrl"), resultSetUserPositions.getString("descrizione")));
 			}
 			
 			resultSetUserPositions.close();
