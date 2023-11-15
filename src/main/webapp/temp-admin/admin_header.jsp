@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white sticky-top shadow-sm" data-bs-theme="light">
+<nav class="navbar navbar-expand-lg bg-white fixed-top shadow-sm" data-bs-theme="light">
     <div class="container-fluid">
         <a class="navbar-brand display-6" href="#">TalentBridge <span
                 class="badge bg-primary">Amministrazione</span></a>
