@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 			
 			if(e instanceof SQLException) {
 				
-				String respError = "credenziali errate";
+				String respError = "Credenziali Errate";
 				response.addHeader("data", respError);
 			}
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
