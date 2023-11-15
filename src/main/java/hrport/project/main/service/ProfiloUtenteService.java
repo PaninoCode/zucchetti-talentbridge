@@ -7,11 +7,12 @@ import java.util.List;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Istruzione;
+import hrport.project.main.pojo.ProfiloUtente;
 import hrport.project.main.pojo.EspLavorativa;
 
 public class ProfiloUtenteService {
 
-public static Utente getUserByIdUtenteWithPositions(Integer idUtente) throws Exception {
+public static ProfiloUtente getProfileUserByIdUtenteWithExperiencesAndEducation(Integer idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
@@ -28,9 +29,10 @@ public static Utente getUserByIdUtenteWithPositions(Integer idUtente) throws Exc
 			
 			resultSetUser.next();
 			
-			List<Posizione> positions = PosizioneService.getPositionsByIdUtente(resultSetUser.getString(1));
+			List<Istruzione> positions = IstruzioneService.getEducationByIdUtente(resultSetUser.getString("idUtente"));
+			
 				
-			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), positions);
+			ProfiloUtente utente = new ProfiloUtente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), positions);
 			
 			resultSetUser.close();
 			con.commit();

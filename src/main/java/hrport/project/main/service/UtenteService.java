@@ -95,7 +95,7 @@ public class UtenteService {
 			
 			resultSetUser.next();
 			
-			List<Posizione> positions = PosizioneService.getPositionsByIdUtente(resultSetUser.getString(1));
+			List<Posizione> positions = PosizioneService.getPositionsByIdUtente(resultSetUser.getString("idUtente"));
 				
 			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), positions);
 			
