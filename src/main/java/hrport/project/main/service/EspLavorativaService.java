@@ -4,43 +4,43 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.EspLavorativa;
 
 public class EspLavorativaService {
 
-public static List<EspLavorativa> getEducationByIdUtente(String idUtente) throws Exception {
+public static Set<EspLavorativa> getEducationByIdUtente(String idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		ResultSet resultSetUserExperiences = null;
-		List<EspLavorativa> experiences = new ArrayList<>();
+		ResultSet resultSet = null;
+		Set<EspLavorativa> experiences = new HashSet<>();
 		
 		try {
 			
 			con.setAutoCommit(false);
 			String SQLUserPositions = "SELECT is.* FROM Profilo pr INNER JOIN EspLavorativa esp is ON pr.idCv = esp.idCv WHERE pr.idUtente = ?";
 			
-			PreparedStatement UserExperiences = con.prepareStatement(SQLUserPositions);
-			UserExperiences.setString(1, idUtente);
+			PreparedStatement userExperiences = con.prepareStatement(SQLUserPositions);
+			userExperiences.setString(1, idUtente);
 			
-			resultSetUserExperiences = UserExperiences.executeQuery();
+			resultSet = userExperiences.executeQuery();
 			
-			while(resultSetUserExperiences.next()) {
+			while(resultSet.next()) {
 				
-				experiences.add(new EspLavorativa(Integer.valueOf(resultSetUserExperiences.getString("idEL")), Integer.valueOf(resultSetUserExperiences.getString("idCv")), resultSetUserExperiences.getString("azienda"), LocalDate.parse(resultSetUserExperiences.getString("dInizio")), LocalDate.parse(resultSetUserExperiences.getString("dFine")), resultSetUserExperiences.getString("posizione"), resultSetUserExperiences.getString("funzione"), resultSetUserExperiences.getString("indirizzo")));
+				experiences.add(new EspLavorativa(Integer.valueOf(resultSet.getString("idEL")), Integer.valueOf(resultSet.getString("idCv")), resultSet.getString("azienda"), LocalDate.parse(resultSet.getString("dInizio")), LocalDate.parse(resultSet.getString("dFine")), resultSet.getString("posizione"), resultSet.getString("funzione"), resultSet.getString("indirizzo")));
 			}
 			
-			resultSetUserExperiences.close();
+			resultSet.close();
 			con.commit();
 		} catch (Exception e) {
 			
-			resultSetUserExperiences.close();
+			resultSet.close();
 			con.rollback();
-			experiences = new ArrayList<>();
+			experiences = new HashSet<>();
 		} finally {
 			
 			con.close();

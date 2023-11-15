@@ -4,43 +4,43 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Istruzione;
 
 public class IstruzioneService {
 
-public static List<Istruzione> getEducationByIdUtente(String idUtente) throws Exception {
+public static Set<Istruzione> getEducationByIdUtente(String idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		ResultSet resultSetUserEducation = null;
-		List<Istruzione> education = new ArrayList<>();
+		ResultSet resultSet = null;
+		Set<Istruzione> education = new HashSet<>();
 		
 		try {
 			
 			con.setAutoCommit(false);
 			String SQLUserPositions = "SELECT is.* FROM Profilo pr INNER JOIN Istruzione is ON pr.idCv = is.idCv WHERE pr.idUtente = ?";
 			
-			PreparedStatement UserEducation = con.prepareStatement(SQLUserPositions);
-			UserEducation.setString(1, idUtente);
+			PreparedStatement userEducation = con.prepareStatement(SQLUserPositions);
+			userEducation.setString(1, idUtente);
 			
-			resultSetUserEducation = UserEducation.executeQuery();
+			resultSet = userEducation.executeQuery();
 			
-			while(resultSetUserEducation.next()) {
+			while(resultSet.next()) {
 				
-				education.add(new Istruzione(Integer.valueOf(resultSetUserEducation.getString("idIst")), Integer.valueOf(resultSetUserEducation.getString("idCv")), resultSetUserEducation.getString("titoloIstruzione"), resultSetUserEducation.getString("istituto"), resultSetUserEducation.getString("indirizzo"), Integer.valueOf(resultSetUserEducation.getString("voto")), LocalDate.parse(resultSetUserEducation.getString("dInizio")), LocalDate.parse(resultSetUserEducation.getString("dFine"))));
+				education.add(new Istruzione(Integer.valueOf(resultSet.getString("idIst")), Integer.valueOf(resultSet.getString("idCv")), resultSet.getString("titoloIstruzione"), resultSet.getString("istituto"), resultSet.getString("indirizzo"), Integer.valueOf(resultSet.getString("voto")), LocalDate.parse(resultSet.getString("dInizio")), LocalDate.parse(resultSet.getString("dFine"))));
 			}
 			
-			resultSetUserEducation.close();
+			resultSet.close();
 			con.commit();
 		} catch (Exception e) {
 			
-			resultSetUserEducation.close();
+			resultSet.close();
 			con.rollback();
-			education = new ArrayList<>();
+			education = new HashSet<>();
 		} finally {
 			
 			con.close();
