@@ -52,6 +52,7 @@ public class UserHome extends HttpServlet {
 		
 		request.setAttribute("dataUser", dataUser);
 		request.setAttribute("dataAllPositions", dataPositions);
-		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+		//request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view-user/home.jsp").forward(request, response);
 	}
 }
