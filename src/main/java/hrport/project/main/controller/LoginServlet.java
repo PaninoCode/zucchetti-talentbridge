@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.UtenteService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -29,13 +30,23 @@ public class LoginServlet extends HttpServlet {
 		
 		try {
 			
-			Utente utente = Utente.getUser(email, password);
+			Utente utente = UtenteService.getUserByEmailAndPassword(email, password);
 			if(utente != null) {
 				
 				HttpSession session = request.getSession(true);
-				session.setAttribute("user", email);
 				
-				response.sendRedirect(request.getContextPath() + "/user/home");
+				session.setAttribute("idUtente", utente.getIdUtente());
+				
+				String isAdmin = utente.isAdmin() ? "true" : "false";
+				session.setAttribute("admin", isAdmin);
+				
+				if(isAdmin.equalsIgnoreCase("false")) {
+					
+					response.sendRedirect(request.getContextPath() + "/user/home");
+				} else {
+					
+					/* inserire la redirect alla admin/user */
+				}
 			}
 		} catch (Exception e) {
 			

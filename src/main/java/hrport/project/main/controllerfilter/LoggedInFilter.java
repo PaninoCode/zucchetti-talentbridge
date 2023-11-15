@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class LoggedInFilter
  */
-@WebFilter(urlPatterns = {"/user/*"})
+@WebFilter(urlPatterns = {"/user/*", "/app/*"})
 public class LoggedInFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
