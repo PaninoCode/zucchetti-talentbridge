@@ -59,6 +59,7 @@
                     </svg>
                 </div>
                 <form action="/hrport/loginUser" method="post" id="login_form" class="needs-validation" novalidate>
+                    <input id="input_login_return_to" name="returnTo" class="d-none">
                     <div class="position-relative mb-3">
                         <label for="login_input_email" class="form-label">
                             <h4>Email</h4>
@@ -116,6 +117,10 @@
             let loginBtnPasswordRecovery = document.querySelector('#login_btn_password_recovery');
 
             let loginFormSpinner = document.querySelector('#login_form_spinner');
+
+            let loginInputReturnTo = document.querySelector('#input_login_return_to');
+            loginInputReturnTo.value = new URLSearchParams(window.location.search).get('returnTo');
+
 
             let loginInputEmail = document.querySelector('#login_input_email');
             let loginInputPassword = document.querySelector('#login_input_password');

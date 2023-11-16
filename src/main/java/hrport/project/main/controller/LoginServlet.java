@@ -27,6 +27,7 @@ public class LoginServlet extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		String returnTo = request.getParameter("returnTo");
 		
 		try {
 			
@@ -42,7 +43,11 @@ public class LoginServlet extends HttpServlet {
 				
 				if(isAdmin.equalsIgnoreCase("false")) {
 					
-					response.sendRedirect(request.getContextPath() + "/user/home");
+					if(returnTo == null) {
+						response.sendRedirect(request.getContextPath() + "/user/home");	
+					}else {
+						response.sendRedirect(returnTo);	
+					}
 				} else {
 					
 					/* inserire la redirect alla admin/user */
