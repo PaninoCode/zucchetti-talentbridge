@@ -80,7 +80,7 @@ public class Quiz {
 		
 	}
 	
-	public static void risposteDate(int idUtente, int idQuiz, int risUtente[]) throws Exception {
+	public static void insertRisposteDate(int idUtente, int idQuiz, int risUtente[]) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		try {
