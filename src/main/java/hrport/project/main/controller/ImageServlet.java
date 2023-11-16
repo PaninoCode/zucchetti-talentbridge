@@ -38,14 +38,18 @@ public class ImageServlet extends HttpServlet {
 
 		ServletContext sc = getServletContext();
 		String filename = sc.getRealPath("/WEB-INF/static/" + request.getParameter("imgPath"));
+		boolean isFile = new File(filename).isFile();
+		
+		if(!isFile){
+			//request.getRequestDispatcher("/WEB-INF/static/errors/404.jsp").forward(request, response);
+			filename = sc.getRealPath("/WEB-INF/static/errors/404.jpg");
+		}
 
 		// Get the MIME type of the image
 		String mimeType = sc.getMimeType(filename);
 		if (mimeType == null) {
 			sc.log("Could not get MIME type of " + filename);
-			filename = sc.getRealPath("/WEB-INF/static/errors/404.jpg");
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return;
 		}
 
 		try {

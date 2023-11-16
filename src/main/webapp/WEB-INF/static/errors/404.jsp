@@ -1,1 +1,0 @@
-Questa immagine non esiste.

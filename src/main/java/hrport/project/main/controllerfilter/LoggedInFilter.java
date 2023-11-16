@@ -26,7 +26,7 @@ public class LoggedInFilter implements Filter {
 			
 			if (!request.getRequestURI().contains("login") && (request.getSession(false) == null)) {
 				
-				response.sendRedirect(request.getContextPath() + "/login");
+				response.sendRedirect(request.getContextPath() + "/login?returnTo=" + request.getRequestURL());
 				return;
 			}
 			
