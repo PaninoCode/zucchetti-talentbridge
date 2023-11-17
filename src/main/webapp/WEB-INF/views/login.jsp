@@ -119,7 +119,7 @@
 
             let loginFormSpinner = document.querySelector('#login_form_spinner');
 
-            let returnToString = new URLSearchParams(window.location.search).get('returnTo');
+            let returnToString = new URLSearchParams(window.location.search).get('returnTo') ?? "";
 
 
             let loginInputEmail = document.querySelector('#login_input_email');
