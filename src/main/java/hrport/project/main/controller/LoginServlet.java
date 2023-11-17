@@ -7,8 +7,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.UtenteService;
@@ -25,11 +31,34 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String returnTo = request.getParameter("returnTo");
+		//String email = request.getParameter("email");
+		//String password = request.getParameter("password");
+		//String returnTo = request.getParameter("returnTo");
+		
+		StringBuilder jsonContent = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonContent.append(line);
+            }
+        }catch(Exception e) {
+        	
+        	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print(error);
+            out.flush();
+        }
+		
 		
 		try {
+			
+			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
+			String email = json.get("email").getAsString();
+			String password = json.get("password").getAsString();
 			
 			Utente utente = UtenteService.getUserByEmailAndPassword(email, password);
 			if(utente != null) {
@@ -41,27 +70,37 @@ public class LoginServlet extends HttpServlet {
 				String isAdmin = utente.isAdmin() ? "true" : "false";
 				session.setAttribute("admin", isAdmin);
 				
-				if(isAdmin.equalsIgnoreCase("false")) {
-					
-					if(returnTo == null) {
-						response.sendRedirect(request.getContextPath() + "/user/home");	
-					}else {
-						response.sendRedirect(returnTo);	
-					}
-				} else {
-					
-					/* inserire la redirect alla admin/user */
-				}
+
+				String error = "{\"data\" : \"success\"}";
+	        	
+	        	PrintWriter out = response.getWriter();
+	            response.setContentType("application/json");
+	            response.setCharacterEncoding("UTF-8");
+	            out.print(error);
+	            out.flush();
+				
+				
 			}
 		} catch (Exception e) {
+
+			String error = "{\"error\" : \"Credenziali Errate\"}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			
 			if(e instanceof SQLException) {
 				
-				String respError = "Credenziali Errate";
-				response.addHeader("data", respError);
+				//String respError = "Credenziali Errate";
+				//response.addHeader("data", respError);
+
+	            out.print(error);
 			}
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+			
+			out.flush();
+			//request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+			//response.getWriter().append("").flush();
 		}
 	}
 }
