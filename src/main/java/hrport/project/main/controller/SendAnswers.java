@@ -58,7 +58,7 @@ selected_option_id:		si riferisce al n della risposta rispetto alla domanda (ind
 
 
  */
-@WebServlet("user/sendAnswers")
+@WebServlet("/user/sendAnswers")
 public class SendAnswers {
 	private static final long serialVersionUID = 1L;
 	
