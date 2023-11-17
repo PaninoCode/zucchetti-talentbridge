@@ -8,10 +8,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.UtenteService;
 
@@ -29,12 +32,12 @@ public class UserProfile extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		String dataUser = null;
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		
 		try {
 			
 			Utente utente = UtenteService.getUserByIdUtenteWithProfile(idUtente);
-				
+			
 			dataUser = gson.toJson(utente);
 		} catch (Exception e) {
 

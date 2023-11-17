@@ -4,6 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.time.LocalDate;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.*;
 import hrport.project.main.service.UtenteService;
@@ -37,7 +43,10 @@ public class App {
         try {
         	
         	Utente utente = UtenteService.getUserByIdUtenteWithProfile(1);
-        	System.out.println(utente.getProfile().getExperiences());
+        	
+        	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        	String json = gson.toJson(utente);
+        	System.out.println(json);
         } catch (Exception e) {
             e.printStackTrace();
         }
