@@ -73,7 +73,7 @@ public class App {
 //			
 //			String error = "{\"data\" : \"success\"}";
         	
-        	Utente utente = UtenteService.getUserByIdUtenteWithProfile(1);
+        	Utente utente = UtenteService.getUserByIdUtenteWithPositions(1);
         	
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         	String json = gson.toJson(utente);
