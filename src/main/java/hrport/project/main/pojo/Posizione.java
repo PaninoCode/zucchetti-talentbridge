@@ -42,7 +42,7 @@ public class Posizione {
 		this.fotoUrl = fotoUrl;
 	}
 	public String getDescrizione() {
-		return fotoUrl;
+		return descrizione;
 	}
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;

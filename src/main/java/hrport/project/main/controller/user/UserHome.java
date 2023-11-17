@@ -8,14 +8,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Posizione;
 import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.PosizioneService;
 import hrport.project.main.service.UtenteService;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class UserHome
@@ -33,7 +36,7 @@ public class UserHome extends HttpServlet {
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		String dataUser = null;
 		String dataPositions = null;
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		
 		try {
 			

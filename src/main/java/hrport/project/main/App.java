@@ -5,6 +5,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.time.LocalDate;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,38 +51,36 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-//        try {
-//        	
-//        	Utente utente = UtenteService.getUserByIdUtente(1);
-//        	System.out.println(utente.getCognome());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 		
 		try {
-			String jsonString = "{ \"quiz_id\": 1, \"user_id\": 2, \"answers\": [ { \"question_id\": 1, \"selected_option_id\": 3 }, { \"question_id\": 2, \"selected_option_id\": 1 }, { \"question_id\": 3, \"selected_option_id\": 2 }, { \"question_id\": 4, \"selected_option_id\": 4 } ] }";
-			JsonObject json = (JsonObject) JsonParser.parseString(jsonString);
-			int quizId = json.get("quiz_id").getAsInt();
-			int idUtente= json.get("user_id").getAsInt();
-
-		    JsonArray answersArray = json.getAsJsonArray("answers");
-		    List<JsonObject> answersList = new ArrayList<>();
-		    answersArray.forEach(answer -> answersList.add(answer.getAsJsonObject()));
-
-		    Collections.sort(answersList, Comparator.comparingInt(o -> o.get("question_id").getAsInt()));
-
-		    int[] selectedOptionIds = new int[answersList.size()];
-		    for (int i = 0; i < answersList.size(); i++) {
-		        selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
-		    }
-			
-			Quiz.insertRisposteDate(idUtente, quizId, selectedOptionIds);
-			
-			String error = "{\"data\" : \"success\"}";
+//			String jsonString = "{ \"quiz_id\": 1, \"user_id\": 2, \"answers\": [ { \"question_id\": 1, \"selected_option_id\": 3 }, { \"question_id\": 2, \"selected_option_id\": 1 }, { \"question_id\": 3, \"selected_option_id\": 2 }, { \"question_id\": 4, \"selected_option_id\": 4 } ] }";
+//			JsonObject json = (JsonObject) JsonParser.parseString(jsonString);
+//			int quizId = json.get("quiz_id").getAsInt();
+//			int idUtente= json.get("user_id").getAsInt();
+//
+//		    JsonArray answersArray = json.getAsJsonArray("answers");
+//		    List<JsonObject> answersList = new ArrayList<>();
+//		    answersArray.forEach(answer -> answersList.add(answer.getAsJsonObject()));
+//
+//		    Collections.sort(answersList, Comparator.comparingInt(o -> o.get("question_id").getAsInt()));
+//
+//		    int[] selectedOptionIds = new int[answersList.size()];
+//		    for (int i = 0; i < answersList.size(); i++) {
+//		        selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
+//		    }
+//			
+//			Quiz.insertRisposteDate(idUtente, quizId, selectedOptionIds);
+//			
+//			String error = "{\"data\" : \"success\"}";
         	
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
+        	Utente utente = UtenteService.getUserByIdUtenteWithProfile(1);
+        	
+        	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        	String json = gson.toJson(utente);
+        	System.out.println(json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 }
