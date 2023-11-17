@@ -239,7 +239,7 @@
                         posizioniAperte.innerHTML += template_posizione.innerHTML
                             .replace('{position_title}', arrayPosizione[i].nome)
                             .replace('{position_description}', arrayPosizione[i].descrizione)
-                            .replace('{position_img}', "<%=request.getContextPath()%>/app/getImage?imgPath=/immagini_posizioni/az" + arrayPosizione[i].fotoUrl)
+                            .replace('{position_img}', "<%=request.getContextPath()%>/app/getImage?imgPath=/immagini_posizioni/" + arrayPosizione[i].fotoUrl)
                             .replace('{position_status}', stautsPosizione)
                             .replace('{position_id}', arrayPosizione[i].idPos);
                     }
