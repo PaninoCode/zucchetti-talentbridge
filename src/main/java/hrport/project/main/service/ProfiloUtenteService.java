@@ -17,46 +17,45 @@ public static ProfiloUtente getProfileUserByIdUtenteWithExperiencesAndEducation(
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		ResultSet resultSet = null;
+		ResultSet resultSetProfile = null;
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.idUtente = ?";
+			String SQLUser = "SELECT pr.* FROM Profilo pr WHERE pr.idUtente = ?";
 			
 			PreparedStatement userProfile = con.prepareStatement(SQLUser);
 			userProfile.setString(1, idUtente.toString());
 			
-			resultSet = userProfile.executeQuery();
+			resultSetProfile = userProfile.executeQuery();
 			
-			resultSet.next();
+			resultSetProfile.next();
 			
-			Set<Istruzione> education = IstruzioneService.getEducationByIdUtente(resultSet.getString("idUtente"));
-			Set<EspLavorativa> experiences = EspLavorativaService.getEducationByIdUtente(resultSet.getString("idUtente"));
+			Set<Istruzione> education = IstruzioneService.getEducationByIdUtente(resultSetProfile.getString("idUtente"));
+			Set<EspLavorativa> experiences = EspLavorativaService.getEducationByIdUtente(resultSetProfile.getString("idUtente"));
 				
-			ProfiloUtente profiloUtente = new ProfiloUtente(Integer.valueOf(resultSet.getString("idUtente")), 										Integer.valueOf(resultSet.getString("idCv")), 
-										resultSet.getString("fileUrl"),
-										resultSet.getString("foroUrl"),
-										Boolean.valueOf((resultSet.getString("sesso").equalsIgnoreCase("1")) ? "true" : "false"),
-										LocalDate.parse(resultSet.getString("dNascita")),
-										resultSet.getString("indResidenza"),
-										resultSet.getString("indDomicilio"),
-										resultSet.getString("telefono"),
-										resultSet.getString("codiceFiscale"),
-										resultSet.getString("statoOrigine"),
-										resultSet.getString("comNascita"),
+			ProfiloUtente profiloUtente = new ProfiloUtente(Integer.valueOf(resultSetProfile.getString("idUtente")), 										Integer.valueOf(resultSetProfile.getString("idCv")), 
+										resultSetProfile.getString("fileUrl"),
+										resultSetProfile.getString("fotoUrl"),
+										Boolean.valueOf((resultSetProfile.getString("sesso").equalsIgnoreCase("1")) ? "true" : "false"),
+										LocalDate.parse(resultSetProfile.getString("dNascita")),
+										resultSetProfile.getString("indResidenza"),
+										resultSetProfile.getString("indDomicilio"),
+										resultSetProfile.getString("telefono"),
+										resultSetProfile.getString("codiceFiscale"),
+										resultSetProfile.getString("statoOrigine"),
+										resultSetProfile.getString("comNascita"),
 										experiences, 
 										education);
 			
-			resultSet.close();
 			con.commit();
 			return profiloUtente;
 		} catch (Exception e) {
 			
-			resultSet.close();
 			con.rollback();
 			throw e;
 		} finally {
 			
+			resultSetProfile.close();
 			con.close();
 		}
 	}

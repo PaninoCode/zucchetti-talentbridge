@@ -20,16 +20,6 @@ public class Utente {
     private List<Posizione> posizioni;
     private ProfiloUtente profile;
     
-    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, ProfiloUtente profile) {
-    	
-    	this.setIdUtente(idUtente);
-    	this.setEmail(email);
-    	this.setAdmin(admin);
-    	this.setNome(nome);
-    	this.setCognome(cognome);
-    	this.setProfile(profile);
-    }
-    
     public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, List<Posizione> posizioni) {
     	
     	this.setIdUtente(idUtente);
@@ -38,6 +28,16 @@ public class Utente {
     	this.setNome(nome);
     	this.setCognome(cognome);
     	this.setPosizioni(posizioni);
+    }
+    
+    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, ProfiloUtente profile) {
+    	
+    	this.setIdUtente(idUtente);
+    	this.setEmail(email);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
+    	this.setProfile(profile);
     }
     
     public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome) {
@@ -49,8 +49,8 @@ public class Utente {
     	this.setCognome(cognome);
     }
     
-    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    Utente(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("admin") Boolean admin, @JsonProperty("nome") String nome, @JsonProperty("cognome") String cognome) {
+    @JsonCreator
+    public Utente(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("admin") Boolean admin, @JsonProperty("nome") String nome, @JsonProperty("cognome") String cognome) {
     	
     	this.setEmail(email);
     	this.setPassword(password);
@@ -101,8 +101,8 @@ public class Utente {
 	public void setPosizioni(List<Posizione> posizioni) {
 		this.posizioni = posizioni;
 	}
-	public String getProfile() {
-		return cognome;
+	public ProfiloUtente getProfile() {
+		return profile;
 	}
 	public void setProfile(ProfiloUtente profile) {
 		this.profile = profile;

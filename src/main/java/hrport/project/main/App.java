@@ -36,8 +36,8 @@ public class App {
 		}*/
         try {
         	
-        	Utente utente = UtenteService.getUserByIdUtente(1);
-        	System.out.println(utente.getCognome());
+        	Utente utente = UtenteService.getUserByIdUtenteWithProfile(1);
+        	System.out.println(utente.getProfile().getExperiences());
         } catch (Exception e) {
             e.printStackTrace();
         }
