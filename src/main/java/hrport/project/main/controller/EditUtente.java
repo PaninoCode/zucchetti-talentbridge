@@ -8,16 +8,22 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.UtenteService;
 
 /**
  * Servlet implementation class EditUtente
  */
-@WebServlet("/app/edit-info-user")
+@WebServlet("/app/get-info-user")
 public class EditUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,22 +34,31 @@ public class EditUtente extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
-		String dataUser = null;
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		
 		try {
 			
 			Utente utente = UtenteService.getUserByIdUtente(idUtente);
-			dataUser = gson.toJson(utente);
-		} catch (Exception e) {
 
-			String error = gson.toJson(e);
-			request.setAttribute("data", error);
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
-			return;
+			String success = gson.toJson(utente);
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            out.print(success);
+            out.flush();
+			//dataUser = gson.toJson(utente);
+		} catch (Exception e) {
+			
+        	
+        	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print(error);
+            out.flush();
 		}
-		
-		request.setAttribute("dataUser", dataUser);
-		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
 }

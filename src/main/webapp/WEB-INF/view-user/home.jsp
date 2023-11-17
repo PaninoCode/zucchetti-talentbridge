@@ -6,10 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalentBridge</title>
     <link href="<%=request.getContextPath()%>/resources/css/custom/custom.css" rel="stylesheet">
+     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body class="bg-body-tertiary">
-    <nav class="navbar navbar-expand-lg bg-white sticky-top" data-bs-theme="light">
+
+    <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
+
+
+    <jsp:include page='../view-common/user_header.jsp'>
+        <jsp:param name="activeLinkId" value="candidati" />
+    </jsp:include>
+
+
+    <!-- <nav class="navbar navbar-expand-lg bg-white sticky-top" data-bs-theme="light">
         <div class="container-fluid">
             <a class="navbar-brand display-6" href="#">TalentBridge</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -42,7 +52,7 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
 
     <span class="d-none" id="template_posizione">
@@ -158,7 +168,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
+   
 
 
 <script type="text/javascript">

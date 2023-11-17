@@ -25,10 +25,10 @@
 
                         <div class="position-relative d-flex flex-row justify-content-center align-items-center mb-2">
                             <div>
-                                <label for="register_input_name" class="form-label">
+                                <label for="edit_user_input_name" class="form-label">
                                     <h5>Nome</h5>
                                 </label>
-                                <input id="register_input_name" type="text" class="form-control" placeholder="Namito"
+                                <input id="edit_user_input_name" type="text" class="form-control" placeholder="Namito"
                                     value="Mario" minlength="3" required>
                                 <div class="invalid-tooltip">
                                     Nome
@@ -36,34 +36,34 @@
                             </div>
                             <div class="m-1"></div>
                             <div>
-                                <label for="register_input_surname" class="form-label">
+                                <label for="edit_user_input_surname" class="form-label">
                                     <h5>Cognome</h5>
                                 </label>
-                                <input id="register_input_surname" type="text" class="form-control" placeholder="Kawamoto"
-                                    value="Rossi" minlength="3" required>
+                                <input id="edit_user_input_surname" type="text" class="form-control"
+                                    placeholder="Kawamoto" value="Rossi" minlength="3" required>
                                 <div class="invalid-tooltip">
                                     Cognome
                                 </div>
                             </div>
                         </div>
                         <div class="position-relative  mb-3">
-                            <label for="register_input_email" class="form-label">
+                            <label for="edit_user_input_email" class="form-label">
                                 <h5>Indirizzo Email</h5>
                             </label>
-                            <input id="register_input_email" type="email" class="form-control"
+                            <input id="edit_user_input_email" type="email" class="form-control"
                                 placeholder="namito.kawamoto@gmail.com" value="mario.rossi@libero.it" minlength="5"
                                 required>
                             <div class="invalid-tooltip">
                                 Indirizzo Email
                             </div>
                         </div>
-    
+
                         <div class="d-flex flex-row justify-content-end align-items-center mb-4">
                             <button type="submit" class="btn btn-primary text-light">
                                 <h5 class="m-0">Salva</h5>
                             </button>
                         </div>
-    
+
                     </form>
                     <span class="m-4"></span>
                     <form id="edit_account_password" class="needs-validation" style="width: 50%;" novalidate>
@@ -78,8 +78,8 @@
                             <label for="edit_account_password_input_old_password" class="form-label">
                                 <h5>Vecchia Password</h5>
                             </label>
-                            <input type="password" class="form-control" placeholder="password" id="edit_account_password_input_old_password"
-                                minlength="8" required>
+                            <input type="password" class="form-control" placeholder="password"
+                                id="edit_account_password_input_old_password" minlength="8" required>
                             <div class="invalid-tooltip">
                                 Vecchia Password
                             </div>
@@ -88,8 +88,8 @@
                             <label for="edit_account_password_input_new_password" class="form-label">
                                 <h5>Nuova Password</h5>
                             </label>
-                            <input type="password" class="form-control" placeholder="password" id="edit_account_password_input_new_password"
-                                minlength="8" required>
+                            <input type="password" class="form-control" placeholder="password"
+                                id="edit_account_password_input_new_password" minlength="8" required>
                             <div class="invalid-tooltip">
                                 Nuova Password
                             </div>
@@ -104,7 +104,7 @@
                                 Conferma nuova la password
                             </div>
                         </div>
-    
+
                         <div class="d-flex flex-row justify-content-end align-items-center mb-4">
                             <button type="submit" class="btn btn-primary text-light">
                                 <h5 class="m-0">Modifica Password</h5>
@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="register_steps_btn_step_one" type="submit" class="btn btn-outline-secondary text-dark"
+                <button type="submit" class="btn btn-outline-secondary text-dark"
                     data-bs-dismiss="modal">
                     <h5 class="m-0">Annulla</h5>
                 </button>
@@ -126,4 +126,40 @@
 <!-- modal script -->
 <script>
     const accountDataModal = new bootstrap.Modal('#account_data_modal', {});
+    let accountDataModalEl = document.querySelector('#account_data_modal');
+
+    let accountEditInputName = document.querySelector('#edit_user_input_name');
+    let accountEditInputSurname = document.querySelector('#edit_user_input_surname');
+    let accountEditInputEmail = document.querySelector('#edit_user_input_email');
+
+    accountDataModalEl.addEventListener('show.bs.modal', e => {
+
+        async function callDatiUtente() {
+
+            const response = await fetch('http://localhost:8080/hrport/app/get-info-user', {
+                method: 'GET'
+            });
+
+            const result = await response.json();
+
+            accountEditInputName.value = result.nome;
+            accountEditInputSurname.value = result.cognome;
+            accountEditInputEmail.value = result.email;
+
+            console.log(result);
+
+            if (result.error != null) {
+                loginFormErrorText.classList.remove('d-none');
+                loginFormErrorText.innerHTML = result.error;
+            }
+
+            if (response.ok) {
+
+            }
+        }
+
+        callDatiUtente();
+    });
+
+
 </script>
