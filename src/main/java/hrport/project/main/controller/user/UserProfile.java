@@ -41,7 +41,8 @@ public class UserProfile extends HttpServlet {
 			dataUser = gson.toJson(utente);
 		} catch (Exception e) {
 
-			String error = gson.toJson(e);
+			String error = e.getMessage();
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("data", error);
 			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 			return;
