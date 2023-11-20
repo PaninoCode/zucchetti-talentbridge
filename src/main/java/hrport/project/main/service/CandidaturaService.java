@@ -34,7 +34,7 @@ public static List<Candidatura> getAllCandiList() throws Exception {
 						
 				Candidatura candidato = new Candidatura(
 						Integer.valueOf(resultSetCandidati.getInt("idCand")),
-						Integer.valueOf(resultSetCandidati.getInt("idUtente")),
+						Integer.valueOf(resultSetCandidati.getInt("idPos")),
 						resultSetCandidati.getString("nome"),
 						resultSetCandidati.getString("cognome"),
 						resultSetCandidati.getString("posizione"),

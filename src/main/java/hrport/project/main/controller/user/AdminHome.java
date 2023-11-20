@@ -41,10 +41,6 @@ public class AdminHome extends HttpServlet {
 
 			List<Candidatura> candidati = CandidaturaService.getAllCandiList();
 			
-			
-			
-			candidati.forEach((c)-> System.out.println(c.getNome()));
-			
 			candidatiJson = gson.toJson(candidati);
 
 		} catch (Exception e) {
