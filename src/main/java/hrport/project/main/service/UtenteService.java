@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import hrport.project.main.connectdb.ConnectDatabase;
+import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
 import hrport.project.main.pojo.ProfiloUtente;
 import hrport.project.main.pojo.Utente;
@@ -96,9 +97,9 @@ public class UtenteService {
 			
 			resultSetUser.next();
 			
-			List<Posizione> positions = PosizioneService.getPositionsByIdUtente(resultSetUser.getString("idUtente"));
+			List<Candidatura> applications = CandidaturaService.getApplicationsByIdUtente(resultSetUser.getString("idUtente"));
 				
-			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), positions);
+			Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), applications);
 			
 			resultSetUser.close();
 			con.commit();
