@@ -1,5 +1,7 @@
 package hrport.project.main.pojo;
 
+import java.util.List;
+
 public class Posizione {
 	
 	private Integer idPos;
@@ -7,6 +9,7 @@ public class Posizione {
 	private Boolean aperta;
 	private String fotoUrl;
 	private String descrizione;
+	private List<Candidatura> applications;
 	
 	public Posizione(Integer idPos, String nome, Boolean aperta, String fotoUrl, String descrizione){
 		
