@@ -138,9 +138,15 @@
                 loginFormErrorText.classList.remove('d-none');
             }
 
-            if(loggedOutBool == "true"){
+            if (loggedOutBool == "true") {
+                localStorage.setItem('loggedOut', loggedOutBool);
+                location.replace('<%=request.getContextPath()%>/login');
+            }
+
+            if (loggedOutBool == "" && localStorage.getItem('loggedOut') == "true") {
                 loginFormSuccessText.innerHTML = "Logout effettuato con successo. Puoi chiudere questa finestra.";
                 loginFormSuccessText.classList.remove('d-none');
+                localStorage.removeItem('loggedOut');
             }
 
             loginForm.addEventListener('submit', e => {
@@ -180,9 +186,9 @@
 
                             setTimeout(() => {
 
-                                if(returnToString.length > 0){
+                                if (returnToString.length > 0) {
                                     location.href = returnToString;
-                                }else{
+                                } else {
                                     location.href = "http://localhost:8080/hrport/login";
                                 }
 
