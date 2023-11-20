@@ -83,12 +83,12 @@ public class App {
 //			Quiz.insertRisposteDate(idUtente, quizId, selectedOptionIds);
 //			
 //			String error = "{\"data\" : \"success\"}";
-        	/*
+        	
         	Utente utente = UtenteService.getUserByIdUtenteWithPositions(1);
         	
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         	String json = gson.toJson(utente);
-        	System.out.println(json);*/
+        	System.out.println(json);
         } catch (Exception e) {
             e.printStackTrace();
         }
