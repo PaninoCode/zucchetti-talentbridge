@@ -3,22 +3,23 @@ package hrport.project.main.pojo;
 public class Candidatura {
 	
 	private Integer idCand;
-	private Integer idPos;
-	private String nome;
-	private String cognome;
-	private String posizione;
-	private boolean stato;
+	private Utente user;
+	private Posizione position;
+	private Integer stato;
 	
-	
-	public Candidatura(Integer idCand, Integer idPos, String nome, String cognome, String posizione, boolean stato) {
-		this.idCand = idCand;
-		this.idPos = idPos;
-		this.setNome(nome);
-		this.cognome = cognome;
-		this.posizione = posizione;
-		this.stato = stato;
+	public Candidatura(Integer idCand, Utente user, Integer stato) {
+		
+		this.setIdCand(idCand);
+		this.setUser(user);
+		this.setStato(stato);
 	}
 	
+	public Candidatura(Integer idCand, Posizione position, Integer stato) {
+		
+		this.setIdCand(idCand);
+		this.setPosition(position);
+		this.setStato(stato);
+	}
 	
 	public Integer getIdCand() {
 		return idCand;
@@ -26,38 +27,22 @@ public class Candidatura {
 	public void setIdCand(Integer idCand) {
 		this.idCand = idCand;
 	}
-	public Integer getIdPos() {
-		return idPos;
+	public Utente getUser() {
+		return user;
 	}
-	public void setIdPos(Integer idPos) {
-		this.idPos = idPos;
+	public void setUser(Utente user) {
+		this.user = user;
 	}
-	public String getNome() {
-		return nome;
+	public Posizione getPosition() {
+		return position;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setPosition(Posizione position) {
+		this.position = position;
 	}
-	public String getCognome() {
-		return cognome;
-	}
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-	public String getPosizione() {
-		return posizione;
-	}
-	public void setPosizione(String posizione) {
-		this.posizione = posizione;
-	}
-	public boolean isStato() {
+	public Integer getStato() {
 		return stato;
 	}
-	public void setStato(boolean stato) {
+	public void setStato(Integer stato) {
 		this.stato = stato;
 	}
-	
-	
-	
-
 }

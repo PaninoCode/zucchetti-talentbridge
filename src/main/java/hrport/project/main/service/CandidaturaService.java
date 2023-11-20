@@ -12,8 +12,7 @@ import hrport.project.main.pojo.Posizione;
 
 public class CandidaturaService {
 	
-	
-public static List<Candidatura> getAllCandiList() throws Exception {
+	public static List<Candidatura> getAllCandiList() throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
@@ -21,7 +20,6 @@ public static List<Candidatura> getAllCandiList() throws Exception {
 		List<Candidatura> candidaturaList = new ArrayList<>();
 		
 		try {
-			
 			
 			con.setAutoCommit(false);
 			String SQLquery = "SELECT can.idCand, can.idUtente, u.nome, u.cognome, pos.nome as posizione, can.stato FROM Candidatura can JOIN utenti u ON can.idUtente = u.idUtente JOIN Posizione pos ON can.idPos = pos.idPos";
@@ -32,17 +30,16 @@ public static List<Candidatura> getAllCandiList() throws Exception {
 					
 			while(resultSetCandidati.next()) {
 						
-				Candidatura candidato = new Candidatura(
-						Integer.valueOf(resultSetCandidati.getInt("idCand")),
-						Integer.valueOf(resultSetCandidati.getInt("idPos")),
-						resultSetCandidati.getString("nome"),
-						resultSetCandidati.getString("cognome"),
-						resultSetCandidati.getString("posizione"),
-						Boolean.valueOf((resultSetCandidati.getString("stato").equalsIgnoreCase("1")) ? "true" : "false")
-					);
-					
-
-					candidaturaList.add(candidato);
+//				Candidatura candidato = new Candidatura(
+//						Integer.valueOf(resultSetCandidati.getInt("idCand")),
+//						Integer.valueOf(resultSetCandidati.getInt("idPos")),
+//						resultSetCandidati.getString("nome"),
+//						resultSetCandidati.getString("cognome"),
+//						resultSetCandidati.getString("posizione"),
+//						Boolean.valueOf((resultSetCandidati.getString("stato").equalsIgnoreCase("1")) ? "true" : "false")
+//					);
+//
+//					candidaturaList.add(candidato);
 								
 			}
 			
@@ -60,8 +57,38 @@ public static List<Candidatura> getAllCandiList() throws Exception {
 		
 		return candidaturaList;
 	}
-
 	
-	
+	public static List<Candidatura> getCandidatesfromUser() {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultCandidacy = null;
+		
+		List<Candidatura> candidacies = null;
+		
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz INNER JOIN Candidatura cn ON pz.idPos = cn.idPos WHERE cn.idUtente = ?";
+			
+			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
+			UserPositions.setString(1, idUtente);
+			
+			resultCandidacy = UserPositions.executeQuery();
+			
+			resultCandidacy.close();
+			con.commit();
+		} catch (Exception e) {
+			
+			resultCandidacy.close();
+			con.rollback();
+			candidacies = new ArrayList<>();
+		} finally {
+			
+			con.close();
+		}
+		
+		return candidacies;
+	}
 
 }
