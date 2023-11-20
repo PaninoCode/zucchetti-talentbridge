@@ -33,12 +33,13 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end border border-primary shadow-sm">
                 <jsp:include page='profile_widget.jsp'>
-                    <jsp:param name="profileType" value="Recruiter" />
+                    <jsp:param name="profileType" value="Candidato" />
                 </jsp:include>
             </div>
         </div>
     </div>
 </nav>
+<div style="height: 5rem;"></div>
 
 
 <script>

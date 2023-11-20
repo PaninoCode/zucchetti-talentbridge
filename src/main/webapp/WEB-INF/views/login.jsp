@@ -40,6 +40,9 @@
                 </div>
             </div>
             <h2 class="mb-2">Accedi</h2>
+            <div class="alert alert-success d-none" style="width: 450px;" id="login_form_success_text" role="alert">
+
+            </div>
             <div class="alert alert-danger d-none" style="width: 450px;" id="login_form_error_text" role="alert">
 
             </div>
@@ -120,18 +123,24 @@
             let loginFormSpinner = document.querySelector('#login_form_spinner');
 
             let returnToString = new URLSearchParams(window.location.search).get('returnTo') ?? "";
-
+            let loggedOutBool = new URLSearchParams(window.location.search).get('loggedOut') ?? "";
 
             let loginInputEmail = document.querySelector('#login_input_email');
             let loginInputPassword = document.querySelector('#login_input_password');
 
             let loginFormErrorText = document.querySelector('#login_form_error_text');
+            let loginFormSuccessText = document.querySelector('#login_form_success_text');
 
             let errorTxt = `<%=response.getHeader("data")%>`;
             if (errorTxt != "null") {
                 console.log(errorTxt);
                 loginFormErrorText.innerHTML = errorTxt;
                 loginFormErrorText.classList.remove('d-none');
+            }
+
+            if(loggedOutBool == "true"){
+                loginFormSuccessText.innerHTML = "Logout effettuato con successo. Puoi chiudere questa finestra.";
+                loginFormSuccessText.classList.remove('d-none');
             }
 
             loginForm.addEventListener('submit', e => {
