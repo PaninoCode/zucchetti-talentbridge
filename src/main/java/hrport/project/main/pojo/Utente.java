@@ -49,6 +49,9 @@ public class Utente {
     	this.setCognome(cognome);
     }
     
+    
+    
+    
     @JsonCreator
     public Utente(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("admin") Boolean admin, @JsonProperty("nome") String nome, @JsonProperty("cognome") String cognome) {
     	

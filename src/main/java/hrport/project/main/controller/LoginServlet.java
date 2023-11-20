@@ -41,6 +41,8 @@ public class LoginServlet extends HttpServlet {
 				String isAdmin = utente.isAdmin() ? "true" : "false";
 				session.setAttribute("admin", isAdmin);
 				
+				System.out.println(isAdmin);
+				
 				if(isAdmin.equalsIgnoreCase("false")) {
 					
 					if(returnTo == null) {
@@ -49,8 +51,10 @@ public class LoginServlet extends HttpServlet {
 						response.sendRedirect(returnTo);	
 					}
 				} else {
+					//redirect to Admin home
 					
-					/* inserire la redirect alla admin/user */
+						response.sendRedirect(request.getContextPath() + "/admin/home");	
+					
 				}
 			}
 		} catch (Exception e) {

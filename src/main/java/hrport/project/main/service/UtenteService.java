@@ -148,4 +148,48 @@ public class UtenteService {
 			con.close();
 		}
 	}
+	
+/*public static Utente getUserList() throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSetUser = null;
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT p.idUtente,u.nome, u.cognome, p.idCv, p.fileUrl, p.fotoUrl, p.sesso FROM profilo p JOIN utenti u on p.idUtente = u.idUtente";
+			
+			PreparedStatement User = con.prepareStatement(SQLUser);
+			//User.setString(1, idUtente.toString());
+			
+			resultSetUser = User.executeQuery();
+			
+			resultSetUser.next();
+			
+			ProfiloUtente userProfile = ProfiloUtenteService.getProfileUserByIdUtenteWithExperiencesAndEducation(Integer.valueOf(resultSetUser.getString("idUtente")));
+			
+			final Integer id = Integer.valueOf(resultSetUser.getString("idUtente"));
+			final String nome = String.valueOf(resultSetUser.getString("nome"));
+			final String cognome = String.valueOf(resultSetUser.getString("cognome"));
+			final Integer idCv = Integer.valueOf(resultSetUser.getString("idCv"));
+			final String fileUrl = String.valueOf(resultSetUser.getString("fileUrl"));
+			final Integer sesso = Integer.valueOf(resultSetUser.getString("sesso"));
+			
+			Utente utente = new Utente(id, nome, cognome, idCv, fileUrl, sesso);
+			
+			//Utente utente = new Utente(Integer.valueOf(resultSetUser.getString("idUtente")), resultSetUser.getString("email"), Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUser.getString("nome"), resultSetUser.getString("cognome"), userProfile);
+			
+			resultSetUser.close();
+			con.commit();
+			return utente;
+		} catch (Exception e) {
+			
+			resultSetUser.close();
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+	}*/
 }
