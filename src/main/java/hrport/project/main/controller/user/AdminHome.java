@@ -45,9 +45,8 @@ public class AdminHome extends HttpServlet {
 
 		} catch (Exception e) {
 
-			System.out.println("erro");
-			String error = gson.toJson(e);
-			System.out.println(e);
+			String error = e.getMessage();
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("data", error);
 			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 			return;
