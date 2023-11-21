@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("admin", isAdmin);
 				
 
-				String error = "{\"data\" : \"success\"}";
+				String error = "{\"data\" : {\"result\" : \"success\", \"admin\" :" + "\"" + isAdmin + "\"" + "}}";
 	        	
 	        	PrintWriter out = response.getWriter();
 	            response.setContentType("application/json");
