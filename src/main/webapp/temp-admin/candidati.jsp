@@ -15,8 +15,7 @@
     </head>
 
     <body class="bg-body-tertiary">
-        <jsp:include page='account_edit_modal.jsp'></jsp:include>
-
+        
         <jsp:include page='admin_header.jsp'>
             <jsp:param name="activeLinkId" value="candidati" />
         </jsp:include>
