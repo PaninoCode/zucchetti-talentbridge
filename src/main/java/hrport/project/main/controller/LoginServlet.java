@@ -53,7 +53,6 @@ public class LoginServlet extends HttpServlet {
             out.flush();
         }
 		
-		
 		try {
 			
 			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
