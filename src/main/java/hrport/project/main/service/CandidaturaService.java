@@ -9,10 +9,11 @@ import java.util.List;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Utente;
 
 public class CandidaturaService {
 
-	public static List<Candidatura> getApplicationsFromPosition() throws Exception {
+	public static List<Candidatura> getApplicationsFromPosition(Integer idPos) throws Exception {
 
 		Connection con = ConnectDatabase.getConnection();
 
@@ -22,25 +23,17 @@ public class CandidaturaService {
 		try {
 
 			con.setAutoCommit(false);
-			String SQLquery = "SELECT can.idCand, can.idUtente, u.nome, u.cognome, pos.nome as posizione, can.stato FROM Candidatura can JOIN utenti u ON can.idUtente = u.idUtente JOIN Posizione pos ON can.idPos = pos.idPos";
+			String SQLquery = "SELECT can.*, u.* FROM Candidatura can INNER JOIN utenti u ON can.idUtente = u.idUtente WHERE can.idPos = ?";
 
 			PreparedStatement candidaturaStatement = con.prepareStatement(SQLquery);
+			candidaturaStatement.setInt(1, idPos);
 
 			resultSetCandidati = candidaturaStatement.executeQuery();
 
 			while (resultSetCandidati.next()) {
 
-//				Candidatura candidato = new Candidatura(
-//						Integer.valueOf(resultSetCandidati.getInt("idCand")),
-//						Integer.valueOf(resultSetCandidati.getInt("idPos")),
-//						resultSetCandidati.getString("nome"),
-//						resultSetCandidati.getString("cognome"),
-//						resultSetCandidati.getString("posizione"),
-//						Boolean.valueOf((resultSetCandidati.getString("stato").equalsIgnoreCase("1")) ? "true" : "false")
-//					);
-//
-//					candidaturaList.add(candidato);
-
+				Utente utente = new Utente(Integer.valueOf(resultSetCandidati.getString("idUtente")), resultSetCandidati.getString("email"), Boolean.valueOf((resultSetCandidati.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetCandidati.getString("nome"), resultSetCandidati.getString("cognome"));
+				candidaturaList.add(new Candidatura(resultSetCandidati.getInt("idCand"), utente, resultSetCandidati.getInt("stato")));
 			}
 
 			resultSetCandidati.close();

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hrport.project.main.connectdb.ConnectDatabase;
+import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
 
 public class PosizioneService {
@@ -15,7 +16,7 @@ public class PosizioneService {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		ResultSet resultSetUserPositions = null;
+		ResultSet resultSetAllPositions = null;
 		List<Posizione> positions = new ArrayList<>();
 		
 		try {
@@ -25,18 +26,62 @@ public class PosizioneService {
 			
 			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
 			
-			resultSetUserPositions = UserPositions.executeQuery();
+			resultSetAllPositions = UserPositions.executeQuery();
 			
-			while(resultSetUserPositions.next()) {
+			while(resultSetAllPositions.next()) {
 				
-				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString("idPos")), resultSetUserPositions.getString("nome"), Boolean.valueOf((resultSetUserPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUserPositions.getString("fotoUrl"), resultSetUserPositions.getString("descrizione")));
+				positions.add(new Posizione(Integer.valueOf(resultSetAllPositions.getString("idPos")), resultSetAllPositions.getString("nome"), Boolean.valueOf((resultSetAllPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetAllPositions.getString("fotoUrl"), resultSetAllPositions.getString("descrizione")));
 			}
 			
-			resultSetUserPositions.close();
+			resultSetAllPositions.close();
 			con.commit();
 		} catch (Exception e) {
 			
-			resultSetUserPositions.close();
+			resultSetAllPositions.close();
+			con.rollback();
+			positions = new ArrayList<>();
+		} finally {
+			
+			con.close();
+		}
+		
+		return positions;
+	}
+	
+	public static List<Posizione> getAllPositionsWithApplications() throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		List<Posizione> positions = new ArrayList<>();
+		ResultSet resultSet = null;
+		
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz";
+			
+			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
+			
+			resultSet = UserPositions.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Integer idPos = resultSet.getInt("idPos");
+				List<Candidatura> applications = CandidaturaService.getApplicationsFromPosition(idPos);
+				positions.add(new Posizione(
+						idPos, 
+						resultSet.getString("nome"), 
+						Boolean.valueOf((resultSet.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), 
+						resultSet.getString("fotoUrl"), 
+						resultSet.getString("descrizione"), 
+						applications)
+						);
+			}
+			
+			resultSet.close();
+			con.commit();
+		} catch (Exception e) {
+			
+			resultSet.close();
 			con.rollback();
 			positions = new ArrayList<>();
 		} finally {
