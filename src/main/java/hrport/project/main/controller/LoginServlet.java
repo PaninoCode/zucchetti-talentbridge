@@ -53,7 +53,6 @@ public class LoginServlet extends HttpServlet {
             out.flush();
         }
 		
-		
 		try {
 			
 			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
@@ -69,17 +68,14 @@ public class LoginServlet extends HttpServlet {
 				
 				String isAdmin = utente.isAdmin() ? "true" : "false";
 				session.setAttribute("admin", isAdmin);
-				
 
-				String error = "{\"data\" : \"success\"}";
+				String data = "{\"data\" : {\"result\" : \"success\", \"admin\" :" + "\"" + isAdmin + "\"" + "}}";
 	        	
 	        	PrintWriter out = response.getWriter();
 	            response.setContentType("application/json");
 	            response.setCharacterEncoding("UTF-8");
-	            out.print(error);
+	            out.print(data);
 	            out.flush();
-				
-				
 			}
 		} catch (Exception e) {
 
@@ -91,16 +87,11 @@ public class LoginServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			
 			if(e instanceof SQLException) {
-				
-				//String respError = "Credenziali Errate";
-				//response.addHeader("data", respError);
 
 	            out.print(error);
 			}
 			
 			out.flush();
-			//request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
-			//response.getWriter().append("").flush();
 		}
 	}
 }

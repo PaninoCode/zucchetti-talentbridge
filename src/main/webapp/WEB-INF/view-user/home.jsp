@@ -180,7 +180,7 @@
 	
     let arrayPosizione = JSON.parse(jsonDataPositions);
 
-	    // console.log(jsonUserOK);
+	   	console.log(jsonUserOK);
 	    // console.log(jsonPositionsOK);
 
 

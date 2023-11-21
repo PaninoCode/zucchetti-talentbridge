@@ -7,37 +7,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hrport.project.main.connectdb.ConnectDatabase;
+import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
 
 public class PosizioneService {
 	
-	public static List<Posizione> getPositionsByIdUtente(String idUtente) throws Exception {
+	public static List<Posizione> getAllPositions() throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		ResultSet resultSetUserPositions = null;
+		ResultSet resultSetAllPositions = null;
 		List<Posizione> positions = new ArrayList<>();
 		
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUserPositions = "SELECT pz.* FROM Posizione pz INNER JOIN Candidatura cn ON pz.idPos = cn.idPos WHERE cn.idUtente = ?";
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz";
 			
 			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
-			UserPositions.setString(1, idUtente);
 			
-			resultSetUserPositions = UserPositions.executeQuery();
+			resultSetAllPositions = UserPositions.executeQuery();
 			
-			while(resultSetUserPositions.next()) {
+			while(resultSetAllPositions.next()) {
 				
-				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString("idPos")), resultSetUserPositions.getString("nome"), Boolean.valueOf((resultSetUserPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUserPositions.getString("fotoUrl"), resultSetUserPositions.getString("descrizione")));
+				positions.add(new Posizione(Integer.valueOf(resultSetAllPositions.getString("idPos")), resultSetAllPositions.getString("nome"), Boolean.valueOf((resultSetAllPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetAllPositions.getString("fotoUrl"), resultSetAllPositions.getString("descrizione")));
 			}
 			
-			resultSetUserPositions.close();
+			resultSetAllPositions.close();
 			con.commit();
 		} catch (Exception e) {
 			
-			resultSetUserPositions.close();
+			resultSetAllPositions.close();
 			con.rollback();
 			positions = new ArrayList<>();
 		} finally {
@@ -48,12 +48,11 @@ public class PosizioneService {
 		return positions;
 	}
 	
-	public static List<Posizione> getAllPositions() throws Exception {
+	public static List<Posizione> getAllPositionsWithApplications() throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
-		
-		ResultSet resultSetUserPositions = null;
 		List<Posizione> positions = new ArrayList<>();
+		ResultSet resultSet = null;
 		
 		try {
 			
@@ -62,18 +61,27 @@ public class PosizioneService {
 			
 			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
 			
-			resultSetUserPositions = UserPositions.executeQuery();
+			resultSet = UserPositions.executeQuery();
 			
-			while(resultSetUserPositions.next()) {
+			while(resultSet.next()) {
 				
-				positions.add(new Posizione(Integer.valueOf(resultSetUserPositions.getString("idPos")), resultSetUserPositions.getString("nome"), Boolean.valueOf((resultSetUserPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetUserPositions.getString("fotoUrl"), resultSetUserPositions.getString("descrizione")));
+				Integer idPos = resultSet.getInt("idPos");
+				List<Candidatura> applications = CandidaturaService.getApplicationsFromPosition(idPos);
+				positions.add(new Posizione(
+						idPos, 
+						resultSet.getString("nome"), 
+						Boolean.valueOf((resultSet.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), 
+						resultSet.getString("fotoUrl"), 
+						resultSet.getString("descrizione"), 
+						applications)
+						);
 			}
 			
-			resultSetUserPositions.close();
+			resultSet.close();
 			con.commit();
 		} catch (Exception e) {
 			
-			resultSetUserPositions.close();
+			resultSet.close();
 			con.rollback();
 			positions = new ArrayList<>();
 		} finally {

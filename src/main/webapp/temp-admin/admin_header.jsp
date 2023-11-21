@@ -33,9 +33,7 @@
                 Profilo
             </button>
             <div class="dropdown-menu dropdown-menu-end border border-primary shadow-sm">
-                <jsp:include page='profile_widget.jsp'>
-                    <jsp:param name="profileType" value="Recruiter" />
-                </jsp:include>
+                
             </div>
         </div>
     </div>
