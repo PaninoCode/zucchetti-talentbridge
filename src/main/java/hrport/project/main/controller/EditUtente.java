@@ -24,7 +24,7 @@ import hrport.project.main.service.UtenteService;
  * Servlet implementation class EditUtente
  */
 @WebServlet("/app/get-info-user")
-public class EditUtentePws extends HttpServlet {
+public class EditUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -48,7 +48,6 @@ public class EditUtentePws extends HttpServlet {
             out.print(success);
             out.flush();
 		} catch (Exception e) {
-			
         	
         	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
         	

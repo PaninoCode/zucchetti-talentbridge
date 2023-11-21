@@ -21,7 +21,7 @@ import hrport.project.main.service.UtenteService;
 /**
  * Servlet implementation class UpdateUtente
  */
-@WebServlet("/app/update-info-user")
+@WebServlet("/app/update-pws-user")
 public class UpdateUtentePws extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
