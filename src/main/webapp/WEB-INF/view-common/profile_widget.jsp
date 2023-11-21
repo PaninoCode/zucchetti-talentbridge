@@ -1,8 +1,12 @@
 <div class="container p-2" style="width: 350px;">
     <span class="mb-2"></span>
     <div class="text-center">
-        <img src="https://thispersondoesnotexist.com/" class="rounded-circle" style="width: 120px; height: 120px;">
-        <p class="fs-4">Mario Rossi</p>
+	    <div class="d-flex justify-content-center align-items-center">
+	        <h1 class="rounded-circle bg-primary text-light d-flex justify-content-center align-items-center" style="width: 120px; height: 120px;" id="profile_widget_propic">
+	        	MR
+	        </h1>
+	    </div>
+        <p class="fs-4" id="profile_widget_full_name">Mario Rossi</p>
 
         <div class="d-flex flex-row justify-content-center" id="profile_widget_roles"></div>
 
@@ -43,6 +47,7 @@
 
     const profileWidgetRoles = document.querySelector('#profile_widget_roles');
     const profileWidgetEditAccountBtn = document.querySelector('#profile_widget_edit_account_btn');
+    const profileWidgetEditLogoutBtn = document.querySelector('#profile_widget_logout_btn');
 
     profileTypes.forEach(type => {
         profileWidgetRoles.innerHTML += '<span class="badge rounded-pill text-bg-info">' + type + '</span>';
@@ -51,5 +56,36 @@
     profileWidgetEditAccountBtn.addEventListener('click', e => {
         accountDataModal.show(); 
     });
+
+    profileWidgetEditLogoutBtn.addEventListener('click', e => {
+        location.href = "<%=request.getContextPath()%>/app/logout";
+    });
+    
+
+	let profileWidgetProPic = document.querySelector('#profile_widget_propic');
+	let profileWidgetFullName = document.querySelector('#profile_widget_full_name');
+
+    async function callDatiWidgetProfilo() {
+
+        const response = await fetch('http://localhost:8080/hrport/app/get-info-user', {
+            method: 'GET'
+        });
+
+        const result = await response.json();
+
+        console.log(result);
+
+        if (result.error != null) {
+        	alert("Si e' presentato un errore nel caricamento dei dati utente.");
+        }
+
+        if (response.ok) {
+            profileWidgetFullName.innerHTML = result.nome + " " + result.cognome;
+        profileWidgetProPic.innerHTML = result.nome[0] + result.cognome[0];
+        }
+    }
+
+    callDatiWidgetProfilo();
+
 
 </script>

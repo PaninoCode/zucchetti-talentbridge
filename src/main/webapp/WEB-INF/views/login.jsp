@@ -40,13 +40,18 @@
                 </div>
             </div>
             <h2 class="mb-2">Accedi</h2>
+            <div class="alert alert-success d-none" style="width: 450px;" id="login_form_success_text" role="alert">
+
+            </div>
             <div class="alert alert-danger d-none" style="width: 450px;" id="login_form_error_text" role="alert">
 
             </div>
             <div class="container bg-white border border-2 border-primary rounded-4 p-4 shadow mb-5 position-relative"
                 style="width: 450px;">
 
-                <div id="login_form_spinner" class="position-absolute top-0 start-0 bg-dark w-100 h-100 d-flex justify-content-center align-items-center rounded-4 d-none" style="z-index: 5000; --bs-bg-opacity: .5;">
+                <div id="login_form_spinner"
+                    class="position-absolute top-0 start-0 bg-dark w-100 h-100 d-flex justify-content-center align-items-center rounded-4 d-none"
+                    style="z-index: 5000; --bs-bg-opacity: .5;">
                     <div class="spinner-border text-light" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
@@ -59,7 +64,6 @@
                     </svg>
                 </div>
                 <form action="/hrport/loginUser" method="post" id="login_form" class="needs-validation" novalidate>
-                    <input id="input_login_return_to" name="returnTo" class="d-none">
                     <div class="position-relative mb-3">
                         <label for="login_input_email" class="form-label">
                             <h4>Email</h4>
@@ -118,14 +122,14 @@
 
             let loginFormSpinner = document.querySelector('#login_form_spinner');
 
-            let loginInputReturnTo = document.querySelector('#input_login_return_to');
-            loginInputReturnTo.value = new URLSearchParams(window.location.search).get('returnTo');
-
+            let returnToString = new URLSearchParams(window.location.search).get('returnTo') ?? "";
+            let loggedOutBool = new URLSearchParams(window.location.search).get('loggedOut') ?? "";
 
             let loginInputEmail = document.querySelector('#login_input_email');
             let loginInputPassword = document.querySelector('#login_input_password');
 
             let loginFormErrorText = document.querySelector('#login_form_error_text');
+            let loginFormSuccessText = document.querySelector('#login_form_success_text');
 
             let errorTxt = `<%=response.getHeader("data")%>`;
             if (errorTxt != "null") {
@@ -134,12 +138,65 @@
                 loginFormErrorText.classList.remove('d-none');
             }
 
+            if (loggedOutBool == "true") {
+                localStorage.setItem('loggedOut', loggedOutBool);
+                location.replace('<%=request.getContextPath()%>/login');
+            }
+
+            if (loggedOutBool == "" && localStorage.getItem('loggedOut') == "true") {
+                loginFormSuccessText.innerHTML = "Logout effettuato con successo. Puoi chiudere questa finestra.";
+                loginFormSuccessText.classList.remove('d-none');
+                localStorage.removeItem('loggedOut');
+            }
+
             loginForm.addEventListener('submit', e => {
                 e.preventDefault()
                 e.stopPropagation()
                 if (loginForm.checkValidity()) {
                     loginFormSpinner.classList.remove('d-none');
-                    loginForm.submit();
+
+                    /* fetch api */
+                    let jsonData = {
+                        "email": loginInputEmail.value,
+                        "password": loginInputPassword.value,
+                    }
+
+                    async function callLogin() {
+
+                        const response = await fetch('http://localhost:8080/hrport/loginUser', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(jsonData)
+                        });
+
+                        const result = await response.json();
+
+                        loginFormSpinner.classList.add('d-none');
+
+                        console.log(result);
+
+                        if (result.error != null) {
+                            loginFormErrorText.classList.remove('d-none');
+                            loginFormErrorText.innerHTML = result.error;
+                        }
+
+                        if (response.ok) {
+
+                            setTimeout(() => {
+
+                                if (returnToString.length > 0) {
+                                    location.href = returnToString;
+                                } else {
+                                    location.href = "http://localhost:8080/hrport/login";
+                                }
+
+                            }, 500)
+                        }
+                    }
+
+                    callLogin();
                 }
 
                 loginForm.classList.add('was-validated');

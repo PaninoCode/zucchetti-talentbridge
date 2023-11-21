@@ -52,7 +52,8 @@ public class ProfiloUtenteService {
 		} catch (Exception e) {
 
 			con.rollback();
-			throw e;
+			ProfiloUtente profiloUtente = null;
+			return profiloUtente;
 		} finally {
 
 			resultSetProfile.close();

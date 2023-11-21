@@ -21,11 +21,14 @@
 	
 	let jsonDataUser = `<%=request.getAttribute("dataUser")%>`;
 	let jsonDataPositions = `<%=request.getAttribute("dataAllPositions")%>`;
+	let data = `<%=request.getAttribute("data")%>`;
 	let jsonUserOK = JSON.parse(jsonDataUser);
 	let jsonPositionsOK = JSON.parse(jsonDataPositions);
 	
 	console.log(jsonUserOK);
 	console.log(jsonPositionsOK);
+	
+	console.log(data);
 
 </script>
  

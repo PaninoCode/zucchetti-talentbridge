@@ -20,7 +20,6 @@
         <jsp:include page='admin_header.jsp'>
             <jsp:param name="activeLinkId" value="candidati" />
         </jsp:include>
-        <div style="height: 5rem;"></div>
 
         <section style="height: 100vh;">
             <div class="container-fluid p-4">
