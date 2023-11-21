@@ -12,11 +12,23 @@ public class Quiz {
 	private int id;
 	private String nome;
 	private List<Domanda> listaDomande= new ArrayList<>();
+	private boolean isDone;
 	
 	public Quiz(int id, String nome, List<Domanda> listaDomande) {
 		this.setId(id);
 		this.setNome(nome);
 		this.setListaDomande(listaDomande);
+	}
+	
+	public Quiz(int id, String nome, boolean isDone) {
+		this.id=id;
+		this.nome=nome;
+		this.isDone= isDone;
+	}
+	
+	public Quiz(int id, String nome) {
+		this.id=id;
+		this.nome=nome;
 	}
 	
 	public int getId() {
@@ -43,8 +55,19 @@ public class Quiz {
 		this.nome=nome;
 	}
 	
-	public void setListaDomande(List<Domanda> listaDomande){
-		
+	public boolean isDone() {
+		return isDone;
+	}
+
+	public void setDone(boolean isDone) {
+		this.isDone = isDone;
+	}
+
+	public List<Domanda> getListaDomande() {
+		return listaDomande;
+	}
+	
+	public void setListaDomande(List<Domanda> listaDomande){		
 		this.listaDomande= listaDomande;
 	}
 	
@@ -113,6 +136,92 @@ public class Quiz {
 		}
 	}
 	
+	public static List<Quiz> getQuizFromPosizioneUtente(int idPosizione, int idUtente) throws Exception {
+		List<Quiz> lista= new ArrayList<>();
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSet = null;
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUser = "with\r\n" 
+							+ "v as (\r\n"
+							+ "SELECT q.idQuiz \r\n"
+							+ "	FROM RispostaData as rd\r\n"
+							+ "	JOIN Risposta as r on rd.idRisposta = r.idRisposta\r\n"
+							+ "	JOIN Domanda as d on r.idDomanda = d.idDomanda\r\n"
+							+ "	JOIN Quiz as q on d.idQuiz = q.idQuiz\r\n"
+							+ "	WHERE rd.idUtente=?\r\n"
+							+ "	)\r\n"
+							+ "SELECT	DISTINCT  q.idQuiz, q.nome, CASE \r\n"
+							+ "							WHEN v.idQuiz IS NOT NULL THEN 1\r\n"
+							+ "							ELSE 0\r\n"
+							+ "						END AS isSvolto\r\n"
+							+ "FROM Quiz q\r\n"
+							+ "JOIN posQuiz pq on q.idQuiz = pq.idQuiz\r\n"
+							+ "JOIN v on q.idQuiz = v.idQuiz\r\n"
+							+ "WHERE pq.idPos=?";
+			
+			PreparedStatement Quiz = con.prepareStatement(SQLUser);
+			Quiz.setInt(1, idUtente);
+			Quiz.setInt(2, idPosizione);
+			
+			resultSet = Quiz.executeQuery();
+			
+			con.commit();
+			
+			while(resultSet.next()){
+				lista.add(new Quiz(resultSet.getInt(1), resultSet.getString(2), resultSet.getBoolean(3)));
+			}
+			
+			return lista;
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+			
+		} finally {
+			
+			con.close();
+		}
+	}
+	
+	public static List<Quiz> getQuizFromPosizione(int idPosizione) throws Exception {
+		List<Quiz> lista= new ArrayList<>();
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSet = null;
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT q.idQuiz, q.nome\r\n"
+							+ "FROM Quiz q\r\n"
+							+ "JOIN posQuiz pq on q.idQuiz = pq.idQuiz\r\n"
+							+ "WHERE pq.idPos = ?;";
+			
+			PreparedStatement Quiz = con.prepareStatement(SQLUser);
+			Quiz.setInt(1, idPosizione);
+			
+			resultSet = Quiz.executeQuery();
+			
+			con.commit();
+			
+			while(resultSet.next()){
+				lista.add(new Quiz(resultSet.getInt(1), resultSet.getString(2)));
+			}
+			
+			return lista;
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+			
+		} finally {
+			
+			con.close();
+		}
+	}
+	
 	public static Quiz initQuiz(int id) throws Exception {
 		List<Domanda> lista= new ArrayList<>();
 		Connection con = ConnectDatabase.getConnection();
@@ -166,6 +275,8 @@ public class Quiz {
 		}
 		
 	}
+
+	
 	
 	
 		
