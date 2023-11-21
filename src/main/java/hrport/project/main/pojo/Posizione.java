@@ -19,6 +19,16 @@ public class Posizione {
 		setFotoUrl(fotoUrl);
 		setDescrizione(descrizione);
 	}
+	
+	public Posizione(Integer idPos, String nome, Boolean aperta, String fotoUrl, String descrizione, List<Candidatura> applications){
+		
+		setIdPos(idPos);
+		setNome(nome);
+		setAperta(aperta);
+		setFotoUrl(fotoUrl);
+		setDescrizione(descrizione);
+		setApplications(applications);
+	}
 
 	public Integer getIdPos() {
 		return idPos;
@@ -49,5 +59,11 @@ public class Posizione {
 	}
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+	public List<Candidatura> getApplications() {
+		return applications;
+	}
+	public void setApplications(List<Candidatura> applications) {
+		this.applications = applications;
 	}
 }

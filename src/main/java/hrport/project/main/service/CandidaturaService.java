@@ -12,7 +12,7 @@ import hrport.project.main.pojo.Posizione;
 
 public class CandidaturaService {
 
-	public static List<Candidatura> getAllCandiList() throws Exception {
+	public static List<Candidatura> getApplicationsFromPosition() throws Exception {
 
 		Connection con = ConnectDatabase.getConnection();
 
