@@ -1,4 +1,4 @@
-package hrport.project.main.controller.user;
+package hrport.project.main.controller.admin;
 
 import java.io.IOException;
 import java.time.LocalDate;
