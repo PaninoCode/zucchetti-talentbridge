@@ -9,10 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" id="menu_link_posizioni" href="posizioni.jsp">Posizioni</a>
+                    <a class="nav-link" id="menu_link_posizioni" href="posizioni">Posizioni</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="menu_link_candidati" href="candidati.jsp">Candidati</a>
+                    <a class="nav-link" id="menu_link_candidati" href="candidati">Candidati</a>
                 </li>
 
             </ul>
@@ -33,6 +33,9 @@
                 Profilo
             </button>
             <div class="dropdown-menu dropdown-menu-end border border-primary shadow-sm">
+                <jsp:include page='profile_widget.jsp'>
+                    <jsp:param name="profileType" value="Amministratore" />
+                </jsp:include>
             </div>
         </div>
     </div>
