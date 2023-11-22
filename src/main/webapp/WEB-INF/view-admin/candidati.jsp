@@ -6,12 +6,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Candidati | Amministrazione - TalentBridge</title>
-        <link href="/hrport/temp-admin/resources/css/custom/custom.css" rel="stylesheet">
+        <link href="/hrport/resources/css/custom/custom.css" rel="stylesheet">
 
         <link
             href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.css"
             rel="stylesheet">
-        <script type="text/javascript" src="/hrport/temp-admin/resources/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/hrport/resources/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body class="bg-body-tertiary">

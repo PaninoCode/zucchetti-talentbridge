@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/posizioni")
+@WebServlet("/admin/dettaglio-posizione/*")
 public class AdminDettaglioPosizione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -54,7 +54,7 @@ public class AdminDettaglioPosizione extends HttpServlet {
 
 		request.setAttribute("candidati", candidatiJson);
 
-		request.getRequestDispatcher("/WEB-INF/view-admin/posizioni.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view-admin/detail_posizione.jsp").forward(request, response);
 
 	}
 }

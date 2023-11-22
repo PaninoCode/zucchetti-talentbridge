@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/dettaglio-posizione/*")
+@WebServlet("/admin/posizioni")
 public class AdminPosizioni extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +42,8 @@ public class AdminPosizioni extends HttpServlet {
 			List<Posizione> positionsWithApplications = PosizioneService.getAllPositionsWithApplications();
 			
 			candidatiJson = gson.toJson(positionsWithApplications);
+			
+			request.setAttribute("data", candidatiJson);
 
 		} catch (Exception e) {
 
@@ -54,9 +56,12 @@ public class AdminPosizioni extends HttpServlet {
 		
 		String pathInfo = request.getPathInfo();
 
-		request.setAttribute("idPosizione", pathInfo.substring(1));
-
-		request.getRequestDispatcher("/WEB-INF/view-admin/detail_posizione.jsp").forward(request, response);
+		if(pathInfo != null) {
+			
+			request.setAttribute("idPosizione", pathInfo.substring(1));
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/view-admin/posizioni.jsp").forward(request, response);
 
 	}
 }

@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Posizioni | Amministrazione - TalentBridge</title>
-        <link href="/hrport/temp-admin/resources/css/custom/custom.css" rel="stylesheet">
+        <link href="/hrport/resources/css/custom/custom.css" rel="stylesheet">
         <script type="text/javascript" src="/hrport/temp-admin/resources/js/bootstrap.bundle.min.js"></script>
     </head>
 
@@ -109,6 +109,14 @@
 
 
         <script>
+	        let JSPposizioni = `<%=request.getAttribute("data")%>`;
+	
+	
+	        let posizioni = JSON.parse(JSPposizioni);
+	
+	        console.log(posizioni);
+	        
+	        
             let arrayPosizione = [];
 
             let jobPositions = [
