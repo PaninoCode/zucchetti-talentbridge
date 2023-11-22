@@ -22,7 +22,7 @@ public class PosizioneService {
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUserPositions = "SELECT pz.* FROM Posizione pz";
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz WHERE pz.aperta = 1";
 			
 			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
 			
@@ -57,7 +57,7 @@ public class PosizioneService {
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUserPositions = "SELECT pz.* FROM Posizione pz";
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz WHERE pz.aperta = 1";
 			
 			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
 			

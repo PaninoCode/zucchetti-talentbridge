@@ -19,17 +19,17 @@ import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.UtenteService;
 
 /**
- * Servlet implementation class UpdateUtente
+ * Servlet implementation class UpdateUtenteNoPws
  */
 @WebServlet("/app/update-info-user")
-public class UpdateUtente extends HttpServlet {
+public class UpdateUtenteNoPws extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		
@@ -50,27 +50,22 @@ public class UpdateUtente extends HttpServlet {
             out.print(error);
             out.flush();
         }
-		
+        
         // parse the json String and take the attributes
-		try {
+        try {
+        	
+        	UtenteService.updateUtenteInfo(jsonContent.toString());
 			
-			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
-			String oldPassword = json.get("oldPassword").getAsString();
-			String newPassword = json.get("newPassword").getAsString();
-			
-			Utente utente = UtenteService.getUserByIdUtente(idUtente);
-			utente.updatePassword(oldPassword, newPassword);
-			
-			String error = "{\"data\" : \"success\"}";
+			String data = "{\"data\" : \"success\"}";
         	
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            out.print(error);
+            out.print(data);
             out.flush();
 		} catch (Exception e) {
 			
-			String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+			String error = "{\"error\" : " + "\"" + e.getMessage() + "\"" + "}";
         	
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
@@ -80,4 +75,5 @@ public class UpdateUtente extends HttpServlet {
             out.flush();
 		}
 	}
+
 }

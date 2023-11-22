@@ -20,6 +20,16 @@ public class Utente {
     private List<Candidatura> posizioni;
     private ProfiloUtente profile;
     
+    public Utente(Integer idUtente, String email, String password, Boolean admin, String nome, String cognome) {
+    	
+    	this.setIdUtente(idUtente);
+    	this.setEmail(email);
+    	this.setPassword(password);
+    	this.setAdmin(admin);
+    	this.setNome(nome);
+    	this.setCognome(cognome);
+    }
+    
     public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, List<Candidatura> posizioni) {
     	
     	this.setIdUtente(idUtente);
