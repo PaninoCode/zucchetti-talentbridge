@@ -86,6 +86,43 @@ public class UtenteService {
 			con.close();
 		}
 	}
+	
+	public static Utente getUserByIdUtenteWithPassword(Integer idUtente) throws Exception {
+
+		Connection con = ConnectDatabase.getConnection();
+
+		ResultSet resultSetUser = null;
+		try {
+
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.idUtente = ?";
+
+			PreparedStatement User = con.prepareStatement(SQLUser);
+			User.setString(1, idUtente.toString());
+
+			resultSetUser = User.executeQuery();
+
+			resultSetUser.next();
+
+			Utente utente = new Utente(resultSetUser.getInt("idUtente"),
+					resultSetUser.getString("email"),
+					resultSetUser.getString("password"),
+					Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"),
+					resultSetUser.getString("nome"), resultSetUser.getString("cognome"));
+
+			resultSetUser.close();
+			con.commit();
+			return utente;
+		} catch (Exception e) {
+
+			resultSetUser.close();
+			con.rollback();
+			throw e;
+		} finally {
+
+			con.close();
+		}
+	}
 
 	public static Utente getUserByIdUtenteWithPositions(Integer idUtente) throws Exception {
 

@@ -58,7 +58,7 @@ public class UpdateUtentePws extends HttpServlet {
 			String oldPassword = json.get("oldPassword").getAsString();
 			String newPassword = json.get("newPassword").getAsString();
 			
-			Utente utente = UtenteService.getUserByIdUtente(idUtente);
+			Utente utente = UtenteService.getUserByIdUtenteWithPassword(idUtente);
 			utente.updatePassword(oldPassword, newPassword);
 			
 			String error = "{\"data\" : \"success\"}";
