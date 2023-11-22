@@ -11,6 +11,7 @@ import hrport.project.main.connectdb.ConnectDatabase;
 public class Quiz {
 	private int id;
 	private String nome;
+	
 	private List<Domanda> listaDomande= new ArrayList<>();
 	private boolean isDone;
 	
@@ -144,7 +145,7 @@ public class Quiz {
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUser = "with\r\n" 
+			String SQLUser = "with\r\n"
 							+ "v as (\r\n"
 							+ "SELECT q.idQuiz \r\n"
 							+ "	FROM RispostaData as rd\r\n"
@@ -159,8 +160,8 @@ public class Quiz {
 							+ "						END AS isSvolto\r\n"
 							+ "FROM Quiz q\r\n"
 							+ "JOIN posQuiz pq on q.idQuiz = pq.idQuiz\r\n"
-							+ "JOIN v on q.idQuiz = v.idQuiz\r\n"
-							+ "WHERE pq.idPos=?";
+							+ "LEFT JOIN v on q.idQuiz = v.idQuiz\r\n"
+							+ "WHERE pq.idPos=?;";
 			
 			PreparedStatement Quiz = con.prepareStatement(SQLUser);
 			Quiz.setInt(1, idUtente);
