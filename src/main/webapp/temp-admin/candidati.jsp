@@ -68,7 +68,9 @@
 		
 			let candidati = JSON.parse(JSPcandidati);
 			
+			
 			console.log(candidati);
+			console.log(candidati[0].posizioni[0].position.nome);
 			
 	        
 	    	var tableBody = document.getElementById("profiles-data");
@@ -77,7 +79,7 @@
 	    		var row = document.createElement("tr");
 	    		
 	    		var idCell = document.createElement("td");
-	    		idCell.textContent = candidato.idCand;
+	    		idCell.textContent = candidato.idUtente;
 	    		
 	    		var nomeCell = document.createElement("td");
 	    		nomeCell.textContent = candidato.nome;
@@ -86,7 +88,8 @@
 	    		cognomeCell.textContent = candidato.cognome;
 	    		
 	    		var posizioneCell = document.createElement("td");
-	    		posizioneCell.textContent = candidato.posizione;
+	    		posizioneCell.textContent = candidato.posizioni[0].position.nome;
+	    		
 	    		
 	    		var linkCell = document.createElement("td");
 	    		var linkElement = document.createElement("a");
