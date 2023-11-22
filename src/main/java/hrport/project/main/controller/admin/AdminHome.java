@@ -9,7 +9,9 @@ import com.google.gson.GsonBuilder;
 
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.PosizioneService;
+import hrport.project.main.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -35,13 +37,12 @@ public class AdminHome extends HttpServlet {
 
 		String candidatiJson = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-		
 
 		try {
 
-			List<Posizione> positionsWithApplications = PosizioneService.getAllPositionsWithApplications();
-			
-			candidatiJson = gson.toJson(positionsWithApplications);
+			List<Utente> candidati = UtenteService.getUtentiCandidati();
+
+			candidatiJson = gson.toJson(candidati);
 
 		} catch (Exception e) {
 
