@@ -28,7 +28,7 @@ public class LoginRoute extends HttpServlet {
 			return;
 		} else if(session != null && Boolean.valueOf((String) session.getAttribute("admin"))) {
 			
-			/* inserisco la redirect per la /admin/home */
+			response.sendRedirect(request.getContextPath() + "/admin/home");
 			return;
 		}
 		

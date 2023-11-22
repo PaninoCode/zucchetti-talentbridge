@@ -1,21 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" session="false" %>
     <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>TalentBridge</title>
-        <link href="resources/css/custom/custom.css" rel="stylesheet">
+        <link href="/hrport/temp-admin/resources/css/custom/custom.css" rel="stylesheet">
+        
         <link
             href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.css"
             rel="stylesheet">
-        <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/hrport/temp-admin/resources/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body class="bg-body-tertiary">
-        <jsp:include page='account_edit_modal.jsp'></jsp:include>
-
+        
         <jsp:include page='admin_header.jsp'>
             <jsp:param name="activeLinkId" value="candidati" />
         </jsp:include>
@@ -30,15 +30,15 @@
                         <table id="myTable" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Column 1</th>
-                                    <th>Column 2</th>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Cognome</th>
+                                    <th>Posizione</th>
+                                    <th>Profilo</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Row 1 Data 1</td>
-                                    <td>Row 1 Data 2</td>
-                                </tr>
+                            <tbody id="profiles-data">
+                                <!-- Lista di profili -->
                             </tbody>
                         </table>
                     </div>
@@ -59,8 +59,52 @@
         <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.js"></script>
         <script
-            src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.js"></script>
+            src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.js">
+        </script>
         <script>
+		
+			let JSPcandidati = `<%=request.getAttribute("candidati")%>`;
+			
+		
+			let candidati = JSON.parse(JSPcandidati);
+			
+			console.log(candidati);
+			
+	        
+	    	var tableBody = document.getElementById("profiles-data");
+	    	
+	    	candidati.forEach(function(candidato){
+	    		var row = document.createElement("tr");
+	    		
+	    		var idCell = document.createElement("td");
+	    		idCell.textContent = candidato.idCand;
+	    		
+	    		var nomeCell = document.createElement("td");
+	    		nomeCell.textContent = candidato.nome;
+	    		
+	    		var cognomeCell = document.createElement("td");
+	    		cognomeCell.textContent = candidato.cognome;
+	    		
+	    		var posizioneCell = document.createElement("td");
+	    		posizioneCell.textContent = candidato.posizione;
+	    		
+	    		var linkCell = document.createElement("td");
+	    		var linkElement = document.createElement("a");
+	    		linkElement.textContent = "Profilo";
+	    		linkElement.href = "#";
+	    		
+	    		linkCell.appendChild(linkElement);
+	    		
+	    		row.appendChild(idCell);
+	    		row.appendChild(nomeCell);
+	    		row.appendChild(cognomeCell);
+	    		row.appendChild(posizioneCell);
+	    		row.appendChild(linkCell);
+	    		
+	    		tableBody.appendChild(row);
+	    		
+	    	});
+        
             let table = new DataTable('#myTable', {
                 dom: "PlftipB",
                 buttons: [
@@ -77,5 +121,4 @@
             });
         </script>
     </body>
-
-    </html>
+</html>

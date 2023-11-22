@@ -47,7 +47,8 @@ public class UserHome extends HttpServlet {
 			dataPositions = gson.toJson(positions);
 		} catch (Exception e) {
 
-			String error = gson.toJson(e);
+			String error = e.getMessage();
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("data", error);
 			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 			return;

@@ -1,5 +1,7 @@
 package hrport.project.main.pojo;
 
+import java.util.List;
+
 public class Posizione {
 	
 	private Integer idPos;
@@ -7,6 +9,7 @@ public class Posizione {
 	private Boolean aperta;
 	private String fotoUrl;
 	private String descrizione;
+	private List<Candidatura> applications;
 	
 	public Posizione(Integer idPos, String nome, Boolean aperta, String fotoUrl, String descrizione){
 		
@@ -15,6 +18,16 @@ public class Posizione {
 		setAperta(aperta);
 		setFotoUrl(fotoUrl);
 		setDescrizione(descrizione);
+	}
+	
+	public Posizione(Integer idPos, String nome, Boolean aperta, String fotoUrl, String descrizione, List<Candidatura> applications){
+		
+		setIdPos(idPos);
+		setNome(nome);
+		setAperta(aperta);
+		setFotoUrl(fotoUrl);
+		setDescrizione(descrizione);
+		setApplications(applications);
 	}
 
 	public Integer getIdPos() {
@@ -46,5 +59,11 @@ public class Posizione {
 	}
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+	public List<Candidatura> getApplications() {
+		return applications;
+	}
+	public void setApplications(List<Candidatura> applications) {
+		this.applications = applications;
 	}
 }

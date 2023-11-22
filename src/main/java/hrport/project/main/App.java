@@ -14,7 +14,9 @@ import hrport.project.main.adaptergson.LocalDateAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -22,6 +24,7 @@ import com.google.gson.JsonParser;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.*;
+import hrport.project.main.service.PosizioneService;
 import hrport.project.main.service.UtenteService;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -31,8 +34,17 @@ public class App {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		Set<EspLavorativa> esp = new HashSet<>();
+		Set<Istruzione> ist = new HashSet<>();
+		
+		//ProfiloUtente profiloUtente = new ProfiloUtente(2, "test", "test", null, "test", "test", true, LocalDate.of(2023, 11, 19), "test", "test", "123", "test", "test", "test", esp, ist);
+		
 		// TODO Auto-generated method stub
 		/*System.out.println("HelloWorld");
+		 * 
+		 *
+		 
 		
 		try {
 			Quiz q= Quiz.initQuiz(1);
@@ -73,7 +85,7 @@ public class App {
 //			
 //			String error = "{\"data\" : \"success\"}";
         	
-        	Utente utente = UtenteService.getUserByIdUtenteWithPositions(1);
+        	List<Posizione> utente = PosizioneService.getAllPositionsWithApplications();
         	
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         	String json = gson.toJson(utente);

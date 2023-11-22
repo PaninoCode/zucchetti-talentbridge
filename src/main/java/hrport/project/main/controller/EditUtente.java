@@ -47,7 +47,6 @@ public class EditUtente extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             out.print(success);
             out.flush();
-			//dataUser = gson.toJson(utente);
 		} catch (Exception e) {
 			
         	

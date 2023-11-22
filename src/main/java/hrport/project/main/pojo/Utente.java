@@ -17,10 +17,10 @@ public class Utente {
     private Boolean admin;
     private String nome;
     private String cognome;
-    private List<Posizione> posizioni;
+    private List<Candidatura> posizioni;
     private ProfiloUtente profile;
     
-    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, List<Posizione> posizioni) {
+    public Utente(Integer idUtente, String email, Boolean admin, String nome, String cognome, List<Candidatura> posizioni) {
     	
     	this.setIdUtente(idUtente);
     	this.setEmail(email);
@@ -95,10 +95,10 @@ public class Utente {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	public List<Posizione> getPosizioni() {
+	public List<Candidatura> getPosizioni() {
 		return posizioni;
 	}
-	public void setPosizioni(List<Posizione> posizioni) {
+	public void setPosizioni(List<Candidatura> posizioni) {
 		this.posizioni = posizioni;
 	}
 	public ProfiloUtente getProfile() {
