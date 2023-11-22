@@ -20,8 +20,8 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/dettaglio-posizione/*")
-public class AdminPosizioni extends HttpServlet {
+@WebServlet("/admin/posizioni")
+public class AdminDettaglioPosizione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -51,12 +51,10 @@ public class AdminPosizioni extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 			return;
 		}
-		
-		String pathInfo = request.getPathInfo();
 
-		request.setAttribute("idPosizione", pathInfo.substring(1));
+		request.setAttribute("candidati", candidatiJson);
 
-		request.getRequestDispatcher("/WEB-INF/view-admin/detail_posizione.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view-admin/posizioni.jsp").forward(request, response);
 
 	}
 }

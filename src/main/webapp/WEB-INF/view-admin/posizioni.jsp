@@ -46,7 +46,7 @@
                         </div>
                         <span class="m-2"></span>
                         <div class="d-flex justify-content-end align-items-center">
-                            <a href="modifica_posizione.jsp?posId={position_id}" class="btn btn-primary text-light">
+                            <a href="dettaglio-posizione/{position_id}" class="btn btn-primary text-light">
                                 <h5 class="m-0 d-flex justify-content-center align-items-center">
                                     Modifica
                                     <span class="m-1"></span>
