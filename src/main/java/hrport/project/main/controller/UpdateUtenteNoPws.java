@@ -53,24 +53,19 @@ public class UpdateUtenteNoPws extends HttpServlet {
         
         // parse the json String and take the attributes
         try {
+        	
+        	UtenteService.updateUtenteInfo(jsonContent.toString());
 			
-			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
-			String oldPassword = json.get("oldPassword").getAsString();
-			String newPassword = json.get("newPassword").getAsString();
-			
-			Utente utente = UtenteService.getUserByIdUtente(idUtente);
-			utente.updatePassword(oldPassword, newPassword);
-			
-			String error = "{\"data\" : \"success\"}";
+			String data = "{\"data\" : \"success\"}";
         	
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            out.print(error);
+            out.print(data);
             out.flush();
 		} catch (Exception e) {
 			
-			String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+			String error = "{\"error\" : " + "\"" + e.getMessage() + "\"" + "}";
         	
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
