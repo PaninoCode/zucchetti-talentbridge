@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TalentBridge</title>
+        <title>Profilo | TalentBridge</title>
         <link href="<%=request.getContextPath()%>/resources/css/custom/custom.css" rel="stylesheet">
         <script type="text/javascript"
             src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
