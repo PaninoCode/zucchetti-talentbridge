@@ -9,9 +9,7 @@ import com.google.gson.GsonBuilder;
 
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Posizione;
-import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.PosizioneService;
-import hrport.project.main.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,8 +20,8 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/home")
-public class AdminHome extends HttpServlet {
+@WebServlet("/admin/dettaglio-posizione/*")
+public class AdminPosizioni extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -37,12 +35,13 @@ public class AdminHome extends HttpServlet {
 
 		String candidatiJson = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		
 
 		try {
 
-			List<Utente> candidati = UtenteService.getUtentiCandidati();
-
-			candidatiJson = gson.toJson(candidati);
+			List<Posizione> positionsWithApplications = PosizioneService.getAllPositionsWithApplications();
+			
+			candidatiJson = gson.toJson(positionsWithApplications);
 
 		} catch (Exception e) {
 
@@ -52,12 +51,12 @@ public class AdminHome extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 			return;
 		}
+		
+		String pathInfo = request.getPathInfo();
 
-		request.setAttribute("candidati", candidatiJson);
+		request.setAttribute("idPosizione", pathInfo.substring(1));
 
-		//request.getRequestDispatcher("/WEB-INF/view-admin/candidati.jsp").forward(request, response);
-		response.sendRedirect(request.getContextPath() + "/admin/candidati");
-		return;
+		request.getRequestDispatcher("/WEB-INF/view-admin/detail_posizione.jsp").forward(request, response);
 
 	}
 }
