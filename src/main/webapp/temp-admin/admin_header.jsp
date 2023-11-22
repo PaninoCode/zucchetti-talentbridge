@@ -33,12 +33,11 @@
                 Profilo
             </button>
             <div class="dropdown-menu dropdown-menu-end border border-primary shadow-sm">
-                
             </div>
         </div>
     </div>
 </nav>
-
+<div style="height: 5rem;"></div>
 
 <script>
     document.getElementById('menu_link_${param.activeLinkId}').classList.add('active');
