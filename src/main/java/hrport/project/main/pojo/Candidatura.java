@@ -21,6 +21,7 @@ public class Candidatura {
 		this.setStato(stato);
 	}
 	
+	
 	public Integer getIdCand() {
 		return idCand;
 	}

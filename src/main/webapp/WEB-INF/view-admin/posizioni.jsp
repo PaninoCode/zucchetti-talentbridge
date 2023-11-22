@@ -5,15 +5,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TalentBridge</title>
-        <link href="resources/css/custom/custom.css" rel="stylesheet">
-        <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
+        <title>Posizioni | Amministrazione - TalentBridge</title>
+        <link href="/hrport/resources/css/custom/custom.css" rel="stylesheet">
+        <script type="text/javascript" src="/hrport/temp-admin/resources/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body class="bg-body-tertiary">
-        <jsp:include page='account_edit_modal.jsp'></jsp:include>
+        <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
-        <jsp:include page='admin_header.jsp'>
+        <jsp:include page='../view-common/admin_header.jsp'>
             <jsp:param name="activeLinkId" value="posizioni" />
         </jsp:include>
         <div style="height: 5rem;"></div>
@@ -46,7 +46,7 @@
                         </div>
                         <span class="m-2"></span>
                         <div class="d-flex justify-content-end align-items-center">
-                            <a href="modifica_posizione.jsp?posId={position_id}" class="btn btn-primary text-light">
+                            <a href="dettaglio-posizione/{position_id}" class="btn btn-primary text-light">
                                 <h5 class="m-0 d-flex justify-content-center align-items-center">
                                     Modifica
                                     <span class="m-1"></span>
@@ -105,10 +105,18 @@
             </div>
         </section>
 
-        <jsp:include page='admin_footer.jsp'></jsp:include>
+        <jsp:include page='../view-common/footer.jsp'></jsp:include>
 
 
         <script>
+	        let JSPposizioni = `<%=request.getAttribute("data")%>`;
+	
+	
+	        let posizioni = JSON.parse(JSPposizioni);
+	
+	        console.log(posizioni);
+	        
+	        
             let arrayPosizione = [];
 
             let jobPositions = [

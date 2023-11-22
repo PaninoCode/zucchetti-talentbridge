@@ -24,6 +24,7 @@ import com.google.gson.JsonParser;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.*;
+import hrport.project.main.service.CandidaturaService;
 import hrport.project.main.service.PosizioneService;
 import hrport.project.main.service.UtenteService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -85,10 +86,13 @@ public class App {
 //			
 //			String error = "{\"data\" : \"success\"}";
         	
-        	List<Posizione> utente = PosizioneService.getAllPositionsWithApplications();
+        	List<Utente> utente = UtenteService.getUtentiCandidati();
+        	List<Candidatura> candidaturas = CandidaturaService.getApplicationsByIdUtente(1);
+        	
+        	
         	
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        	String json = gson.toJson(utente);
+        	String json = gson.toJson(candidaturas);
         	System.out.println(json);
         } catch (Exception e) {
             e.printStackTrace();

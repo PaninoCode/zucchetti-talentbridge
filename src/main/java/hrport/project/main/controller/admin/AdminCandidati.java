@@ -22,8 +22,8 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/home")
-public class AdminHome extends HttpServlet {
+@WebServlet("/admin/candidati")
+public class AdminCandidati extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -37,12 +37,13 @@ public class AdminHome extends HttpServlet {
 
 		String candidatiJson = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		
 
 		try {
 
-			List<Utente> candidati = UtenteService.getUtentiCandidati();
-
-			candidatiJson = gson.toJson(candidati);
+			List<Utente> positionsWithApplications = UtenteService.getUtentiCandidati();
+			
+			candidatiJson = gson.toJson(positionsWithApplications);
 
 		} catch (Exception e) {
 
@@ -55,9 +56,7 @@ public class AdminHome extends HttpServlet {
 
 		request.setAttribute("candidati", candidatiJson);
 
-		//request.getRequestDispatcher("/WEB-INF/view-admin/candidati.jsp").forward(request, response);
-		response.sendRedirect(request.getContextPath() + "/admin/candidati");
-		return;
+		request.getRequestDispatcher("/WEB-INF/view-admin/candidati.jsp").forward(request, response);
 
 	}
 }
