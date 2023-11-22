@@ -6,17 +6,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>TalentBridge</title>
-        <link href="resources/css/custom/custom.css" rel="stylesheet">
+        <link href="/hrport/temp-admin/resources/css/custom/custom.css" rel="stylesheet">
         <link
             href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.css"
             rel="stylesheet">
-        <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript" src="/hrport/temp-admin/resources/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body class="bg-body-tertiary">
+        
+        <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
-        <jsp:include page='admin_header.jsp'>
-            <jsp:param name="activeLinkId" value="candidati" />
+        <jsp:include page='../view-common/admin_header.jsp'>
+            <jsp:param name="activeLinkId" value="posizioni" />
         </jsp:include>
 
         <section style="min-height: 100vh;">
@@ -73,7 +75,7 @@
                                 <div class="row mb-3">
                                     <label for="input_id_posizione" class="col-sm-3 col-form-label">ID Posizione</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_id_posizione" readonly>
+                                        <input type="text" class="form-control" id="input_id_posizione" value="<%=request.getAttribute("idPosizione")%>" readonly disabled>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -165,8 +167,7 @@
 
             </div>
         </section>
-
-        <jsp:include page='admin_footer.jsp'></jsp:include>
+        <jsp:include page='../view-common/footer.jsp'></jsp:include>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>

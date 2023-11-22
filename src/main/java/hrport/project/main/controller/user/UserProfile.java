@@ -49,6 +49,6 @@ public class UserProfile extends HttpServlet {
 		}
 		
 		request.setAttribute("dataUser", dataUser);
-		request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view-user/profile.jsp").forward(request, response);
 	}
 }

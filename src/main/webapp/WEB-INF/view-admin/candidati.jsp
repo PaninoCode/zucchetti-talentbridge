@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TalentBridge</title>
+        <title>Candidati | Amministrazione - TalentBridge</title>
         <link href="/hrport/temp-admin/resources/css/custom/custom.css" rel="stylesheet">
 
         <link

@@ -10,6 +10,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="menu_link_home" href="home">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="menu_link_profilo" href="profile">Profilo</a>
+                </li>
             </ul>
         </div>
 

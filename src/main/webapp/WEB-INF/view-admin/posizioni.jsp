@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TalentBridge</title>
+        <title>Posizioni | Amministrazione - TalentBridge</title>
         <link href="/hrport/temp-admin/resources/css/custom/custom.css" rel="stylesheet">
         <script type="text/javascript" src="/hrport/temp-admin/resources/js/bootstrap.bundle.min.js"></script>
     </head>
@@ -46,7 +46,7 @@
                         </div>
                         <span class="m-2"></span>
                         <div class="d-flex justify-content-end align-items-center">
-                            <a href="modifica_posizione.jsp?posId={position_id}" class="btn btn-primary text-light">
+                            <a href="dettaglio-posizione/{position_id}" class="btn btn-primary text-light">
                                 <h5 class="m-0 d-flex justify-content-center align-items-center">
                                     Modifica
                                     <span class="m-1"></span>
