@@ -15,44 +15,8 @@
 
 
     <jsp:include page='../view-common/user_header.jsp'>
-        <jsp:param name="activeLinkId" value="candidati" />
+        <jsp:param name="activeLinkId" value="home" />
     </jsp:include>
-
-
-    <!-- <nav class="navbar navbar-expand-lg bg-white sticky-top" data-bs-theme="light">
-        <div class="container-fluid">
-            <a class="navbar-brand display-6" href="#">TalentBridge</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu border border-primary shadow-sm">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider border border-primary opacity-100">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </nav> -->
 
 
     <span class="d-none" id="template_posizione">

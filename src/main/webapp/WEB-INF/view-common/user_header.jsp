@@ -8,12 +8,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" id="menu_link_posizioni" href="posizioni.jsp">Posizioni</a>
+                    <a class="nav-link" id="menu_link_home" href="home">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="menu_link_candidati" href="candidati.jsp">Candidati</a>
-                </li>
-
             </ul>
         </div>
 
