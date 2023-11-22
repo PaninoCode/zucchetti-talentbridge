@@ -12,6 +12,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.UtenteService;
+
 /**
  * Servlet implementation class UpdateUtenteNoPws
  */
@@ -44,6 +50,35 @@ public class UpdateUtenteNoPws extends HttpServlet {
             out.print(error);
             out.flush();
         }
+        
+        // parse the json String and take the attributes
+        try {
+			
+			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
+			String oldPassword = json.get("oldPassword").getAsString();
+			String newPassword = json.get("newPassword").getAsString();
+			
+			Utente utente = UtenteService.getUserByIdUtente(idUtente);
+			utente.updatePassword(oldPassword, newPassword);
+			
+			String error = "{\"data\" : \"success\"}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            out.print(error);
+            out.flush();
+		} catch (Exception e) {
+			
+			String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+        	
+        	PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print(error);
+            out.flush();
+		}
 	}
 
 }
