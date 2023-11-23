@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 import hrport.project.main.pojo.Quiz;
 
-public class QuizToDoAdapter implements JsonSerializer<Quiz> {
+public class QuizListAdapter implements JsonSerializer<Quiz> {
 
     @Override
     public JsonElement serialize(Quiz src, Type typeOfSrc, JsonSerializationContext context) {

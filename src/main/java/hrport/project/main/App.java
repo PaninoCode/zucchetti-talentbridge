@@ -10,8 +10,10 @@ import java.time.LocalDate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import hrport.project.main.adaptergson.DomandaAdapter;
 import hrport.project.main.adaptergson.LocalDateAdapter;
-import hrport.project.main.adaptergson.QuizToDoAdapter;
+import hrport.project.main.adaptergson.QuizListAdapter;
+import hrport.project.main.adaptergson.RispostaAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,49 +34,63 @@ import hrport.project.main.service.UtenteService;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class App {
-
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Gson gson = new GsonBuilder().registerTypeAdapter(Quiz.class, new QuizToDoAdapter()).create();
-		try {
-			System.out.println(gson.toJson(Quiz.getQuizFromPosizioneUtente(1, 1)));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		Set<EspLavorativa> esp = new HashSet<>();
-//		Set<Istruzione> ist = new HashSet<>();
-//		
-//		//ProfiloUtente profiloUtente = new ProfiloUtente(2, "test", "test", null, "test", "test", true, LocalDate.of(2023, 11, 19), "test", "test", "123", "test", "test", "test", esp, ist);
-//		
-//		// TODO Auto-generated method stub
-//		/*System.out.println("HelloWorld");
-//		 * 
-//		 *
-//		 
-//		
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(Domanda.class, new DomandaAdapter())
+				.registerTypeAdapter(Risposta.class, new RispostaAdapter())
+				.create();
+
+			try {
+				System.out.println(gson.toJson(Quiz.initQuiz(1)));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+//		Gson gson = new GsonBuilder().registerTypeAdapter(Quiz.class, new QuizToDoAdapter()).create();
 //		try {
-//			Quiz q= Quiz.initQuiz(1);
-//			
-//			System.out.println("Nome: "+q.getNome()+
-//					"\nPunteggio domanda 1: "+q.domandaIndex(0).getPunteggio()+
-//					"\nTesto risposta n2: "+q.domandaIndex(0).rispostaIndex(1).getTesto());
-//			System.out.println(((Domanda)q.getDomande()[0]).getTesto());
-//			
-//			String error = "{\"data\" : \"success\"}";
-        	
-
-        	
-        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\",\"posizioni\":[{\"idCand\":1,\"position\":{\"idPos\":1,\"nome\":\"Posizione1\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione1\",\"descrizione\":\"Descrizione1\u003c3\"},\"stato\":0},{\"idCand\":2,\"position\":{\"idPos\":2,\"nome\":\"Posizione2\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione2\",\"descrizione\":\"Descrizione2\u003e:(((((\"},\"stato\":1}]}"
-        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
-        	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        	String json = gson.toJson(candidaturas);
-        	System.out.println(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-        };
+//			System.out.println(gson.toJson(Quiz.getQuizFromPosizioneUtente(1, 1)));
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+////		Set<EspLavorativa> esp = new HashSet<>();
+////		Set<Istruzione> ist = new HashSet<>();
+////		
+////		//ProfiloUtente profiloUtente = new ProfiloUtente(2, "test", "test", null, "test", "test", true, LocalDate.of(2023, 11, 19), "test", "test", "123", "test", "test", "test", esp, ist);
+////		
+////		// TODO Auto-generated method stub
+////		/*System.out.println("HelloWorld");
+////		 * 
+////		 *
+////		 
+////		
+////		try {
+////			Quiz q= Quiz.initQuiz(1);
+////			
+////			System.out.println("Nome: "+q.getNome()+
+////					"\nPunteggio domanda 1: "+q.domandaIndex(0).getPunteggio()+
+////					"\nTesto risposta n2: "+q.domandaIndex(0).rispostaIndex(1).getTesto());
+////			System.out.println(((Domanda)q.getDomande()[0]).getTesto());
+////			
+////			String error = "{\"data\" : \"success\"}";
+//        	
+//
+//        	
+//        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\",\"posizioni\":[{\"idCand\":1,\"position\":{\"idPos\":1,\"nome\":\"Posizione1\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione1\",\"descrizione\":\"Descrizione1\u003c3\"},\"stato\":0},{\"idCand\":2,\"position\":{\"idPos\":2,\"nome\":\"Posizione2\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione2\",\"descrizione\":\"Descrizione2\u003e:(((((\"},\"stato\":1}]}"
+//        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
+//        	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+//        	String json = gson.toJson(candidaturas);
+//        	System.out.println(json);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        };
 	}
-
 }
+
+
