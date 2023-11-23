@@ -9,7 +9,7 @@ public class Domanda {
 	private int id;
 	private String testo;
 	private int punteggio;
-	private Risposta r[]= new Risposta[4];
+	private Risposta risposte[]= new Risposta[4];
 
 	
 	public Domanda(int id, String testo, int punteggio) {
@@ -30,12 +30,12 @@ public class Domanda {
 		return punteggio;
 	}
 	
-	public Object[] getRisposte() {
-		return r;
+	public Risposta[] getRisposte() {
+		return risposte;
 	}
 	
 	public Risposta rispostaIndex(int index) {
-		return r[index];
+		return risposte[index];
 	}
 	
 	public void setId(int id) {
@@ -64,7 +64,7 @@ public class Domanda {
 				int rispostaId=resultSet.getInt(2);
 				String testo=resultSet.getString(3);
 				boolean giusta=resultSet.getBoolean(4);
-				r[i]= new Risposta(rispostaId, testo, giusta);
+				risposte[i]= new Risposta(rispostaId, testo, giusta);
 			}
 			
 		} catch (SQLException e) {

@@ -1,6 +1,7 @@
 package hrport.project.main.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -8,12 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.CategoriaSkills;
 import hrport.project.main.pojo.EspLavorativa;
 import hrport.project.main.pojo.Istruzione;
 import hrport.project.main.pojo.Posizione;
 import hrport.project.main.pojo.ProfiloUtente;
+import hrport.project.main.pojo.Utente;
 
 public class ProfiloUtenteService {
 
@@ -122,5 +128,95 @@ public class ProfiloUtenteService {
 			resultSetProfile.close();
 			con.close();
 		}
+	}
+	
+	public static void updateProfileInfo(String json) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		ProfiloUtente profilo = null;
+			System.out.println("test");
+		try {
+			
+			con.setAutoCommit(false);
+			
+			profilo = gson.fromJson(json, ProfiloUtente.class);
+					
+			String SQL = "UPDATE \"Profilo\""
+					+ "SET sesso = ?"
+					+ "SET dNascita = ?"
+					+ "SET indResidenza = ?"
+					+ "SET indDomicilio = ?"
+					+ "SET telefono = ?"
+					+ "SET codiceFiscale = ?"
+					+ "SET statoOrigine = ?"
+					+ "SET comNascita = ?"
+					+ "WHERE Profilo.idUtente = ?";
+			
+			PreparedStatement updateProfilo = con.prepareStatement(SQL);
+			
+			updateProfilo.setInt(1, (profilo.isGender() ? 1 : 0));
+			updateProfilo.setDate(2, Date.valueOf(profilo.getdNascita()));
+			updateProfilo.setString(3, profilo.getIndResidenza());
+			updateProfilo.setString(4, profilo.getInDomicilio());
+			updateProfilo.setString(5, profilo.getTelefono());
+			updateProfilo.setString(6, profilo.getCodiceFiscale());
+			updateProfilo.setString(7, profilo.getStatoOrigine());
+			updateProfilo.setString(8, profilo.getComNascita());
+			updateProfilo.setInt(9, profilo.getIdUtente());
+			
+			updateProfilo.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
+	
+	public static void insertProfileInfo(String json, Integer idUtente) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		ProfiloUtente profilo = null;
+			System.out.println("test");
+		try {
+			
+			con.setAutoCommit(false);
+			
+			profilo = gson.fromJson(json, ProfiloUtente.class);
+					
+			String SQL = "INSERT INTO \"Profile\" (\"idUtente\", \"sesso\", \"dNascita\", \"indResidenza\", \"indDomicilio\", \"codiceFiscale\", \"statoOrigine\", \"comNascita\")\r\n"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			
+			PreparedStatement insertProfilo = con.prepareStatement(SQL);
+			
+			insertProfilo.setInt(1, (profilo.isGender() ? 1 : 0));
+			insertProfilo.setInt(2, (profilo.isGender() ? 1 : 0));
+			insertProfilo.setDate(3, Date.valueOf(profilo.getdNascita()));
+			insertProfilo.setString(4, profilo.getIndResidenza());
+			insertProfilo.setString(5, profilo.getInDomicilio());
+			insertProfilo.setString(6, profilo.getTelefono());
+			insertProfilo.setString(7, profilo.getCodiceFiscale());
+			insertProfilo.setString(8, profilo.getStatoOrigine());
+			insertProfilo.setString(9, profilo.getComNascita());
+			
+			insertProfilo.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
 	}
 }

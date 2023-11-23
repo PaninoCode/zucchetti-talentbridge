@@ -10,7 +10,11 @@ import java.time.LocalDate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import hrport.project.main.adaptergson.DomandaAdapter;
 import hrport.project.main.adaptergson.LocalDateAdapter;
+import hrport.project.main.adaptergson.QuizListAdapter;
+import hrport.project.main.adaptergson.RispostaAdapter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +34,7 @@ import hrport.project.main.service.UtenteService;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class App {
-
+	
 	/**
 	 * @param args
 	 */
@@ -97,5 +101,6 @@ public class App {
             e.printStackTrace();
         };
 	}
-
 }
+
+
