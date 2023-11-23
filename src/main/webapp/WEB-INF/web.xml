@@ -121,4 +121,24 @@
     <servlet-name>UpdateIstruzione</servlet-name>
     <url-pattern>/UpdateIstruzione</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertEsperienzaLav</display-name>
+    <servlet-name>InsertEsperienzaLav</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.InsertEsperienzaLav</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertEsperienzaLav</servlet-name>
+    <url-pattern>/InsertEsperienzaLav</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateEsperienzaLav</display-name>
+    <servlet-name>UpdateEsperienzaLav</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UpdateEsperienzaLav</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateEsperienzaLav</servlet-name>
+    <url-pattern>/UpdateEsperienzaLav</url-pattern>
+  </servlet-mapping>
 </web-app>
