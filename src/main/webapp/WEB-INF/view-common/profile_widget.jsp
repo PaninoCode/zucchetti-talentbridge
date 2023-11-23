@@ -73,7 +73,7 @@
 
         const result = await response.json();
 
-        console.log(result);
+        // console.log(result);
 
         if (result.error != null) {
         	alert("Si e' presentato un errore nel caricamento dei dati utente.");

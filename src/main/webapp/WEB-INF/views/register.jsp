@@ -148,7 +148,7 @@
 
                 </div>
                 <p class="text-center mb-4">
-                    <a href="/hrport/login">Hai giÃ  un account? &dash; Accedi</a>
+                    <a href="/hrport/login">Hai gi&agrave; un account? &dash; Accedi</a>
                 </p>
             </div>
         </div>
