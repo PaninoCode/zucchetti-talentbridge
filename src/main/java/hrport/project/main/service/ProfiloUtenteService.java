@@ -135,7 +135,7 @@ public class ProfiloUtenteService {
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		ProfiloUtente profilo = null;
-			System.out.println("test");
+			
 		try {
 			
 			con.setAutoCommit(false);
@@ -184,7 +184,7 @@ public class ProfiloUtenteService {
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		ProfiloUtente profilo = null;
-			System.out.println("test");
+			
 		try {
 			
 			con.setAutoCommit(false);
