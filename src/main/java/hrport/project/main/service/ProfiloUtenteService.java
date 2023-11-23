@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import hrport.project.main.connectdb.ConnectDatabase;
+import hrport.project.main.pojo.CategoriaSkills;
 import hrport.project.main.pojo.EspLavorativa;
 import hrport.project.main.pojo.Istruzione;
 import hrport.project.main.pojo.Posizione;
@@ -37,6 +38,8 @@ public class ProfiloUtenteService {
 					.getEducationByIdUtente(resultSetProfile.getString("idUtente"));
 			Set<EspLavorativa> experiences = EspLavorativaService
 					.getEducationByIdUtente(resultSetProfile.getString("idUtente"));
+			
+			Set<CategoriaSkills> category = CategorySkillsService.getCategoriesByIdCvWithSkills(resultSetProfile.getInt("idCv"));
 
 			ProfiloUtente profiloUtente = new ProfiloUtente(Integer.valueOf(resultSetProfile.getString("idUtente")),
 					Integer.valueOf(resultSetProfile.getString("idCv")), resultSetProfile.getString("fileUrl"),
@@ -45,12 +48,13 @@ public class ProfiloUtenteService {
 					LocalDate.parse(resultSetProfile.getString("dNascita")), resultSetProfile.getString("indResidenza"),
 					resultSetProfile.getString("indDomicilio"), resultSetProfile.getString("telefono"),
 					resultSetProfile.getString("codiceFiscale"), resultSetProfile.getString("statoOrigine"),
-					resultSetProfile.getString("comNascita"), experiences, education);
+					resultSetProfile.getString("comNascita"), experiences, education, category);
 
 			con.commit();
 			return profiloUtente;
 		} catch (Exception e) {
 
+			// throw e;
 			con.rollback();
 			ProfiloUtente profiloUtente = null;
 			return profiloUtente;
@@ -105,12 +109,7 @@ public class ProfiloUtenteService {
 
 				profiles.add(profiloUtente);
 				
-				
-
 			}
-
-			
-			
 
 			con.commit();
 			return profiles;
