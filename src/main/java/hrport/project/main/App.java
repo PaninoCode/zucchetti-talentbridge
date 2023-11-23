@@ -29,6 +29,7 @@ import com.google.gson.JsonParser;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.*;
 import hrport.project.main.service.CandidaturaService;
+import hrport.project.main.service.CategorySkillsService;
 import hrport.project.main.service.PosizioneService;
 import hrport.project.main.service.UtenteService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -91,12 +92,13 @@ public class App {
 //			String error = "{\"data\" : \"success\"}";
         	
 			
-        	
+        	Set<CategoriaSkills> category = CategorySkillsService.getCategoriesByIdCvWithSkills(1);
+        	// "{\"idCv\":1,\"skills\":[{\"idCs\":1,\"idSkill\":3,\"nomeSkill\":\"Skill1\"}],\"nomeCategoria\":\"Categoria1\"}"
         	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\",\"posizioni\":[{\"idCand\":1,\"position\":{\"idPos\":1,\"nome\":\"Posizione1\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione1\",\"descrizione\":\"Descrizione1\u003c3\"},\"stato\":0},{\"idCand\":2,\"position\":{\"idPos\":2,\"nome\":\"Posizione2\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione2\",\"descrizione\":\"Descrizione2\u003e:(((((\"},\"stato\":1}]}"
         	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        	//String json = gson.toJson(candidaturas);
-        	//System.out.println(json);
+        	String json = gson.toJson(category);
+        	System.out.println(json);
         } catch (Exception e) {
             e.printStackTrace();
         };
