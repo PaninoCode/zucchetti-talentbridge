@@ -48,7 +48,6 @@ public class EditUtente extends HttpServlet {
             out.print(success);
             out.flush();
 		} catch (Exception e) {
-			
         	
         	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
         	

@@ -21,10 +21,11 @@ public class ProfiloUtente {
 	private String comNascita;
 	private Set<EspLavorativa> experiences;
 	private Set<Istruzione> education;
+	private Set<CategoriaSkills> category;
 
 	public ProfiloUtente(Integer idUtente, Integer idCv, String fileUrl, String fotoUrl, Boolean gender,
 			LocalDate dNascita, String indResidenza, String inDomicilio, String telefono, String codiceFiscale,
-			String statoOrigine, String comNascita, Set<EspLavorativa> experiences, Set<Istruzione> education) {
+			String statoOrigine, String comNascita, Set<EspLavorativa> experiences, Set<Istruzione> education, Set<CategoriaSkills> category) {
 
 		setIdUtente(idUtente);
 		setIdCv(idCv);
@@ -40,6 +41,7 @@ public class ProfiloUtente {
 		setComNascita(comNascita);
 		setExperiences(experiences);
 		setEducation(education);
+		setCategory(category);
 	}
 
 	public ProfiloUtente(Integer idUtente, String nome, String cognome, String fileUrl, String fotoUrl,
@@ -191,5 +193,13 @@ public class ProfiloUtente {
 
 	public void setEducation(Set<Istruzione> education) {
 		this.education = education;
+	}
+
+	public Set<CategoriaSkills> getCategory() {
+		return category;
+	}
+
+	public void setCategory(Set<CategoriaSkills> category) {
+		this.category = category;
 	}
 }

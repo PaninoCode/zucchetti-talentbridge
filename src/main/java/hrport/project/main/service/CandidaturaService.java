@@ -32,8 +32,13 @@ public class CandidaturaService {
 
 			while (resultSetCandidati.next()) {
 
-				Utente utente = new Utente(Integer.valueOf(resultSetCandidati.getString("idUtente")), resultSetCandidati.getString("email"), Boolean.valueOf((resultSetCandidati.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"), resultSetCandidati.getString("nome"), resultSetCandidati.getString("cognome"));
-				candidaturaList.add(new Candidatura(resultSetCandidati.getInt("idCand"), utente, resultSetCandidati.getInt("stato")));
+				Utente utente = new Utente(Integer.valueOf(resultSetCandidati.getString("idUtente")),
+						resultSetCandidati.getString("email"),
+						Boolean.valueOf(
+								(resultSetCandidati.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"),
+						resultSetCandidati.getString("nome"), resultSetCandidati.getString("cognome"));
+				candidaturaList.add(new Candidatura(resultSetCandidati.getInt("idCand"), utente,
+						resultSetCandidati.getInt("stato")));
 			}
 
 			resultSetCandidati.close();
@@ -51,7 +56,7 @@ public class CandidaturaService {
 		return candidaturaList;
 	}
 
-	public static List<Candidatura> getApplicationsByIdUtente(String idUtente) throws Exception {
+	public static List<Candidatura> getApplicationsByIdUtente(Integer idUtente) throws Exception {
 
 		Connection con = ConnectDatabase.getConnection();
 
@@ -64,7 +69,7 @@ public class CandidaturaService {
 			String SQLUserPositions = "SELECT pz.*, cn.* FROM Posizione pz INNER JOIN Candidatura cn ON pz.idPos = cn.idPos WHERE cn.idUtente = ?";
 
 			PreparedStatement UserApplications = con.prepareStatement(SQLUserPositions);
-			UserApplications.setString(1, idUtente);
+			UserApplications.setInt(1, idUtente);
 
 			resultSetApplications = UserApplications.executeQuery();
 
@@ -78,6 +83,55 @@ public class CandidaturaService {
 
 				applications.add(new Candidatura(resultSetApplications.getInt("idCand"), posizione,
 						resultSetApplications.getInt("stato")));
+
+			}
+
+			resultSetApplications.close();
+			con.commit();
+		} catch (Exception e) {
+
+			resultSetApplications.close();
+			con.rollback();
+			applications = new ArrayList<>();
+		} finally {
+
+			con.close();
+		}
+
+		return applications;
+	}
+	
+	public static List<Candidatura> getCandidateList() throws Exception {
+
+		Connection con = ConnectDatabase.getConnection();
+
+		ResultSet resultSetApplications = null;
+		List<Candidatura> applications = new ArrayList<>();
+
+		try {
+
+			con.setAutoCommit(false);
+			String SQLquery = "  SELECT can.idCand, u.idUtente, u.nome, u.cognome, pos.idPos, pos.nome as nomePosizione, pos.aperta, can.stato from Candidatura can JOIN Utenti u ON u.idUtente = can.idUtente JOIN Posizione pos ON pos.idPos = can.idPos";
+
+			PreparedStatement candidateApplication = con.prepareStatement(SQLquery);
+			//UserApplications.setInt(1, idUtente);
+
+			resultSetApplications = candidateApplication.executeQuery();
+
+			while (resultSetApplications.next()) {
+				
+				Utente utente = new Utente(resultSetApplications.getInt("idUtente"),
+										   resultSetApplications.getString("nome"),
+										   resultSetApplications.getString("cognome"));
+				
+										   
+				Posizione posizione = new Posizione(resultSetApplications.getInt("idPos"),
+													resultSetApplications.getString("nomePosizione"),
+													resultSetApplications.getBoolean("aperta"));
+				
+				Candidatura candidato = new Candidatura(resultSetApplications.getInt("idCand"), utente, posizione, resultSetApplications.getInt("stato"));
+				
+				applications.add(candidato);	
 
 			}
 

@@ -7,6 +7,15 @@ public class Candidatura {
 	private Posizione position;
 	private Integer stato;
 	
+	
+	
+	public Candidatura(Integer idCand, Utente user, Posizione position, Integer stato) {
+		this.idCand = idCand;
+		this.user = user;
+		this.position = position;
+		this.stato = stato;
+	}
+
 	public Candidatura(Integer idCand, Utente user, Integer stato) {
 		
 		this.setIdCand(idCand);
@@ -20,6 +29,7 @@ public class Candidatura {
 		this.setPosition(position);
 		this.setStato(stato);
 	}
+	
 	
 	public Integer getIdCand() {
 		return idCand;

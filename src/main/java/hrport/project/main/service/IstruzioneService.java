@@ -12,7 +12,7 @@ import hrport.project.main.pojo.Istruzione;
 
 public class IstruzioneService {
 
-public static Set<Istruzione> getEducationByIdUtente(String idUtente) throws Exception {
+	public static Set<Istruzione> getEducationByIdUtente(String idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		

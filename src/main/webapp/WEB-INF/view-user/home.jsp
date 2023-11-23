@@ -1,71 +1,38 @@
 <%@ page contentType="text/html;charset=UTF-8" session="false" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TalentBridge</title>
-    <link href="<%=request.getContextPath()%>/resources/css/custom/custom.css" rel="stylesheet">
-     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
+    <!DOCTYPE html>
+    <html lang="en">
 
-</head>
-<body class="bg-body-tertiary">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home | TalentBridge</title>
+        <link href="<%=request.getContextPath()%>/resources/css/custom/custom.css" rel="stylesheet">
+        <script type="text/javascript"
+            src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
 
-    <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
+    </head>
 
+    <body class="bg-body-tertiary">
 
-    <jsp:include page='../view-common/user_header.jsp'>
-        <jsp:param name="activeLinkId" value="candidati" />
-    </jsp:include>
+        <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
 
-    <!-- <nav class="navbar navbar-expand-lg bg-white sticky-top" data-bs-theme="light">
-        <div class="container-fluid">
-            <a class="navbar-brand display-6" href="#">TalentBridge</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu border border-primary shadow-sm">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider border border-primary opacity-100">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </nav> -->
+        <jsp:include page='../view-common/user_header.jsp'>
+            <jsp:param name="activeLinkId" value="home" />
+        </jsp:include>
 
 
-    <span class="d-none" id="template_posizione">
-        <div class="col m-1 mb-2" style="width: 450px;">
-            <div class="card">
-                <img src="{position_img}" class="card-img-top" style="aspect-ratio: 5/4;">
-                <div class="card-body">
-                    <h5 class="card-title">{position_title}</h5>
-                    <p class="card-text">
-                        {position_description}
-                    </p>
-                    <div class="d-flex justify-content-end align-items-center">
-                        <!-- <h5 class="d-flex justify-content-center align-items-center">
+        <span class="d-none" id="template_posizione">
+            <div class="col m-1 mb-2" style="width: 450px;">
+                <div class="card">
+                    <img src="{position_img}" class="card-img-top" style="aspect-ratio: 5/4;">
+                    <div class="card-body">
+                        <h5 class="card-title">{position_title}</h5>
+                        <p class="card-text">
+                            {position_description}
+                        </p>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <!-- <h5 class="d-flex justify-content-center align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-person-fill-add" viewBox="0 0 16 16">
                                 <path
@@ -77,111 +44,85 @@
                             {position_candidates}
                         </h5> -->
 
-                        <div class="d-flex justify-content-center align-items-center">
-                            {position_status}
+                            <div class="d-flex justify-content-center align-items-center">
+                                {position_status}
+                            </div>
                         </div>
-                    </div>
-                    <span class="m-2"></span>
-                    <div class="d-flex justify-content-end align-items-center">
-                        <a href="modifica_posizione.jsp?posId={position_id}" class="btn btn-primary text-light">
-                            <h5 class="m-0 d-flex justify-content-center align-items-center">
-                                Modifica
-                                <span class="m-1"></span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-                                </svg>
-                            </h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </span>
-
-    <section style="min-height: 100vh;">
-        <div class="container-fluid p-4">
-            <h1 class="mb-2">Tutte le posizioni</h1>
-            <hr>
-            <div class="d-flex justify-content-between align-items-center mb-4 p-2">
-                <label class="d-flex justify-content-center align-items-center">
-                    Mostra&nbsp;
-                    <select class="form-select" id="posizioni_results_number_select">
-                        <option value="10" selected>10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    &nbsp;risultati&nbsp;per&nbsp;pagina.
-                </label>
-                <label>
-                    Mostra solo posizioni:&nbsp;
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-
-                        <input type="checkbox" class="btn-check" id="check_posizioni_aperte" autocomplete="off"
-                            checked>
-                        <label class="btn btn-outline-success" for="check_posizioni_aperte">Aperte</label>
-
-                        <input type="checkbox" class="btn-check" id="check_posizioni_chiuse" autocomplete="off"
-                            checked>
-                        <label class="btn btn-outline-danger" for="check_posizioni_chiuse">Chiuse</label>
-                    </div>
-                </label>
-            </div>
-            <span id="posizioni_aperte" class="row row-cols-6">
-
-            </span>
-            <hr>
-            <div class="d-flex justify-content-end align-items-center">
-                <nav>
-                    <ul class="pagination" id="posizioni_pagination">
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="container-fluid bg-white shadow">
-        <div class="container p-4">
-            <footer class="py-3 my-4">
-                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-                </ul>
-                <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-                    <div class="mb-2">
-                        <h1 class="text-primary m-0 display-4">TalentBridge</h1>
-                        <div class="d-flex flex-row justify-content-center align-items-center">
-                            <hr class="border border-primary border-2 opacity-100 w-100">
-                            <h4 class="p-0 m-0">&nbsp;GRUPPO&nbsp;ZUCCHETTI&nbsp;</h4>
-                            <hr class="border border-primary border-2 opacity-100 w-100">
+                        <span class="m-2"></span>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <a href="modifica_posizione.jsp?posId={position_id}" class="btn btn-primary text-light">
+                                <h5 class="m-0 d-flex justify-content-center align-items-center">
+                                    Modifica
+                                    <span class="m-1"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                    </svg>
+                                </h5>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <p class="text-center text-body-secondary">Â© 2023 TalentBridge</p>
-            </footer>
-        </div>
-    </div>
+            </div>
+        </span>
 
-   
+        <section style="min-height: 100vh;">
+            <div class="container-fluid p-4">
+                <h1 class="mb-2">Tutte le posizioni</h1>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center mb-4 p-2">
+                    <label class="d-flex justify-content-center align-items-center">
+                        Mostra&nbsp;
+                        <select class="form-select" id="posizioni_results_number_select">
+                            <option value="10" selected>10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        &nbsp;risultati&nbsp;per&nbsp;pagina.
+                    </label>
+                    <label>
+                        Mostra solo posizioni:&nbsp;
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+
+                            <input type="checkbox" class="btn-check" id="check_posizioni_aperte" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-success" for="check_posizioni_aperte">Aperte</label>
+
+                            <input type="checkbox" class="btn-check" id="check_posizioni_chiuse" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-danger" for="check_posizioni_chiuse">Chiuse</label>
+                        </div>
+                    </label>
+                </div>
+                <span id="posizioni_aperte" class="row row-cols-6">
+
+                </span>
+                <hr>
+                <div class="d-flex justify-content-end align-items-center">
+                    <nav>
+                        <ul class="pagination" id="posizioni_pagination">
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
 
 
-<script type="text/javascript">
-	
-	let jsonDataUser = `<%=request.getAttribute("dataUser")%>`;
-	let jsonDataPositions = `<%=request.getAttribute("dataAllPositions")%>`;
-	let jsonUserOK = JSON.parse(jsonDataUser);
-	// let jsonPositionsOK = JSON.parse(jsonDataPositions);
-	
-    let arrayPosizione = JSON.parse(jsonDataPositions);
+        <jsp:include page='../view-common/footer.jsp'></jsp:include>
 
-	   	console.log(jsonUserOK);
-	    // console.log(jsonPositionsOK);
+        <script type="text/javascript">
+
+            let jsonDataUser = `<%=request.getAttribute("dataUser")%>`;
+            let jsonDataPositions = `<%=request.getAttribute("dataAllPositions")%>`;
+            let jsonUserOK = JSON.parse(jsonDataUser);
+            // let jsonPositionsOK = JSON.parse(jsonDataPositions);
+
+            let arrayPosizione = JSON.parse(jsonDataPositions);
+
+            console.log(jsonUserOK);
+            // console.log(jsonPositionsOK);
 
 
             let posizioniAperte = document.querySelector('#posizioni_aperte');
@@ -201,11 +142,11 @@
             });
 
             document.querySelector('#check_posizioni_aperte').addEventListener('change', e => {
-                showResults(0, posizoniResultsNumberSelect.value); 
+                showResults(0, posizoniResultsNumberSelect.value);
             });
 
             document.querySelector('#check_posizioni_chiuse').addEventListener('change', e => {
-                showResults(0, posizoniResultsNumberSelect.value); 
+                showResults(0, posizoniResultsNumberSelect.value);
             });
 
             function showResults(showPage, positionsPerPage) {
@@ -233,7 +174,7 @@
                 let startFrom = positionsPerPage * showPage;
                 let endAt = startFrom + positionsPerPage;
 
-                if(endAt > arrayPosizione.length) endAt = arrayPosizione.length;
+                if (endAt > arrayPosizione.length) endAt = arrayPosizione.length;
 
                 let check_posizioni_aperte = document.querySelector('#check_posizioni_aperte');
                 let check_posizioni_chiuse = document.querySelector('#check_posizioni_chiuse');
@@ -256,8 +197,9 @@
                 }
             }
 
-</script>
- 
+        </script>
 
-</body>
-</html>
+
+    </body>
+
+    </html>

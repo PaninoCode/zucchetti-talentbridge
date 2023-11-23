@@ -29,6 +29,15 @@ public class Posizione {
 		setDescrizione(descrizione);
 		setApplications(applications);
 	}
+	
+	
+
+	public Posizione(Integer idPos, String nome, Boolean aperta) {
+		super();
+		this.idPos = idPos;
+		this.nome = nome;
+		this.aperta = aperta;
+	}
 
 	public Integer getIdPos() {
 		return idPos;

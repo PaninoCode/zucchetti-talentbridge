@@ -1,4 +1,4 @@
-package hrport.project.main.controller.user;
+package hrport.project.main.controller.admin;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -20,8 +20,8 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/home")
-public class AdminHome extends HttpServlet {
+@WebServlet("/admin/posizioni")
+public class AdminPosizioni extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -42,6 +42,8 @@ public class AdminHome extends HttpServlet {
 			List<Posizione> positionsWithApplications = PosizioneService.getAllPositionsWithApplications();
 			
 			candidatiJson = gson.toJson(positionsWithApplications);
+			
+			request.setAttribute("data", candidatiJson);
 
 		} catch (Exception e) {
 
@@ -51,10 +53,15 @@ public class AdminHome extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 			return;
 		}
+		
+		String pathInfo = request.getPathInfo();
 
-		request.setAttribute("candidati", candidatiJson);
-
-		request.getRequestDispatcher("/temp-admin/candidati.jsp").forward(request, response);
+		if(pathInfo != null) {
+			
+			request.setAttribute("idPosizione", pathInfo.substring(1));
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/view-admin/posizioni.jsp").forward(request, response);
 
 	}
 }
