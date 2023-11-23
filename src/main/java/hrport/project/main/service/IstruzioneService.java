@@ -77,7 +77,7 @@ public class IstruzioneService {
 			insertIstruz.setString(4, education.getIndirizzo());
 			insertIstruz.setInt(5, education.getVoto());
 			insertIstruz.setDate(6, Date.valueOf(education.getdInizio()));
-			insertIstruz.setDate(6, Date.valueOf(education.getdFine()));
+			insertIstruz.setDate(7, Date.valueOf(education.getdFine()));
 			
 			insertIstruz.executeUpdate();
 			
