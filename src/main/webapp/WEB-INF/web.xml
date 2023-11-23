@@ -91,4 +91,14 @@
     <servlet-name>UserUpdateProfileNoAttachments</servlet-name>
     <url-pattern>/UserUpdateProfileNoAttachments</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UerProfileInsertNoAttachments</display-name>
+    <servlet-name>UerProfileInsertNoAttachments</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UerProfileInsertNoAttachments</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UerProfileInsertNoAttachments</servlet-name>
+    <url-pattern>/UerProfileInsertNoAttachments</url-pattern>
+  </servlet-mapping>
 </web-app>
