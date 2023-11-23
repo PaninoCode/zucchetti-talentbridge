@@ -101,4 +101,24 @@
     <servlet-name>UerProfileInsertNoAttachments</servlet-name>
     <url-pattern>/UerProfileInsertNoAttachments</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertIstruzione</display-name>
+    <servlet-name>InsertIstruzione</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.InsertIstruzione</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertIstruzione</servlet-name>
+    <url-pattern>/InsertIstruzione</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateIstruzione</display-name>
+    <servlet-name>UpdateIstruzione</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UpdateIstruzione</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateIstruzione</servlet-name>
+    <url-pattern>/UpdateIstruzione</url-pattern>
+  </servlet-mapping>
 </web-app>

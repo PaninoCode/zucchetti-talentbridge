@@ -34,7 +34,7 @@ public class ProfiloUtenteService {
 			String SQLUser = "SELECT pr.* FROM Profilo pr WHERE pr.idUtente = ?";
 
 			PreparedStatement userProfile = con.prepareStatement(SQLUser);
-			userProfile.setString(1, idUtente.toString());
+			userProfile.setInt(1, idUtente);
 
 			resultSetProfile = userProfile.executeQuery();
 
@@ -55,6 +55,47 @@ public class ProfiloUtenteService {
 					resultSetProfile.getString("indDomicilio"), resultSetProfile.getString("telefono"),
 					resultSetProfile.getString("codiceFiscale"), resultSetProfile.getString("statoOrigine"),
 					resultSetProfile.getString("comNascita"), experiences, education, category);
+
+			con.commit();
+			return profiloUtente;
+		} catch (Exception e) {
+
+			// throw e;
+			con.rollback();
+			ProfiloUtente profiloUtente = null;
+			return profiloUtente;
+		} finally {
+
+			resultSetProfile.close();
+			con.close();
+		}
+	}
+	
+	public static ProfiloUtente getProfileUserByIdUtente(Integer idUtente) throws Exception {
+
+		Connection con = ConnectDatabase.getConnection();
+
+		ResultSet resultSetProfile = null;
+		try {
+
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT pr.* FROM Profilo pr WHERE pr.idUtente = ?";
+
+			PreparedStatement userProfile = con.prepareStatement(SQLUser);
+			userProfile.setInt(1, idUtente);
+
+			resultSetProfile = userProfile.executeQuery();
+
+			resultSetProfile.next();
+
+			ProfiloUtente profiloUtente = new ProfiloUtente(Integer.valueOf(resultSetProfile.getString("idUtente")),
+					Integer.valueOf(resultSetProfile.getString("idCv")), resultSetProfile.getString("fileUrl"),
+					resultSetProfile.getString("fotoUrl"),
+					Boolean.valueOf((resultSetProfile.getString("sesso").equalsIgnoreCase("1")) ? "true" : "false"),
+					LocalDate.parse(resultSetProfile.getString("dNascita")), resultSetProfile.getString("indResidenza"),
+					resultSetProfile.getString("indDomicilio"), resultSetProfile.getString("telefono"),
+					resultSetProfile.getString("codiceFiscale"), resultSetProfile.getString("statoOrigine"),
+					resultSetProfile.getString("comNascita"));
 
 			con.commit();
 			return profiloUtente;
@@ -135,7 +176,7 @@ public class ProfiloUtenteService {
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		ProfiloUtente profilo = null;
-			System.out.println("test");
+			
 		try {
 			
 			con.setAutoCommit(false);
@@ -184,7 +225,7 @@ public class ProfiloUtenteService {
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		ProfiloUtente profilo = null;
-			System.out.println("test");
+			
 		try {
 			
 			con.setAutoCommit(false);
