@@ -101,6 +101,8 @@ public class CategorySkillsService {
 			}
 			
 			con.commit();
+			
+			System.out.println("success");
 		} catch (Exception e) {
 			
 			con.rollback();
