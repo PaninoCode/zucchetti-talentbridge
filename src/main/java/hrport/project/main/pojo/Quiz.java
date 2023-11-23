@@ -11,9 +11,8 @@ import hrport.project.main.connectdb.ConnectDatabase;
 public class Quiz {
 	private int id;
 	private String nome;
-	
 	private List<Domanda> listaDomande= new ArrayList<>();
-	private boolean isDone;
+	private boolean isDone = false;
 	
 	public Quiz(int id, String nome, List<Domanda> listaDomande) {
 		this.setId(id);
