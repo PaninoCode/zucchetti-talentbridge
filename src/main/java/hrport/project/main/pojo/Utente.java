@@ -171,14 +171,15 @@ public class Utente {
 			try {
 				
 				con.setAutoCommit(false);
-				String SQLUser = "UPDATE \"Utenti\" (\"password\")\r\n"
+				String SQLUser = "UPDATE \"Utenti\""
 						+ "SET password = ?"
-						+ "WHERE Utenti.idUtente = " + this.getIdUtente();
+						+ "WHERE Utenti.idUtente = ?";
 				
-				PreparedStatement newUser = con.prepareStatement(SQLUser);
-				newUser.setString(1, getPassword());
+				PreparedStatement updatePws = con.prepareStatement(SQLUser);
+				updatePws.setString(1, newPassword);
+				updatePws.setInt(2, this.getIdUtente());
 				
-				newUser.executeUpdate();
+				updatePws.executeUpdate();
 				
 				con.commit();
 			} catch (Exception e) {
