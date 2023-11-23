@@ -9,7 +9,10 @@ import com.google.gson.GsonBuilder;
 
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Candidatura;
+import hrport.project.main.pojo.ProfiloUtente;
+import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.CandidaturaService;
+import hrport.project.main.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,7 +23,7 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/candidati/profilo")
+@WebServlet("/admin/profilo/*")
 public class AdminCandidatoProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,32 +33,34 @@ public class AdminCandidatoProfile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		HttpSession session = request.getSession(false);
-
-		String candidatiJson = null;
+		
+		String dataUser = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		
-
-		try {
-
-			//List<Utente> positionsWithApplications = UtenteService.getUtentiCandidati();
-			List<Candidatura> candidati = CandidaturaService.getCandidateList();
-			
-			candidatiJson = gson.toJson(candidati);
-
-		} catch (Exception e) {
-
-			String error = e.getMessage();
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			request.setAttribute("data", error);
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
-			return;
-		}
-
-		request.setAttribute("candidati", candidatiJson);
-
-		request.getRequestDispatcher("/WEB-INF/view-admin/candidati.jsp").forward(request, response);
-
+		 String pathInfo = request.getPathInfo();
+	        if (pathInfo != null) {
+	            String[] pathParts = pathInfo.split("/");
+	            if (pathParts.length > 1) {
+	                String userId = pathParts[1];
+	                System.out.println(userId);
+	                
+	                try {
+						Utente profiloUtente = UtenteService.getUserByIdUtenteWithPositions(Integer.valueOf(userId));
+						dataUser = gson.toJson(profiloUtente);
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	                request.setAttribute("dataUser", dataUser);
+	                request.getRequestDispatcher("/WEB-INF/view-admin/candidatoProfileTest.jsp").forward(request, response);
+	                return;
+	            }
+	        }
+     
+	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "User id not specified in the path");
+	
 	}
 }

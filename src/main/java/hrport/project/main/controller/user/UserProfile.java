@@ -37,8 +37,8 @@ public class UserProfile extends HttpServlet {
 		try {
 			
 			Utente utente = UtenteService.getUserByIdUtenteWithProfile(idUtente);
-			
 			dataUser = gson.toJson(utente);
+			
 		} catch (Exception e) {
 
 			String error = e.getMessage();

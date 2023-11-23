@@ -64,63 +64,11 @@
             src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.js">
             </script>
         <script>
-
-            let JSPcandidati = `<%=request.getAttribute("candidati")%>`;
-
-
-            let candidati = JSON.parse(JSPcandidati);
-
-            console.log(candidati);
-			
-            var tableBody = document.getElementById("profiles-data");
-
-            candidati.forEach(function (candidato) {
-            	
-                var row = document.createElement("tr");
-
-                var idCell = document.createElement("td");
-                idCell.textContent = candidato.idCand;
-
-                var nomeCell = document.createElement("td");
-                nomeCell.textContent = candidato.user.nome;
-
-                var cognomeCell = document.createElement("td");
-                cognomeCell.textContent = candidato.user.cognome;
-
-                var posizioneCell = document.createElement("td");
-                posizioneCell.textContent = candidato.position.nome;
-
-                var linkCell = document.createElement("td");
-                var linkElement = document.createElement("a");
-                linkElement.textContent = "Profilo";
-                linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
-
-                linkCell.appendChild(linkElement);
-
-                row.appendChild(idCell);
-                row.appendChild(nomeCell);
-                row.appendChild(cognomeCell);
-                row.appendChild(posizioneCell);
-                row.appendChild(linkCell);
-
-                tableBody.appendChild(row);
-
-            });
-
-            let table = new DataTable('#myTable', {
-                dom: "PlftipB",
-                buttons: [
-                    {
-                        extend: 'pdf',
-                        text: 'Save current page',
-                        exportOptions: {
-                            modifier: {
-                                page: 'current'
-                            }
-                        }
-                    }
-                ]
-            });
+				
+        let JSPcandidato = `<%=request.getAttribute("dataUser")%>`;
+        let candidatoJson = JSON.parse(JSPcandidato);
+        console.log(candidatoJson);
+         
         </script>
     </body>
 
