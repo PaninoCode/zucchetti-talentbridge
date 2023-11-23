@@ -20,6 +20,8 @@ public class Utente {
     private List<Candidatura> posizioni;
     private ProfiloUtente profile;
     
+    
+    
     public Utente(Integer idUtente, String email, String password, Boolean admin, String nome, String cognome) {
     	
     	this.setIdUtente(idUtente);
@@ -69,7 +71,13 @@ public class Utente {
     	this.setCognome(cognome);
     }
     
-    public Integer getIdUtente() {
+    public Utente(Integer idUtente, String nome, String cognome) {
+		this.idUtente = idUtente;
+		this.nome = nome;
+		this.cognome = cognome;
+	}
+
+	public Integer getIdUtente() {
 		return idUtente;
 	}
 	public void setIdUtente(Integer idUtente) {

@@ -207,6 +207,7 @@ public class UtenteService {
 		}
 	}
 
+	
 	public static List<Utente> getUtentiCandidati() throws Exception {
 
 		Connection con = ConnectDatabase.getConnection();
@@ -227,8 +228,6 @@ public class UtenteService {
 				List<Candidatura> posizioni = CandidaturaService
 						.getApplicationsByIdUtente(resultSetUser.getInt("idUtente"));
 				
-				
-
 				Utente utente = new Utente(resultSetUser.getInt("idUtente"), resultSetUser.getString("email"),
 						Boolean.valueOf((resultSetUser.getString("admin").equalsIgnoreCase("1")) ? "true" : "false"),
 						resultSetUser.getString("nome"), resultSetUser.getString("cognome"), posizioni);
@@ -252,12 +251,15 @@ public class UtenteService {
 		return candidati;
 	}
 	
+	
+	
+	
 	public static void updateUtenteInfo(String json) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		Utente utente = null;
-			
+			System.out.println("test");
 		try {
 			
 			con.setAutoCommit(false);
