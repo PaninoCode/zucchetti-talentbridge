@@ -1,4 +1,4 @@
-package hrport.project.main.controller;
+package hrport.project.main.controller.user;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
