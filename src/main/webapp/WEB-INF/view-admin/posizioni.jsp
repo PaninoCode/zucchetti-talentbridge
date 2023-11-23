@@ -109,68 +109,33 @@
 
 
         <script>
+        	
+        	//Object from database
 	        let JSPposizioni = `<%=request.getAttribute("data")%>`;
-	
-	
+			//Object Json
 	        let posizioni = JSON.parse(JSPposizioni);
-	
+			
 	        console.log(posizioni);
 	        
+	        //Catch only the data needed
+	        let jobPositions2 = [];
+	        posizioni.forEach(function (posizione){
+	        	
+	        	let position = {
+	        			nome: posizione.nome,
+	        			descrizione: posizione.descrizione,
+	        			foto: posizione.fotoUrl
+	        	}
+	        	
+	        	jobPositions2.push(position);
+	        	
+	        	
+	        });
 	        
-            let arrayPosizione = [];
-
-            let jobPositions = [
-                {
-                    "nome": "Programmatore",
-                    "descrizione": "Crea il futuro con il codice. Unisciti a noi!",
-                    "foto": "pos_programmatore.jpg"
-                },
-                {
-                    "nome": "Designer",
-                    "descrizione": "Trasforma idee in design innovativi. Entra nel team!",
-                    "foto": "pos_designer.jpg"
-                },
-                {
-                    "nome": "Ingegnere",
-                    "descrizione": "Risolvi sfide complesse. Fai parte della nostra squadra!",
-                    "foto": "pos_ingegnere.jpg"
-                },
-                {
-                    "nome": "Architetto",
-                    "descrizione": "Sogna, progetta, realizza. Opportunità uniche!",
-                    "foto": "pos_architetto.jpg"
-                },
-                {
-                    "nome": "Insegnante",
-                    "descrizione": "Ispirare il futuro. Insegna con passione!",
-                    "foto": "pos_insegnante.jpg"
-                },
-                // Add more job positions as needed
-            ];
-
-            function getRandomPosition(positions) {
-                return positions[Math.floor(Math.random() * positions.length)];
-            }
-
-            for (let i = 1; i <= 200; i++) {
-                let examplePos = getRandomPosition(jobPositions);
-
-                let examplePosOpen = true;
-
-                if (Math.floor(Math.random() * 5) == 1) {
-                    examplePosOpen = false;
-                }
-
-                let job = {
-                    "idPos": i,
-                    "nome": examplePos.nome,
-                    "aperta": examplePosOpen,
-                    "descrizione": examplePos.descrizione,
-                    "fotoUrl": "resources/img/" + examplePos.foto,
-                };
-                arrayPosizione.push(job);
-            }
-
+	        //test ok
+	        console.log(jobPositions2);
+	        
+			//Create the selectors
             let posizioniAperte = document.querySelector('#posizioni_aperte');
             let template_posizione = document.querySelector('#template_posizione');
 
@@ -197,7 +162,7 @@
 
             function showResults(showPage, positionsPerPage) {
 
-                let pagesNumber = Math.ceil(arrayPosizione.length / posizoniResultsNumberSelect.value);
+                let pagesNumber = Math.ceil(jobPositions2.length / posizoniResultsNumberSelect.value);
 
                 let prevPage = showPage - 1;
                 let nextPage = showPage + 1;
@@ -225,18 +190,18 @@
 
                 for (let i = startFrom; i < endAt; i++) {
 
-                    if ((arrayPosizione[i].aperta && check_posizioni_aperte.checked) || (!arrayPosizione[i].aperta && check_posizioni_chiuse.checked)) {
+                    if ((jobPositions2[i].aperta && check_posizioni_aperte.checked) || (!jobPositions2[i].aperta && check_posizioni_chiuse.checked)) {
                         let stautsPosizione = status_closed;
 
-                        if (arrayPosizione[i].aperta) stautsPosizione = status_open;
+                        if (jobPositions2[i].aperta) stautsPosizione = status_open;
 
 
                         posizioniAperte.innerHTML += template_posizione.innerHTML
-                            .replace('{position_title}', arrayPosizione[i].nome)
-                            .replace('{position_description}', arrayPosizione[i].descrizione)
-                            .replace('{position_img}', arrayPosizione[i].fotoUrl)
+                            .replace('{position_title}', jobPositions2[i].nome)
+                            .replace('{position_description}', jobPositions2[i].descrizione)
+                            .replace('{position_img}', jobPositions2[i].fotoUrl)
                             .replace('{position_status}', stautsPosizione)
-                            .replace('{position_id}', arrayPosizione[i].idPos);
+                            .replace('{position_id}', jobPositions2[i].idPos);
                     }
                 }
             }
