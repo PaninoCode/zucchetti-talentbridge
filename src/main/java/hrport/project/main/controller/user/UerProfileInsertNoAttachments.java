@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +26,9 @@ public class UerProfileInsertNoAttachments extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		HttpSession session = request.getSession(false);
+		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		
 		StringBuilder jsonContent = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()))) {
@@ -47,7 +51,7 @@ public class UerProfileInsertNoAttachments extends HttpServlet {
         // parse the json String and take the attributes
         try {
         	
-        	ProfiloUtenteService.insertProfileInfo(jsonContent.toString());
+        	ProfiloUtenteService.insertProfileInfo(jsonContent.toString(), idUtente);
 			
 			String data = "{\"data\" : \"success\"}";
         	

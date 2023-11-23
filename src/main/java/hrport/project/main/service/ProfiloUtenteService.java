@@ -179,7 +179,7 @@ public class ProfiloUtenteService {
 			
 	}
 	
-	public static void insertProfileInfo(String json) throws Exception {
+	public static void insertProfileInfo(String json, Integer idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
@@ -191,19 +191,20 @@ public class ProfiloUtenteService {
 			
 			profilo = gson.fromJson(json, ProfiloUtente.class);
 					
-			String SQL = "INSERT INTO \"Profile\" (\"sesso\", \"dNascita\", \"indResidenza\", \"indDomicilio\", \"codiceFiscale\", \"statoOrigine\", \"comNascita\")\r\n"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+			String SQL = "INSERT INTO \"Profile\" (\"idUtente\", \"sesso\", \"dNascita\", \"indResidenza\", \"indDomicilio\", \"codiceFiscale\", \"statoOrigine\", \"comNascita\")\r\n"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement insertProfilo = con.prepareStatement(SQL);
 			
 			insertProfilo.setInt(1, (profilo.isGender() ? 1 : 0));
-			insertProfilo.setDate(2, Date.valueOf(profilo.getdNascita()));
-			insertProfilo.setString(3, profilo.getIndResidenza());
-			insertProfilo.setString(4, profilo.getInDomicilio());
-			insertProfilo.setString(5, profilo.getTelefono());
-			insertProfilo.setString(6, profilo.getCodiceFiscale());
-			insertProfilo.setString(7, profilo.getStatoOrigine());
-			insertProfilo.setString(8, profilo.getComNascita());
+			insertProfilo.setInt(2, (profilo.isGender() ? 1 : 0));
+			insertProfilo.setDate(3, Date.valueOf(profilo.getdNascita()));
+			insertProfilo.setString(4, profilo.getIndResidenza());
+			insertProfilo.setString(5, profilo.getInDomicilio());
+			insertProfilo.setString(6, profilo.getTelefono());
+			insertProfilo.setString(7, profilo.getCodiceFiscale());
+			insertProfilo.setString(8, profilo.getStatoOrigine());
+			insertProfilo.setString(9, profilo.getComNascita());
 			
 			insertProfilo.executeUpdate();
 			
