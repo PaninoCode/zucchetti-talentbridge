@@ -20,8 +20,8 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class UserHome
  */
-@WebServlet("/admin/candidati")
-public class AdminCandidati extends HttpServlet {
+@WebServlet("/admin/candidati/profilo")
+public class AdminCandidatoProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
