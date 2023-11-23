@@ -19,6 +19,7 @@ import hrport.project.main.service.ProfiloUtenteService;
 /**
  * Servlet implementation class UpdateIstruzione
  */
+@WebServlet("/user/update-istruzione")
 public class UpdateIstruzione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
