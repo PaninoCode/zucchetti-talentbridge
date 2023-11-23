@@ -10,6 +10,7 @@ public class Domanda {
 	private String testo;
 	private int punteggio;
 	private Risposta risposte[]= new Risposta[4];
+	private int idRispostaUtente;
 
 	
 	public Domanda(int id, String testo, int punteggio) {
@@ -50,7 +51,11 @@ public class Domanda {
 		this.punteggio=punteggio;
 	}
 	
-	public void setRisposte(Connection con, int id) {
+	public void setRisposte(Risposta[] risposte) {
+		this.risposte = risposte;
+	}
+	
+	public void setRisposte(Connection con) {
 		try {
 			String SQLUser = "SELECT r.* FROM Domanda d JOIN Risposta r on d.idDomanda=r.idDomanda WHERE d.idDomanda= ?";
 			
@@ -72,4 +77,38 @@ public class Domanda {
 			e.printStackTrace();
 		}
 	}
+
+	public int getIdRispostaUtente() {
+		return idRispostaUtente;
+	}
+
+	public void setIdRispostaUtente(int rispostaUtente) {
+		this.idRispostaUtente = rispostaUtente;
+	}
+	
+	public void setIdRispostaUtente(Connection con, int idUtente) {
+		try {
+			String SQLUser = "SELECT * FROM Domanda d "
+							+ "JOIN Risposta r on d.idDomanda=r.idDomanda "
+							+ "JOIN RispostaData rd on r.idRisposta = rd.idRisposta "
+							+ "WHERE d.idDomanda= ? AND rd.idUtente = ?";
+			
+			PreparedStatement Ris = con.prepareStatement(SQLUser);
+			Ris.setInt(1, id);
+			Ris.setInt(2, idUtente);
+			ResultSet resultSet = null;
+			
+			resultSet = Ris.executeQuery();
+			resultSet.next();
+			idRispostaUtente = resultSet.getInt(1);
+			
+		} catch(SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
+	
+	
 }

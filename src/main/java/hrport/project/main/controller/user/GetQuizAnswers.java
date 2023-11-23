@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +11,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import hrport.project.main.adaptergson.DomandaAdapter;
-import hrport.project.main.adaptergson.QuizListAdapter;
 import hrport.project.main.adaptergson.RispostaAdapter;
 import hrport.project.main.pojo.Domanda;
 import hrport.project.main.pojo.Quiz;
@@ -24,14 +22,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/user/get-quiz")
-public class GetQuiz extends HttpServlet{
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+@WebServlet("/user/get-quiz-answers")
+public class GetQuizAnswers extends HttpServlet{
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
+		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		Gson gson = new GsonBuilder()
-				.registerTypeAdapter(Domanda.class, new DomandaAdapter())
-				.registerTypeAdapter(Risposta.class, new RispostaAdapter())
 				.create();
 		
 		//algoritmo per prendere JSON 
@@ -59,7 +56,7 @@ public class GetQuiz extends HttpServlet{
 			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
 			int idQuiz = json.get("idQuiz").getAsInt();
 			
-			Quiz quiz= Quiz.initQuiz(idQuiz);
+			Quiz quiz= Quiz.quizAnswers(idQuiz, idUtente);
 
 			String success = gson.toJson(quiz);
         	
