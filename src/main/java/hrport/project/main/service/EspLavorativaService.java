@@ -92,4 +92,51 @@ public class EspLavorativaService {
 		}
 			
 	}
+	
+	public static void updateEsperienza(String json, Integer idCv) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		EspLavorativa experience = null;
+			
+		try {
+			
+			con.setAutoCommit(false);
+			
+			experience = gson.fromJson(json, EspLavorativa.class);
+					
+			String SQL = "UPDATE \"Istruzione\""
+					+ "SET azienda = ?"
+					+ "SET dInizio = ?"
+					+ "SET dFine = ?"
+					+ "SET posizione = ?"
+					+ "SET funzione = ?"
+					+ "SET indirizzo = ?"
+					+ "WHERE Istruzione.idEL = ?"
+					+ "AND Istruzione.idCv = ?";
+			
+			PreparedStatement updateEsperienza = con.prepareStatement(SQL);
+			
+			updateEsperienza.setString(1, experience.getAzienda());
+			updateEsperienza.setDate(2, Date.valueOf(experience.getdInizio()));
+			updateEsperienza.setDate(3, Date.valueOf(experience.getdFine()));
+			updateEsperienza.setString(4, experience.getPosizione());
+			updateEsperienza.setString(5, experience.getFunzione());
+			updateEsperienza.setString(6, experience.getIndirizzo());
+			updateEsperienza.setInt(7, experience.getIdEl());
+			updateEsperienza.setInt(8, idCv);
+			
+			updateEsperienza.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
 }
