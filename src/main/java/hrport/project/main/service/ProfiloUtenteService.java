@@ -34,7 +34,7 @@ public class ProfiloUtenteService {
 			String SQLUser = "SELECT pr.* FROM Profilo pr WHERE pr.idUtente = ?";
 
 			PreparedStatement userProfile = con.prepareStatement(SQLUser);
-			userProfile.setString(1, idUtente.toString());
+			userProfile.setInt(1, idUtente);
 
 			resultSetProfile = userProfile.executeQuery();
 
@@ -82,7 +82,7 @@ public class ProfiloUtenteService {
 			String SQLUser = "SELECT pr.* FROM Profilo pr WHERE pr.idUtente = ?";
 
 			PreparedStatement userProfile = con.prepareStatement(SQLUser);
-			userProfile.setString(1, idUtente.toString());
+			userProfile.setInt(1, idUtente);
 
 			resultSetProfile = userProfile.executeQuery();
 

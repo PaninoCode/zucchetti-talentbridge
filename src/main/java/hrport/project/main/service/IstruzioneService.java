@@ -92,4 +92,51 @@ public class IstruzioneService {
 		}
 			
 	}
+	
+	public static void updateIstruzInfo(String json, Integer idCv) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		Istruzione education = null;
+			
+		try {
+			
+			con.setAutoCommit(false);
+			
+			education = gson.fromJson(json, Istruzione.class);
+					
+			String SQL = "UPDATE \"Istruzione\""
+					+ "SET titoloIstruzione = ?"
+					+ "SET istituto = ?"
+					+ "SET indirizzo = ?"
+					+ "SET voto = ?"
+					+ "SET dInizio = ?"
+					+ "SET dFine = ?"
+					+ "WHERE Istruzione.idIst = ?"
+					+ "AND Istruzione.idCv = ?";
+			
+			PreparedStatement updateProfilo = con.prepareStatement(SQL);
+			
+			updateProfilo.setString(1, education.getTitoloIstruzione());
+			updateProfilo.setString(2, education.getIstituto());
+			updateProfilo.setString(3, education.getIndirizzo());
+			updateProfilo.setInt(4, education.getVoto());
+			updateProfilo.setDate(5, Date.valueOf(education.getdInizio()));
+			updateProfilo.setDate(6, Date.valueOf(education.getdFine()));
+			updateProfilo.setInt(7, education.getIdIst());
+			updateProfilo.setInt(8, idCv);
+			
+			updateProfilo.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
 }
