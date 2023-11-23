@@ -22,6 +22,24 @@ public class ProfiloUtente {
 	private Set<EspLavorativa> experiences;
 	private Set<Istruzione> education;
 	private Set<CategoriaSkills> category;
+	
+	public ProfiloUtente(Integer idUtente, Integer idCv, String fileUrl, String fotoUrl, Boolean gender,
+			LocalDate dNascita, String indResidenza, String inDomicilio, String telefono, String codiceFiscale,
+			String statoOrigine, String comNascita) {
+
+		setIdUtente(idUtente);
+		setIdCv(idCv);
+		setFileUrl(fileUrl);
+		setFotoUrl(fotoUrl);
+		setGender(gender);
+		setdNascita(dNascita);
+		setIndResidenza(indResidenza);
+		setInDomicilio(inDomicilio);
+		setTelefono(telefono);
+		setCodiceFiscale(codiceFiscale);
+		setStatoOrigine(statoOrigine);
+		setComNascita(comNascita);
+	}
 
 	public ProfiloUtente(Integer idUtente, Integer idCv, String fileUrl, String fotoUrl, Boolean gender,
 			LocalDate dNascita, String indResidenza, String inDomicilio, String telefono, String codiceFiscale,

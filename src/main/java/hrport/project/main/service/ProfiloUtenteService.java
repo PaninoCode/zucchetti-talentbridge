@@ -70,6 +70,47 @@ public class ProfiloUtenteService {
 			con.close();
 		}
 	}
+	
+	public static ProfiloUtente getProfileUserByIdUtente(Integer idUtente) throws Exception {
+
+		Connection con = ConnectDatabase.getConnection();
+
+		ResultSet resultSetProfile = null;
+		try {
+
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT pr.* FROM Profilo pr WHERE pr.idUtente = ?";
+
+			PreparedStatement userProfile = con.prepareStatement(SQLUser);
+			userProfile.setString(1, idUtente.toString());
+
+			resultSetProfile = userProfile.executeQuery();
+
+			resultSetProfile.next();
+
+			ProfiloUtente profiloUtente = new ProfiloUtente(Integer.valueOf(resultSetProfile.getString("idUtente")),
+					Integer.valueOf(resultSetProfile.getString("idCv")), resultSetProfile.getString("fileUrl"),
+					resultSetProfile.getString("fotoUrl"),
+					Boolean.valueOf((resultSetProfile.getString("sesso").equalsIgnoreCase("1")) ? "true" : "false"),
+					LocalDate.parse(resultSetProfile.getString("dNascita")), resultSetProfile.getString("indResidenza"),
+					resultSetProfile.getString("indDomicilio"), resultSetProfile.getString("telefono"),
+					resultSetProfile.getString("codiceFiscale"), resultSetProfile.getString("statoOrigine"),
+					resultSetProfile.getString("comNascita"));
+
+			con.commit();
+			return profiloUtente;
+		} catch (Exception e) {
+
+			// throw e;
+			con.rollback();
+			ProfiloUtente profiloUtente = null;
+			return profiloUtente;
+		} finally {
+
+			resultSetProfile.close();
+			con.close();
+		}
+	}
 
 	public static List<ProfiloUtente> getProfiles() throws Exception {
 
