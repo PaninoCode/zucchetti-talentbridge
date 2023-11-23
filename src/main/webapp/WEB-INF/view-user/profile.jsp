@@ -28,9 +28,10 @@
                 <div class="row">
 
                     <div class="row mb-3">
-                        <div class="col-6">
+
+                        <div class="col-5">
                             <h2 class="mb-3">Anagrafica</h2>
-                            <div class="card" style="width: 100%;">
+                            <div class="card mb-3" style="width: 100%;">
                                 <div class="card-body">
 
                                     <div class="mb-5">
@@ -44,18 +45,25 @@
                                         </div>
                                     </div>
 
+                                    <p class="text-end">
+                                        <a href="#" id="anagrafica_abilita_modifica">Abilita Modifica</a>
+                                    </p>
+
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="anagrafica_data_nascita" class="form-label">Data di
                                                     nascita</label>
-                                                <input type="date" class="form-control" id="anagrafica_data_nascita" disabled>
+                                                <input type="date" class="form-control" id="anagrafica_data_nascita"
+                                                    disabled>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label for="anagrafica_provincia_nascita" class="form-label">Provincia di nascita</label>
-                                                <input type="text" class="form-control" id="anagrafica_provincia_nascita" disabled>
+                                                <label for="anagrafica_provincia_nascita" class="form-label">Provincia
+                                                    di nascita</label>
+                                                <input type="text" class="form-control"
+                                                    id="anagrafica_provincia_nascita" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -63,23 +71,29 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label for="anagrafica_numero_telefono" class="form-label">Numero di telefono</label>
-                                                <input type="tel" class="form-control" id="anagrafica_numero_telefono" disabled>
+                                                <label for="anagrafica_numero_telefono" class="form-label">Numero di
+                                                    telefono</label>
+                                                <input type="tel" class="form-control" id="anagrafica_numero_telefono"
+                                                    disabled>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label for="anagrafica_stato_origine" class="form-label">Numero di telefono</label>
-                                                <input type="tel" class="form-control" id="anagrafica_stato_origine" disabled>
-                                            </div>              
+                                                <label for="anagrafica_stato_origine" class="form-label">Numero di
+                                                    telefono</label>
+                                                <input type="tel" class="form-control" id="anagrafica_stato_origine"
+                                                    disabled>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label for="anagrafica_codice_fiscale" class="form-label">Codice Fiscale</label>
-                                                <input type="text" class="form-control" id="anagrafica_codice_fiscale" disabled>
+                                                <label for="anagrafica_codice_fiscale" class="form-label">Codice
+                                                    Fiscale</label>
+                                                <input type="text" class="form-control" id="anagrafica_codice_fiscale"
+                                                    disabled>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -99,22 +113,43 @@
 
                                     <div class="row">
                                         <div class="mb-3">
-                                            <label for="anagrafica_indirizzo_domicilio" class="form-label">Indirizzo Domicilio</label>
-                                            <input type="text" class="form-control" id="anagrafica_indirizzo_domicilio" disabled>
-                                        </div> 
+                                            <label for="anagrafica_indirizzo_domicilio" class="form-label">Indirizzo
+                                                Domicilio</label>
+                                            <input type="text" class="form-control" id="anagrafica_indirizzo_domicilio"
+                                                disabled>
+                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="mb-3">
-                                            <label for="anagrafica_indirizzo_residenza" class="form-label">Indirizzo Residenza</label>
-                                            <input type="text" class="form-control" id="anagrafica_indirizzo_resizenda" disabled>
-                                        </div> 
+                                            <label for="anagrafica_indirizzo_residenza" class="form-label">Indirizzo
+                                                Residenza</label>
+                                            <input type="text" class="form-control" id="anagrafica_indirizzo_residenza"
+                                                disabled>
+                                        </div>
                                     </div>
 
                                     <div class="row mt-3 d-flex d-flex flex-row-reverse">
                                         <div class="col-2">
-                                            <button type="button" class="btn btn-primary text-light">
+                                            <button type="button" id="anagrafica_salva_btn"
+                                                class="btn btn-primary text-light w-100" disabled>
                                                 <h5 class="m-0">Salva</h5>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <label for="anagrafica_foto_upload" class="form-label">Carica foto personale</label>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <div class="mb-3">
+                                                <input type="file" class="form-control" id="anagrafica_foto_upload">
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-primary text-light w-100">
+                                                <h5 class="m-0">Carica</h5>
                                             </button>
                                         </div>
                                     </div>
@@ -122,9 +157,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-7">
                             <h2 class="mb-3">Curriculum vitae</h2>
-                            <div class="card bg-white">
+                            <div class="card mb-3 bg-white">
                                 <div class="card-body p-0">
                                     <div class="position-relative bg-dark rounded-top-1 w-100"
                                         style="min-height: 200px;">
@@ -152,33 +187,161 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="p-2">
-
+                                    <div class="p-4">
+                                        <label for="curriculum_upload" class="form-label">Carica nuovo
+                                            curriculum</label>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <div class="mb-3">
+                                                    <input type="file" class="form-control" id="curriculum_upload">
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-primary text-light w-100">
+                                                    <h5 class="m-0">Carica</h5>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="container p-2">
-
+                            <h2 class="mb-3">Skills</h2>
+                            <div class="card mb-3" style="width: 100%;">
+                                <div class="card-body">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-5">
-                        <h2 class="mb-3">Skills</h2>
-                        <div class="card" style="width: 100%;">
-                            <div class="card-body">
+                <div class="modal fade" id="istruzione_aggiungi_modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content border border-2 border-primary">
+                            <div class="modal-header bg-body-tertiary">
+                                <h1 class="modal-title fs-5">Aggiungi Istruzione</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-7">
-                        <h2 class="mb-3">Esperienza</h2>
-                        <div class="card bg-white">
-                            <div class="card-body">
+                </div>
 
+                <div class="modal fade" id="esperienza_aggiungi_modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content border border-2 border-primary">
+                            <div class="modal-header bg-body-tertiary">
+                                <h1 class="modal-title fs-5">Aggiungi Esperienza</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
+                            <div class="modal-body">
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <h2 class="mb-3">Istruzione</h2>
+                    <div class="card bg-white">
+                        <div class="card-body">
+
+                            <span class="d-none" id="istruzione_accordion_example_item">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#istruzione_accordion_collapse_sampleId" aria-expanded="true"
+                                            aria-controls="istruzione_accordion_collapse_sampleId">
+                                            {titolo_di_studio}
+                                        </button>
+                                    </h2>
+                                    <div id="istruzione_accordion_collapse_sampleId" class="accordion-collapse collapse collapsed"
+                                        data-bs-parent="#istruzione_accordion">
+                                        <div class="accordion-body">
+                                            <h3>
+                                                {nome_istituto}
+                                            </h3>
+                                            <h6>
+                                                Da {data_inizio} a {data_fine}
+                                            </h6><br>
+                                            <h2><span class="badge bg-primary">{voto}</span></h2>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+
+                            <div class="accordion mb-3" id="istruzione_accordion">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-10"></div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-primary text-light w-100" data-bs-toggle="modal"
+                                    data-bs-target="#istruzione_aggiungi_modal">
+                                        <h5 class="m-0">Aggiungi</h5>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <h2 class="mb-3">Esperienza</h2>
+                    <div class="card bg-white">
+                        <div class="card-body">
+
+                            <span class="d-none" id="esperienza_accordion_example_item">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#esperienza_accordion_collapse_sampleId" aria-expanded="true"
+                                            aria-controls="esperienza_accordion_collapse_sampleId">
+                                            {nome_azienda}
+                                        </button>
+                                    </h2>
+                                    <div id="esperienza_accordion_collapse_sampleId" class="accordion-collapse collapse"
+                                        data-bs-parent="#esperienza_accordion">
+                                        <div class="accordion-body">
+                                            <h3>
+                                                {posizione}
+                                            </h3>
+                                            <h6>
+                                                Da {data_inizio} a {data_fine}
+                                            </h6><br>
+                                            <p>
+                                                {funzione}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+
+                            <div class="accordion mb-3" id="esperienza_accordion">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-10"></div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-primary text-light w-100" data-bs-toggle="modal"
+                                    data-bs-target="#esperienza_aggiungi_modal">
+                                        <h5 class="m-0">Aggiungi</h5>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -190,24 +353,9 @@
 
         <jsp:include page='../view-common/footer.jsp'></jsp:include>
 
-
-
-
         <script type="text/javascript">
-
-
             let anagraficaWidgetProPic = document.querySelector('#anagrafica_propic');
             let anagraficaWidgetFullName = document.querySelector('#anagrafica_full_name');
-
-            let anagraficaDataNascita = document.querySelector('#anagrafica_data_nascita');
-            let anagraficaProvinciaNascita = document.querySelector('#anagrafica_provincia_nascita');
-            let anagraficaNumeroTelefono = document.querySelector('#anagrafica_numero_telefono');
-            let anagraficaStatoOrigine = document.querySelector('#anagrafica_stato_origine');
-            let anagraficaCodiceFiscale = document.querySelector('#anagrafica_codice_fiscale');
-            let anagraficaSessoM = document.querySelector('#anagrafica_sesso_M');
-            let anagraficaSessoF = document.querySelector('#anagrafica_sesso_F');
-            let anagraficaIndirizzoDomicilio = document.querySelector('#anagrafica_indirizzo_domicilio');
-            let anagraficaIndirizzoResidenza = document.querySelector('#anagrafica_indirizzo_residenza');
 
             let dataUser = JSON.parse(`<%=request.getAttribute("dataUser")%>`);
 
@@ -215,28 +363,13 @@
 
             anagraficaWidgetFullName.innerHTML = dataUser.nome + " " + dataUser.cognome;
             anagraficaWidgetProPic.innerHTML = dataUser.nome[0] + dataUser.cognome[0];
-
-            if (dataUser.hasOwnProperty('profile')) {
-
-                let userProfile = dataUser.profile;
-                console.log(userProfile);
-
-                anagraficaDataNascita.value = userProfile.dNascita;
-                anagraficaProvinciaNascita.value = userProfile.comNascita;
-                anagraficaCodiceFiscale.value = userProfile.codiceFiscale;
-                anagraficaStatoOrigine.value = userProfile.statoOrigine;
-                anagraficaNumeroTelefono.value = userProfile.telefono;
-                
-
-                if (userProfile.gender == true) {
-                    anagraficaSessoM.checked = true;
-                } else {
-                    anagraficaSessoF.checked = true;
-                }
-            }
-
         </script>
 
+        <script type="text/javascript">
+            <jsp:include page='scripts/profile_anagrafica.js'></jsp:include>
+            <jsp:include page='scripts/profile_istruzione.js'></jsp:include>
+            <jsp:include page='scripts/profile_esperienza.js'></jsp:include>
+        </script>
 
     </body>
 
