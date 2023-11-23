@@ -3,13 +3,11 @@ package hrport.project.main.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.CategoriaSkills;
-import hrport.project.main.pojo.Istruzione;
 import hrport.project.main.pojo.Skill;
 
 public class CategorySkillsService {
