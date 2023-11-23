@@ -251,9 +251,6 @@ public class UtenteService {
 		return candidati;
 	}
 	
-	
-	
-	
 	public static void updateUtenteInfo(String json) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
