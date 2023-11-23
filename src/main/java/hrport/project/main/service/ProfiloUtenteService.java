@@ -1,6 +1,7 @@
 package hrport.project.main.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -141,15 +142,30 @@ public class ProfiloUtenteService {
 			
 			profilo = gson.fromJson(json, ProfiloUtente.class);
 					
-			String SQLUser = "UPDATE \"Profilo\""
-					+ "SET sesso = " + profilo.isGender()
-					+ "SET dNascita = " + profilo.getdNascita()
-					+ "WHERE Utenti.idUtente = " + profilo.getIdUtente();
+			String SQL = "UPDATE \"Profilo\""
+					+ "SET sesso = ?"
+					+ "SET dNascita = ?"
+					+ "SET indResidenza = ?"
+					+ "SET indDomicilio = ?"
+					+ "SET telefono = ?"
+					+ "SET codiceFiscale = ?"
+					+ "SET statoOrigine = ?"
+					+ "SET comNascita = ?"
+					+ "WHERE Profilo.idUtente = ?";
 			
-			PreparedStatement newUser = con.prepareStatement(SQLUser);
-			newUser.setString(1, utente.getPassword());
+			PreparedStatement updateProfilo = con.prepareStatement(SQL);
 			
-			newUser.executeUpdate();
+			updateProfilo.setInt(1, (profilo.isGender() ? 1 : 0));
+			updateProfilo.setDate(2, Date.valueOf(profilo.getdNascita()));
+			updateProfilo.setString(3, profilo.getIndResidenza());
+			updateProfilo.setString(4, profilo.getInDomicilio());
+			updateProfilo.setString(5, profilo.getTelefono());
+			updateProfilo.setString(6, profilo.getCodiceFiscale());
+			updateProfilo.setString(7, profilo.getStatoOrigine());
+			updateProfilo.setString(8, profilo.getComNascita());
+			updateProfilo.setInt(9, profilo.getIdUtente());
+			
+			updateProfilo.executeUpdate();
 			
 			con.commit();
 		} catch (Exception e) {
