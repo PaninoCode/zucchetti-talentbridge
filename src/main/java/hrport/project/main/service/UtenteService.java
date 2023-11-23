@@ -67,7 +67,7 @@ public class UtenteService {
 			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.idUtente = ?";
 
 			PreparedStatement User = con.prepareStatement(SQLUser);
-			User.setString(1, idUtente.toString());
+			User.setInt(1, idUtente);
 
 			resultSetUser = User.executeQuery();
 
@@ -103,7 +103,7 @@ public class UtenteService {
 			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.idUtente = ?";
 
 			PreparedStatement User = con.prepareStatement(SQLUser);
-			User.setString(1, idUtente.toString());
+			User.setInt(1, idUtente);
 
 			resultSetUser = User.executeQuery();
 
@@ -140,7 +140,7 @@ public class UtenteService {
 			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.idUtente = ?";
 
 			PreparedStatement User = con.prepareStatement(SQLUser);
-			User.setString(1, idUtente.toString());
+			User.setInt(1, idUtente);
 
 			resultSetUser = User.executeQuery();
 
@@ -179,7 +179,7 @@ public class UtenteService {
 			String SQLUser = "SELECT u.* FROM Utenti u WHERE u.idUtente = ?";
 
 			PreparedStatement User = con.prepareStatement(SQLUser);
-			User.setString(1, idUtente.toString());
+			User.setInt(1, idUtente);
 
 			resultSetUser = User.executeQuery();
 
