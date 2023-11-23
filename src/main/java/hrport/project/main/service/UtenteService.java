@@ -263,7 +263,7 @@ public class UtenteService {
 			
 			utente = gson.fromJson(json, Utente.class);
 					
-			String SQLUser = "UPDATE \"Utenti\" (\"email\", \"nome\", \"cognome\")"
+			String SQLUser = "UPDATE \"Utenti\""
 					+ "SET email = " + utente.getEmail()
 					+ "SET nome = " + utente.getNome()
 					+ "SET email = " + utente.getCognome()

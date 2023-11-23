@@ -8,12 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.CategoriaSkills;
 import hrport.project.main.pojo.EspLavorativa;
 import hrport.project.main.pojo.Istruzione;
 import hrport.project.main.pojo.Posizione;
 import hrport.project.main.pojo.ProfiloUtente;
+import hrport.project.main.pojo.Utente;
 
 public class ProfiloUtenteService {
 
@@ -122,5 +127,39 @@ public class ProfiloUtenteService {
 			resultSetProfile.close();
 			con.close();
 		}
+	}
+	
+	public static void updateProfileInfo(String json) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		ProfiloUtente profilo = null;
+			System.out.println("test");
+		try {
+			
+			con.setAutoCommit(false);
+			
+			profilo = gson.fromJson(json, ProfiloUtente.class);
+					
+			String SQLUser = "UPDATE \"Profilo\""
+					+ "SET sesso = " + profilo.isGender()
+					+ "SET dNascita = " + profilo.getdNascita()
+					+ "WHERE Utenti.idUtente = " + profilo.getIdUtente();
+			
+			PreparedStatement newUser = con.prepareStatement(SQLUser);
+			newUser.setString(1, utente.getPassword());
+			
+			newUser.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
 	}
 }
