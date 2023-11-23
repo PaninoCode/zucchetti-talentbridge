@@ -251,9 +251,6 @@ public class UtenteService {
 		return candidati;
 	}
 	
-	
-	
-	
 	public static void updateUtenteInfo(String json) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
@@ -266,16 +263,19 @@ public class UtenteService {
 			
 			utente = gson.fromJson(json, Utente.class);
 					
-			String SQLUser = "UPDATE \"Utenti\" (\"email\", \"nome\", \"cognome\")"
-					+ "SET email = " + utente.getEmail()
-					+ "SET nome = " + utente.getNome()
-					+ "SET email = " + utente.getCognome()
-					+ "WHERE Utenti.idUtente = " + utente.getIdUtente();
+			String SQL = "UPDATE \"Utenti\""
+					+ "SET email = ?"
+					+ "SET nome = ?"
+					+ "SET email = ?"
+					+ "WHERE Utenti.idUtente = ?";
 			
-			PreparedStatement newUser = con.prepareStatement(SQLUser);
-			newUser.setString(1, utente.getPassword());
+			PreparedStatement updateUser = con.prepareStatement(SQL);
+			updateUser.setString(1, utente.getEmail());
+			updateUser.setString(2, utente.getNome());
+			updateUser.setString(3, utente.getEmail());
+			updateUser.setInt(4, utente.getIdUtente());
 			
-			newUser.executeUpdate();
+			updateUser.executeUpdate();
 			
 			con.commit();
 		} catch (Exception e) {
