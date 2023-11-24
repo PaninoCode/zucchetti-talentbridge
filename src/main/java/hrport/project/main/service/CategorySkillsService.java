@@ -70,6 +70,10 @@ public class CategorySkillsService {
 			con.setAutoCommit(false);
 			
 			category = gson.fromJson(json, CategoriaSkills.class);
+			
+			if(category.getSkills() == null) {
+				throw new Exception("bisogna inserire anche le skills");
+			}
 					
 			String SQLCategory = "INSERT INTO \"CategoriaSkills\" (\"idCv\", \"nomeCategoria\")\r\n"
 					+ "VALUES (?, ?);"
