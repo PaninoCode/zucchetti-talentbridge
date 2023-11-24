@@ -181,7 +181,7 @@ public class CandidaturaService {
 			
 	}
 	
-	public static void deleteCandidatura(Integer idTable, Integer idCv) throws Exception {
+	public static void deleteCandidatura(Integer idPos, Integer idUtente) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 			
@@ -189,14 +189,14 @@ public class CandidaturaService {
 			
 			con.setAutoCommit(false);
 					
-			String SQL = "DELETE FROM Istruzione ist WHERE ist.idIst = ? AND ist.idCv = ?;";
+			String SQL = "DELETE FROM Candidatura cn WHERE cn.idUtente = ? AND cn.idPos = ?;";
 			
-			PreparedStatement deleteIstruz = con.prepareStatement(SQL);
+			PreparedStatement deleteCandidatura = con.prepareStatement(SQL);
 			
-			deleteIstruz.setInt(1, idTable);
-			deleteIstruz.setInt(2, idCv);
+			deleteCandidatura.setInt(1, idUtente);
+			deleteCandidatura.setInt(2, idPos);
 			
-			deleteIstruz.executeUpdate();
+			deleteCandidatura.executeUpdate();
 			
 			con.commit();
 		} catch (Exception e) {
