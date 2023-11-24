@@ -136,32 +136,23 @@ public class CategorySkillsService {
 				throw new Exception("bisogna inserire anche le skills");
 			}
 					
-			String SQLCategory = "UPDATE \"Istruzione\""
-					+ "SET titoloIstruzione = ?"
-					+ "SET istituto = ?"
-					+ "SET indirizzo = ?"
-					+ "SET voto = ?"
-					+ "SET dInizio = ?"
-					+ "SET dFine = ?"
-					+ "WHERE Istruzione.idIst = ?"
-					+ "AND Istruzione.idCv = ?";
+			String SQLCategory = "UPDATE \"CategoriaSkills\""
+					+ "SET nomeCategoria = ?"
+					+ "WHERE CategoriaSkills.idCs = ?"
+					+ "AND CategoriaSkills.idCv = ?";
 			
-			PreparedStatement insertCategory = con.prepareStatement(SQLCategory);
+			PreparedStatement updateCategory = con.prepareStatement(SQLCategory);
 			
-			insertCategory.setInt(1, idCv);
-			insertCategory.setString(2, category.getNomeCategoria());
+			updateCategory.setString(1, category.getNomeCategoria());
+			updateCategory.setInt(2, category.getIdCs());
+			updateCategory.setInt(3, idCv);
 			
-			resultSetCategoryId = insertCategory.executeQuery();
+			resultSetCategoryId = updateCategory.executeQuery();
 			
-			String SQLSkills = "UPDATE \"Istruzione\""
-					+ "SET titoloIstruzione = ?"
-					+ "SET istituto = ?"
-					+ "SET indirizzo = ?"
-					+ "SET voto = ?"
-					+ "SET dInizio = ?"
-					+ "SET dFine = ?"
-					+ "WHERE Istruzione.idIst = ?"
-					+ "AND Istruzione.idCv = ?";
+			String SQLSkills = "UPDATE \"Skill\""
+					+ "SET nomeSkill = ?"
+					+ "WHERE Skill.idCs = ?"
+					+ "AND Skill.idSkill = ?";
 			
 			resultSetCategoryId.next();
 			Integer lastId = resultSetCategoryId.getInt("lastId");
@@ -169,12 +160,13 @@ public class CategorySkillsService {
 			for (Iterator<Skill> iterator = (category.getSkills()).iterator(); iterator.hasNext();) {
 				
 				Skill skill = iterator.next();
-				PreparedStatement insertSkill = con.prepareStatement(SQLSkills);
+				PreparedStatement updateSkill = con.prepareStatement(SQLSkills);
 				
-				insertSkill.setInt(1, lastId);
-				insertSkill.setString(2, skill.getNomeSkill());
+				updateSkill.setString(1, skill.getNomeSkill());
+				updateSkill.setInt(2, category.getIdCs());
+				updateSkill.setInt(3, skill.getIdSkill());
 				
-				insertSkill.executeUpdate();
+				updateSkill.executeUpdate();
 			}
 			
 			con.commit();
