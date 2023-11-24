@@ -1,4 +1,4 @@
-<div class="container-fluid bg-white shadow">
+<div class="container-fluid bg-white shadow" id="footer">
     <div class="container p-4">
         <footer class="py-3 my-4">
             <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
