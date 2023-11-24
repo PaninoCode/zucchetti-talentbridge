@@ -191,4 +191,24 @@
     <servlet-name>DeleteCategoryWithSkills</servlet-name>
     <url-pattern>/DeleteCategoryWithSkills</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertCandidatura</display-name>
+    <servlet-name>InsertCandidatura</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.InsertCandidatura</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertCandidatura</servlet-name>
+    <url-pattern>/InsertCandidatura</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteCandidatura</display-name>
+    <servlet-name>DeleteCandidatura</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.DeleteCandidatura</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteCandidatura</servlet-name>
+    <url-pattern>/DeleteCandidatura</url-pattern>
+  </servlet-mapping>
 </web-app>
