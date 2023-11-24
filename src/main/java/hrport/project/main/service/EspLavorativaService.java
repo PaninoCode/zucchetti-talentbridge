@@ -14,7 +14,6 @@ import com.google.gson.GsonBuilder;
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.EspLavorativa;
-import hrport.project.main.pojo.Istruzione;
 
 public class EspLavorativaService {
 

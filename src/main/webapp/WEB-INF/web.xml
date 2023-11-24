@@ -141,4 +141,24 @@
     <servlet-name>UpdateEsperienzaLav</servlet-name>
     <url-pattern>/UpdateEsperienzaLav</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertCategoryWithSkills</display-name>
+    <servlet-name>InsertCategoryWithSkills</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.InsertCategoryWithSkills</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertCategoryWithSkills</servlet-name>
+    <url-pattern>/InsertCategoryWithSkills</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateCategoryWithSkills</display-name>
+    <servlet-name>UpdateCategoryWithSkills</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UpdateCategoryWithSkills</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateCategoryWithSkills</servlet-name>
+    <url-pattern>/UpdateCategoryWithSkills</url-pattern>
+  </servlet-mapping>
 </web-app>
