@@ -149,5 +149,65 @@ public class CandidaturaService {
 
 		return applications;
 	}
+	
+	public static void insertCandidatura(Integer idPos, Integer idUtente) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		try {
+			
+			con.setAutoCommit(false);
+					
+			String SQL = "INSERT INTO \"Candidatura\" (\"idUtente\", \"idPos\", \"stato\")\r\n"
+					+ "VALUES (?, ?, ?);";
+			
+			PreparedStatement insertCandidatura = con.prepareStatement(SQL);
+			
+			insertCandidatura.setInt(1, idUtente);
+			insertCandidatura.setInt(2, idPos);
+			insertCandidatura.setInt(3, 0);
+			
+			insertCandidatura.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
+	
+	public static void deleteCandidatura(Integer idTable, Integer idCv) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+			
+		try {
+			
+			con.setAutoCommit(false);
+					
+			String SQL = "DELETE FROM Istruzione ist WHERE ist.idIst = ? AND ist.idCv = ?;";
+			
+			PreparedStatement deleteIstruz = con.prepareStatement(SQL);
+			
+			deleteIstruz.setInt(1, idTable);
+			deleteIstruz.setInt(2, idCv);
+			
+			deleteIstruz.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
 
 }
