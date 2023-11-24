@@ -11,15 +11,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import hrport.project.main.pojo.ProfiloUtente;
+import hrport.project.main.service.CategorySkillsService;
 import hrport.project.main.service.EspLavorativaService;
-import hrport.project.main.service.IstruzioneService;
 import hrport.project.main.service.ProfiloUtenteService;
 
 /**
- * Servlet implementation class DeleteEsperienzaLav
+ * Servlet implementation class DeleteCategoryWithSkills
  */
-@WebServlet("/user/delete-experience/*")
-public class DeleteEsperienzaLav extends HttpServlet {
+@WebServlet("/user/delete-category/*")
+public class DeleteCategoryWithSkills extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -54,7 +54,7 @@ public class DeleteEsperienzaLav extends HttpServlet {
         try {
         	
         	ProfiloUtente profilo = ProfiloUtenteService.getProfileUserByIdUtente(idUtente);
-        	EspLavorativaService.deleteEsperienza(idTable, profilo.getIdCv());
+        	CategorySkillsService.deleteCategoryWithSkills(idTable, profilo.getIdCv());
 			
 			String data = "{\"data\" : \"success\"}";
         	
