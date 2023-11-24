@@ -118,13 +118,14 @@
 	        console.log(posizioni);
 	        
 	        //Catch only the data needed
-	        let jobPositions2 = [];
+	       let jobPositions2 = [];
 	        posizioni.forEach(function (posizione){
 	        	
 	        	let position = {
 	        			nome: posizione.nome,
 	        			descrizione: posizione.descrizione,
-	        			foto: posizione.fotoUrl
+	        			foto: posizione.fotoUrl,
+	        			aperta: posizione.aperta
 	        	}
 	        	
 	        	jobPositions2.push(position);
@@ -133,6 +134,7 @@
 	        });
 	        
 	        //test ok
+	        
 	        console.log(jobPositions2);
 	        
 			//Create the selectors
@@ -190,7 +192,7 @@
 
                 for (let i = startFrom; i < endAt; i++) {
 
-                    if ((jobPositions2[i].aperta && check_posizioni_aperte.checked) || (!jobPositions2[i].aperta && check_posizioni_chiuse.checked)) {
+                   if ((jobPositions2[i].aperta && check_posizioni_aperte.checked) || (!jobPositions2[i].aperta && check_posizioni_chiuse.checked)) {
                         let stautsPosizione = status_closed;
 
                         if (jobPositions2[i].aperta) stautsPosizione = status_open;
@@ -203,6 +205,11 @@
                             .replace('{position_status}', stautsPosizione)
                             .replace('{position_id}', jobPositions2[i].idPos);
                     }
+                    
+                	
+                 
+
+                      
                 }
             }
         </script>
