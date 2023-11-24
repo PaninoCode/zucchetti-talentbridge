@@ -104,15 +104,15 @@ public class EspLavorativaService {
 			
 			experience = gson.fromJson(json, EspLavorativa.class);
 					
-			String SQL = "UPDATE \"Istruzione\""
+			String SQL = "UPDATE \"EspLavorativa\""
 					+ "SET azienda = ?"
 					+ "SET dInizio = ?"
 					+ "SET dFine = ?"
 					+ "SET posizione = ?"
 					+ "SET funzione = ?"
 					+ "SET indirizzo = ?"
-					+ "WHERE Istruzione.idEL = ?"
-					+ "AND Istruzione.idCv = ?";
+					+ "WHERE EspLavorativa.idEL = ?"
+					+ "AND EspLavorativa.idCv = ?";
 			
 			PreparedStatement updateEsperienza = con.prepareStatement(SQL);
 			
@@ -126,6 +126,35 @@ public class EspLavorativaService {
 			updateEsperienza.setInt(8, idCv);
 			
 			updateEsperienza.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
+	
+	public static void deleteEsperienza(Integer idTable, Integer idCv) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+			
+		try {
+			
+			con.setAutoCommit(false);
+					
+			String SQL = "DELETE FROM EspLavorativa esp WHERE esp.idEL = ? AND esp.idCv = ?;";
+			
+			PreparedStatement deleteExperience = con.prepareStatement(SQL);
+			
+			deleteExperience.setInt(1, idTable);
+			deleteExperience.setInt(2, idCv);
+			
+			deleteExperience.executeUpdate();
 			
 			con.commit();
 		} catch (Exception e) {
