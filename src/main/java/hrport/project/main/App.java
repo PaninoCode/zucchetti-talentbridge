@@ -40,12 +40,12 @@ public class App {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Gson gson = new GsonBuilder().create();
-		try {
-			System.out.println(gson.toJson(Quiz.quizAnswers(1, 1)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		Gson gson = new GsonBuilder().create();
+//		try {
+//			System.out.println(gson.toJson(Quiz.quizAnswers(1, 1)));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		
 //		Set<EspLavorativa> esp = new HashSet<>();
@@ -59,7 +59,7 @@ public class App {
 //		 *
 //		 
 //		
-//		try {
+		try {
 //			Quiz q= Quiz.initQuiz(1);
 //			
 //			System.out.println("Nome: "+q.getNome()+
