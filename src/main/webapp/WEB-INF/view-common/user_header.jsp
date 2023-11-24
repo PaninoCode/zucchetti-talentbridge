@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white fixed-top shadow-sm" data-bs-theme="light">
+<nav class="navbar navbar-expand-lg bg-white fixed-top shadow-sm" id="user_header" data-bs-theme="light">
     <div class="container-fluid">
         <a class="navbar-brand display-6" href="#">TalentBridge</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
