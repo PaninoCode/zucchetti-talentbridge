@@ -20,6 +20,7 @@ import hrport.project.main.service.ProfiloUtenteService;
 /**
  * Servlet implementation class UpdateCategoryWithSkills
  */
+@WebServlet("/user/update-category-and-skills")
 public class UpdateCategoryWithSkills extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
