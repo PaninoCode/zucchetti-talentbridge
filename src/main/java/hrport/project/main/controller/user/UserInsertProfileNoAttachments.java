@@ -18,7 +18,7 @@ import hrport.project.main.service.ProfiloUtenteService;
  * Servlet implementation class UerProfileInsertNoAttachments
  */
 @WebServlet("/user/insert-profile-no-attachments")
-public class UerProfileInsertNoAttachments extends HttpServlet {
+public class UserInsertProfileNoAttachments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	/**
