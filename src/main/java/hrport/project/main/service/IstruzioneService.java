@@ -139,4 +139,33 @@ public class IstruzioneService {
 		}
 			
 	}
+	
+	public static void deleteIstruzInfo(Integer idTable, Integer idCv) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+			
+		try {
+			
+			con.setAutoCommit(false);
+					
+			String SQL = "DELETE FROM Istruzione ist WHERE ist.idIst = ? AND ist.idCv = ?;";
+			
+			PreparedStatement deleteIstruz = con.prepareStatement(SQL);
+			
+			deleteIstruz.setInt(1, idTable);
+			deleteIstruz.setInt(2, idCv);
+			
+			deleteIstruz.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
 }

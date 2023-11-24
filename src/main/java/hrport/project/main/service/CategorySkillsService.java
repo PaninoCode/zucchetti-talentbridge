@@ -182,4 +182,33 @@ public class CategorySkillsService {
 		}
 		
 	}
+	
+	public static void deleteCategoryWithSkills(Integer idTable, Integer idCv) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+			
+		try {
+			
+			con.setAutoCommit(false);
+					
+			String SQL = "DELETE FROM CategoriaSkills cg WHERE cg.idCs = ? AND cg.idCv = ?;";
+			
+			PreparedStatement deleteCategoryWithSkill = con.prepareStatement(SQL);
+			
+			deleteCategoryWithSkill.setInt(1, idTable);
+			deleteCategoryWithSkill.setInt(2, idCv);
+			
+			deleteCategoryWithSkill.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
+	}
 }
