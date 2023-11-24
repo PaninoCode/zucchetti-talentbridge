@@ -9,7 +9,9 @@ import com.google.gson.GsonBuilder;
 
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.PosizioneService;
+import hrport.project.main.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,30 +33,37 @@ public class AdminDettaglioPosizione extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-
-		String candidatiJson = null;
+		String dataPosizione = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-		
 
-		try {
+		String pathInfo = request.getPathInfo();
+		if (pathInfo != null) {
+			String[] pathParts = pathInfo.split("/");
+			if (pathParts.length > 1) {
+				String posizioneId = pathParts[1];
+				
 
-			List<Posizione> positionsWithApplications = PosizioneService.getAllPositionsWithApplications();
-			
-			candidatiJson = gson.toJson(positionsWithApplications);
+				try {
+					Posizione posizione = PosizioneService.getPosizioneById(Integer.parseInt(posizioneId));
 
-		} catch (Exception e) {
-
-			String error = e.getMessage();
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			request.setAttribute("data", error);
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
-			return;
+					dataPosizione = gson.toJson(posizione);
+					System.out.println(dataPosizione);
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				request.setAttribute("dataPos", dataPosizione);
+				request.getRequestDispatcher("/WEB-INF/view-admin/candidatoProfileTest.jsp").forward(request, response);
+				return;
+			}
 		}
 
-		request.setAttribute("candidati", candidatiJson);
-
-		request.getRequestDispatcher("/WEB-INF/view-admin/detail_posizione.jsp").forward(request, response);
+		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "User id not specified in the path");
+	
 
 	}
+
 }

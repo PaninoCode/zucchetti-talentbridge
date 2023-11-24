@@ -56,6 +56,7 @@ public class AdminHome extends HttpServlet {
 		}
 
 		request.setAttribute("candidati", candidatiJson);
+		
 
 		//request.getRequestDispatcher("/WEB-INF/view-admin/candidati.jsp").forward(request, response);
 		response.sendRedirect(request.getContextPath() + "/admin/candidati");

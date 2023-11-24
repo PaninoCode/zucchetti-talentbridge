@@ -182,6 +182,16 @@
         <script
             src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.js"></script>
         <script>
+        	
+      //Object from database
+        let JSPposizione = `<%=request.getAttribute("dataPos")%>`;
+        console.log(JSPposizione);
+		//Object Json
+        let posizione = JSON.parse(JSPposizione);
+		
+        console.log(posizione);
+        
+        
             let table = new DataTable('#myTable', {
                 dom: "PlftipB",
                 buttons: [
