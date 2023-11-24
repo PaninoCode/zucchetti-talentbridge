@@ -93,13 +93,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>UerProfileInsertNoAttachments</display-name>
-    <servlet-name>UerProfileInsertNoAttachments</servlet-name>
+    <display-name>UserInsertProfileNoAttachments</display-name>
+    <servlet-name>UserInsertProfileNoAttachments</servlet-name>
     <servlet-class>hrport.project.main.controller.user.UerProfileInsertNoAttachments</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UerProfileInsertNoAttachments</servlet-name>
-    <url-pattern>/UerProfileInsertNoAttachments</url-pattern>
+    <servlet-name>UserInsertProfileNoAttachments</servlet-name>
+    <url-pattern>/UserInsertProfileNoAttachments</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
