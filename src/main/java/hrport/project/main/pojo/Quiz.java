@@ -76,7 +76,6 @@ public class Quiz {
 		try {
 			con.setAutoCommit(false);
 			ResultSet resultSet= null;
-			Quiz q= Quiz.initQuiz(idQuiz);
 			String SQLUser="SELECT SUM(d.punteggio) as totale\r\n"
 					+ "FROM RispostaData rd\r\n"
 					+ "JOIN Risposta r ON rd.idRisposta = r.idRisposta\r\n"
@@ -222,7 +221,7 @@ public class Quiz {
 		}
 	}
 	
-	public static Quiz initQuiz(int id) throws Exception {
+	public static Quiz initQuiz(int idQuiz) throws Exception {
 		List<Domanda> lista= new ArrayList<>();
 		Connection con = ConnectDatabase.getConnection();
 		
@@ -233,7 +232,7 @@ public class Quiz {
 			String SQLUser = "SELECT q.* FROM Quiz q WHERE q.idQuiz= ?";
 			
 			PreparedStatement Quiz = con.prepareStatement(SQLUser);
-			Quiz.setInt(1, id);
+			Quiz.setInt(1, idQuiz);
 			
 			resultSet = Quiz.executeQuery();
 			
@@ -244,7 +243,7 @@ public class Quiz {
 	            // Ora, esegui la query per ottenere le domande associate al quiz
 	            String SQLDomande = "SELECT d.* FROM Quiz q JOIN Domanda d ON q.idQuiz = d.idQuiz WHERE q.idQuiz = ?";
 	            PreparedStatement domandeStatement = con.prepareStatement(SQLDomande);
-	            domandeStatement.setInt(1, id);
+	            domandeStatement.setInt(1, idQuiz);
 	            ResultSet domandeResultSet = domandeStatement.executeQuery();
 
 	            while (domandeResultSet.next()) {
@@ -253,7 +252,7 @@ public class Quiz {
 	                int punteggioDomanda = domandeResultSet.getInt(4);
 	                Domanda domanda= new Domanda(domandaId, testoDomanda, punteggioDomanda);
 	                
-	                domanda.setRisposte(con, domandaId);
+	                domanda.setRisposte(con);
 	                
 	                lista.add(domanda);
 	            }
@@ -264,6 +263,60 @@ public class Quiz {
 	            // Restituisci null o lancia un'eccezione se il quiz non è stato trovato
 	            return null; // oppure gestisci l'eccezione
 	        }
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+			
+		} finally {
+			
+			con.close();
+		}
+		
+	}
+	
+	public static Quiz quizAnswers(int idQuiz, int idUtente) throws Exception {
+		List<Domanda> lista= new ArrayList<>();
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSet = null;
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUser = "SELECT q.* FROM Quiz q WHERE q.idQuiz= ?";
+			
+			PreparedStatement Quiz = con.prepareStatement(SQLUser);
+			Quiz.setInt(1, idQuiz);
+			
+			resultSet = Quiz.executeQuery();
+			
+			con.commit();
+			
+			if (resultSet.next()) {
+				
+				// Ora, esegui la query per ottenere le domande associate al quiz
+				String SQLDomande = "SELECT d.* FROM Quiz q JOIN Domanda d ON q.idQuiz = d.idQuiz WHERE q.idQuiz = ?";
+				PreparedStatement domandeStatement = con.prepareStatement(SQLDomande);
+				domandeStatement.setInt(1, idQuiz);
+				ResultSet domandeResultSet = domandeStatement.executeQuery();
+				
+				while (domandeResultSet.next()) {
+					int domandaId = domandeResultSet.getInt(2);
+					String testoDomanda = domandeResultSet.getString(3);
+					int punteggioDomanda = domandeResultSet.getInt(4);
+					Domanda domanda= new Domanda(domandaId, testoDomanda, punteggioDomanda);
+					domanda.setRisposte(con);
+					domanda.setIdRispostaUtente(con, idUtente);
+					
+					lista.add(domanda);
+				}
+				
+				Quiz quiz = new Quiz(resultSet.getInt(1), resultSet.getString(2), lista);
+				return quiz;
+			} else {
+				// Restituisci null o lancia un'eccezione se il quiz non è stato trovato
+				return null; // oppure gestisci l'eccezione
+			}
 		} catch (Exception e) {
 			
 			con.rollback();
