@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.CategoriaSkills;
+import hrport.project.main.pojo.Istruzione;
 import hrport.project.main.pojo.Skill;
 
 public class CategorySkillsService {
@@ -87,8 +88,7 @@ public class CategorySkillsService {
 			resultSetCategoryId = insertCategory.executeQuery();
 			
 			String SQLSkills = "INSERT INTO \"Skill\" (\"idCs\", \"nomeSkill\")\r\n"
-					+ "VALUES (?, ?);"
-					+ "SELECT SCOPE_IDENTITY() as 'lastId'";
+					+ "VALUES (?, ?);";
 			
 			resultSetCategoryId.next();
 			Integer lastId = resultSetCategoryId.getInt("lastId");
@@ -116,5 +116,78 @@ public class CategorySkillsService {
 			con.close();
 		}
 			
+	}
+	
+	public static void updateCategoryWithSkills(String json, Integer idCv) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		
+		ResultSet resultSetCategoryId = null;
+		CategoriaSkills category = null;
+
+		try {
+			
+			con.setAutoCommit(false);
+			
+			category = gson.fromJson(json, CategoriaSkills.class);
+			
+			if(category.getSkills() == null) {
+				throw new Exception("bisogna inserire anche le skills");
+			}
+					
+			String SQLCategory = "UPDATE \"Istruzione\""
+					+ "SET titoloIstruzione = ?"
+					+ "SET istituto = ?"
+					+ "SET indirizzo = ?"
+					+ "SET voto = ?"
+					+ "SET dInizio = ?"
+					+ "SET dFine = ?"
+					+ "WHERE Istruzione.idIst = ?"
+					+ "AND Istruzione.idCv = ?";
+			
+			PreparedStatement insertCategory = con.prepareStatement(SQLCategory);
+			
+			insertCategory.setInt(1, idCv);
+			insertCategory.setString(2, category.getNomeCategoria());
+			
+			resultSetCategoryId = insertCategory.executeQuery();
+			
+			String SQLSkills = "UPDATE \"Istruzione\""
+					+ "SET titoloIstruzione = ?"
+					+ "SET istituto = ?"
+					+ "SET indirizzo = ?"
+					+ "SET voto = ?"
+					+ "SET dInizio = ?"
+					+ "SET dFine = ?"
+					+ "WHERE Istruzione.idIst = ?"
+					+ "AND Istruzione.idCv = ?";
+			
+			resultSetCategoryId.next();
+			Integer lastId = resultSetCategoryId.getInt("lastId");
+			
+			for (Iterator<Skill> iterator = (category.getSkills()).iterator(); iterator.hasNext();) {
+				
+				Skill skill = iterator.next();
+				PreparedStatement insertSkill = con.prepareStatement(SQLSkills);
+				
+				insertSkill.setInt(1, lastId);
+				insertSkill.setString(2, skill.getNomeSkill());
+				
+				insertSkill.executeUpdate();
+			}
+			
+			con.commit();
+			
+			System.out.println("success");
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+		
 	}
 }
