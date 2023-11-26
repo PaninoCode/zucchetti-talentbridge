@@ -185,11 +185,10 @@
         	
       //Object from database
         let JSPposizione = `<%=request.getAttribute("dataPos")%>`;
-        console.log(JSPposizione);
 		//Object Json
-        let posizione = JSON.parse(JSPposizione);
+        let JsonPosizione = JSON.parse(JSPposizione);
 		
-        console.log(posizione);
+        console.log(JsonPosizione);
         
         
             let table = new DataTable('#myTable', {

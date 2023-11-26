@@ -3,15 +3,12 @@ package hrport.project.main.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
-import hrport.project.main.pojo.ProfiloUtente;
-import hrport.project.main.pojo.Utente;
 
 public class PosizioneService {
 	
@@ -113,14 +110,17 @@ public class PosizioneService {
 			
 			resultSet.next();
 				
+				List <Candidatura> candidatura = CandidaturaService.getApplicationsFromPosition(idPosizione);
+				
 				Posizione posizione = new Posizione(
 						resultSet.getInt("idPos"),
 						resultSet.getString("nome"),
 						resultSet.getBoolean("aperta"),
 						resultSet.getString("fotoUrl"),
-						resultSet.getString("descrizione"));	
+						resultSet.getString("descrizione"),
+						candidatura);	
 				
-				System.out.println(posizione.getNome());
+				//System.out.println(candidatura);
 			
 			con.commit();
 			return posizione;

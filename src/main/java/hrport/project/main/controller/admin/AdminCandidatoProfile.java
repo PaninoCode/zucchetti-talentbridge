@@ -55,7 +55,7 @@ public class AdminCandidatoProfile extends HttpServlet {
 						e.printStackTrace();
 					}
 	                request.setAttribute("dataUser", dataUser);
-	                request.getRequestDispatcher("/WEB-INF/view-admin/detail_posizione.jsp").forward(request, response);
+	                request.getRequestDispatcher("/WEB-INF/view-admin/candidatoProfileTest.jsp").forward(request, response);
 	                return;
 	            }
 	        }

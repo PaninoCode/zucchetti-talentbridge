@@ -45,6 +45,7 @@ public class AdminDettaglioPosizione extends HttpServlet {
 
 				try {
 					Posizione posizione = PosizioneService.getPosizioneById(Integer.parseInt(posizioneId));
+					
 
 					dataPosizione = gson.toJson(posizione);
 					System.out.println(dataPosizione);
@@ -56,7 +57,7 @@ public class AdminDettaglioPosizione extends HttpServlet {
 					e.printStackTrace();
 				}
 				request.setAttribute("dataPos", dataPosizione);
-				request.getRequestDispatcher("/WEB-INF/view-admin/candidatoProfileTest.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/view-admin/detail_posizione.jsp").forward(request, response);
 				return;
 			}
 		}
