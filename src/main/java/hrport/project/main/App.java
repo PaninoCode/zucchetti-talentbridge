@@ -55,7 +55,7 @@ public class App {
         	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         	String json = gson.toJson(candidatura);
-        	System.out.println(json);
+        	//System.out.println(json);
         	
         } catch (Exception e) {
             e.printStackTrace();

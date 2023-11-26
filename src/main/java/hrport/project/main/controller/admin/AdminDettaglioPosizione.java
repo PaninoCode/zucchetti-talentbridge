@@ -2,22 +2,18 @@ package hrport.project.main.controller.admin;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Posizione;
-import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.PosizioneService;
-import hrport.project.main.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class UserHome
@@ -46,9 +42,8 @@ public class AdminDettaglioPosizione extends HttpServlet {
 				try {
 					Posizione posizione = PosizioneService.getPosizioneById(Integer.parseInt(posizioneId));
 					
-
 					dataPosizione = gson.toJson(posizione);
-					System.out.println(dataPosizione);
+					
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
