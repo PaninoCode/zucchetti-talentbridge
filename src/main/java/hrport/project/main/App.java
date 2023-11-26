@@ -1,38 +1,16 @@
 package hrport.project.main;
 
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import hrport.project.main.adaptergson.DomandaAdapter;
 import hrport.project.main.adaptergson.LocalDateAdapter;
-import hrport.project.main.adaptergson.QuizListAdapter;
-import hrport.project.main.adaptergson.RispostaAdapter;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import hrport.project.main.connectdb.ConnectDatabase;
-import hrport.project.main.pojo.*;
+import hrport.project.main.pojo.Candidatura;
+import hrport.project.main.pojo.Posizione;
 import hrport.project.main.service.CandidaturaService;
-import hrport.project.main.service.CategorySkillsService;
 import hrport.project.main.service.PosizioneService;
-import hrport.project.main.service.UtenteService;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class App {
 	
@@ -69,14 +47,15 @@ public class App {
 //			
 //			String error = "{\"data\" : \"success\"}";
         	
-			
-        	Set<CategoriaSkills> category = CategorySkillsService.getCategoriesByIdCvWithSkills(1);
-        	CategorySkillsService.insertCategoryWithSkills("{\"idCv\":2,\"skills\":[{\"nomeSkill\":\"Skill5\"}],\"nomeCategoria\":\"Categoria5\"}", 2);
+			List <Candidatura> candidatura = CandidaturaService.getApplicationsFromPosition(1);
+        	//Set<CategoriaSkills> category = CategorySkillsService.getCategoriesByIdCvWithSkills(1);
+        	//CategorySkillsService.insertCategoryWithSkills("{\"idCv\":2,\"skills\":[{\"nomeSkill\":\"Skill5\"}],\"nomeCategoria\":\"Categoria5\"}", 2);
         	// "{\"idCv\":1,\"skills\":[{\"nomeSkill\":\"Skill1\"}],\"nomeCategoria\":\"Categoria1\"}"
         	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\",\"posizioni\":[{\"idCand\":1,\"position\":{\"idPos\":1,\"nome\":\"Posizione1\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione1\",\"descrizione\":\"Descrizione1\u003c3\"},\"stato\":0},{\"idCand\":2,\"position\":{\"idPos\":2,\"nome\":\"Posizione2\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione2\",\"descrizione\":\"Descrizione2\u003e:(((((\"},\"stato\":1}]}"
         	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        	String json = gson.toJson(category);
+        	String json = gson.toJson(candidatura);
+        	System.out.println(json);
         	
         } catch (Exception e) {
             e.printStackTrace();
