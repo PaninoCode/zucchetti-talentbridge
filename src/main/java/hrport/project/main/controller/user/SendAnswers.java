@@ -30,24 +30,24 @@ import hrport.project.main.service.UtenteService;
 /*
  FORMATO DEL FILE JSON:
  {
-  "quiz_id": 123,
-  "user_id": 456,
+  "quiz_id": 1,
+  "user_id": 1,
   "answers": [
     {
       "question_id": 1,
-      "selected_option_id": 3
+      "selected_option_id": null
     },
     {
       "question_id": 2,
-      "selected_option_id": 1
+      "selected_option_id": null
     },
     {
       "question_id": 3,
-      "selected_option_id": 2
+      "selected_option_id": null
     },
     {
       "question_id": 4,
-      "selected_option_id": 4
+      "selected_option_id": null
     }
   ]
 }
@@ -97,9 +97,14 @@ public class SendAnswers {
 
 		    Collections.sort(answersList, Comparator.comparingInt(o -> o.get("question_id").getAsInt()));
 
-		    int[] selectedOptionIds = new int[answersList.size()];
+		    Integer[] selectedOptionIds = new Integer[answersList.size()];
 		    for (int i = 0; i < answersList.size(); i++) {
-		        selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
+		    	
+		        try {
+					selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
+				} catch (Exception e) {
+					selectedOptionIds[i]=null;
+				}
 		    }
 			
 			Quiz.insertRisposteDate(idUtente, quizId, selectedOptionIds);

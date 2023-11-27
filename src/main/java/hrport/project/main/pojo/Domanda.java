@@ -107,6 +107,17 @@ public class Domanda {
 			e.printStackTrace();
 		}
 	}
+	
+	public int getFirstIndexSbagliataRisposta() {
+		for(int i=0; i<4; i++) {
+			System.out.println(risposte[i].getTesto());
+			System.out.println(risposte[i].isGiusta());
+			if(!risposte[i].isGiusta()) {
+				return i+1;
+			}
+		}
+		return -1;
+	}
 
 	
 	

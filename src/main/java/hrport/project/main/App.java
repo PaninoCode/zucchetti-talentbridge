@@ -39,74 +39,101 @@ public class App {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Gson gson = new GsonBuilder().create();
+		
+		String jsonString="{\"quiz_id\":1,\"user_id\":1,\"answers\":[{\"question_id\":1,\"selected_option_id\":null},{\"question_id\":2,\"selected_option_id\":null},{\"question_id\":3,\"selected_option_id\":null},{\"question_id\":4,\"selected_option_id\":null}]}";
+		JsonObject json = (JsonObject) JsonParser.parseString(jsonString);
+		int quizId = json.get("quiz_id").getAsInt();
+
+	    JsonArray answersArray = json.getAsJsonArray("answers");
+	    List<JsonObject> answersList = new ArrayList<>();
+	    answersArray.forEach(answer -> answersList.add(answer.getAsJsonObject()));
+
+	    Collections.sort(answersList, Comparator.comparingInt(o -> o.get("question_id").getAsInt()));
+
+	    Integer[] selectedOptionIds = new Integer[answersList.size()];
+	    for (int i = 0; i < answersList.size(); i++) {
+	    	try {
+				selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
+			} catch (Exception e) {
+				selectedOptionIds[i]=null;
+			}
+	    }
+		
 		try {
-			System.out.println(gson.toJson(Quiz.quizAnswers(1, 1)));
+			Quiz.insertRisposteDate(1, quizId, selectedOptionIds);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-//		Set<EspLavorativa> esp = new HashSet<>();
-//		Set<Istruzione> ist = new HashSet<>();
-//		
-//		//ProfiloUtente profiloUtente = new ProfiloUtente(2, "test", "test", null, "test", "test", true, LocalDate.of(2023, 11, 19), "test", "test", "123", "test", "test", "test", esp, ist);
-//		
-//		// TODO Auto-generated method stub
-//		/*System.out.println("HelloWorld");
-//		 * 
-//		 *
-//		 
-//		
+//		Gson gson = new GsonBuilder().create();
 //		try {
-//			Quiz q= Quiz.initQuiz(1);
-//			
-//			System.out.println("Nome: "+q.getNome()+
-//					"\nPunteggio domanda 1: "+q.domandaIndex(0).getPunteggio()+
-//					"\nTesto risposta n2: "+q.domandaIndex(0).rispostaIndex(1).getTesto());
-//			System.out.println(((Domanda)q.getDomande()[0]).getTesto());
-//			
-//			int[] array= {1,2,3,4};
-//			Quiz.risposteDate(2, 1, array);
-//			
-//			System.out.println(Quiz.getPunteggio(1, 1));
-//			
+//			System.out.println(gson.toJson(Quiz.quizAnswers(1, 1)));
 //		} catch (Exception e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//		}*/
+//		}
 //		
-//		try {
-////			String jsonString = "{ \"quiz_id\": 1, \"user_id\": 2, \"answers\": [ { \"question_id\": 1, \"selected_option_id\": 3 }, { \"question_id\": 2, \"selected_option_id\": 1 }, { \"question_id\": 3, \"selected_option_id\": 2 }, { \"question_id\": 4, \"selected_option_id\": 4 } ] }";
-////			JsonObject json = (JsonObject) JsonParser.parseString(jsonString);
-////			int quizId = json.get("quiz_id").getAsInt();
-////			int idUtente= json.get("user_id").getAsInt();
-////
-////		    JsonArray answersArray = json.getAsJsonArray("answers");
-////		    List<JsonObject> answersList = new ArrayList<>();
-////		    answersArray.forEach(answer -> answersList.add(answer.getAsJsonObject()));
-////
-////		    Collections.sort(answersList, Comparator.comparingInt(o -> o.get("question_id").getAsInt()));
-////
-////		    int[] selectedOptionIds = new int[answersList.size()];
-////		    for (int i = 0; i < answersList.size(); i++) {
-////		        selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
-////		    }
+//		
+////		Set<EspLavorativa> esp = new HashSet<>();
+////		Set<Istruzione> ist = new HashSet<>();
+////		
+////		//ProfiloUtente profiloUtente = new ProfiloUtente(2, "test", "test", null, "test", "test", true, LocalDate.of(2023, 11, 19), "test", "test", "123", "test", "test", "test", esp, ist);
+////		
+////		// TODO Auto-generated method stub
+////		/*System.out.println("HelloWorld");
+////		 * 
+////		 *
+////		 
+////		
+////		try {
+////			Quiz q= Quiz.initQuiz(1);
 ////			
-////			Quiz.insertRisposteDate(idUtente, quizId, selectedOptionIds);
+////			System.out.println("Nome: "+q.getNome()+
+////					"\nPunteggio domanda 1: "+q.domandaIndex(0).getPunteggio()+
+////					"\nTesto risposta n2: "+q.domandaIndex(0).rispostaIndex(1).getTesto());
+////			System.out.println(((Domanda)q.getDomande()[0]).getTesto());
 ////			
-////			String error = "{\"data\" : \"success\"}";
-//        	
-//			
-//        	
-//        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\",\"posizioni\":[{\"idCand\":1,\"position\":{\"idPos\":1,\"nome\":\"Posizione1\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione1\",\"descrizione\":\"Descrizione1\u003c3\"},\"stato\":0},{\"idCand\":2,\"position\":{\"idPos\":2,\"nome\":\"Posizione2\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione2\",\"descrizione\":\"Descrizione2\u003e:(((((\"},\"stato\":1}]}"
-//        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
-//        	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-//        	//String json = gson.toJson(candidaturas);
-//        	//System.out.println(json);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        };
+////			int[] array= {1,2,3,4};
+////			Quiz.risposteDate(2, 1, array);
+////			
+////			System.out.println(Quiz.getPunteggio(1, 1));
+////			
+////		} catch (Exception e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}*/
+////		
+////		try {
+//////			String jsonString = "{ \"quiz_id\": 1, \"user_id\": 2, \"answers\": [ { \"question_id\": 1, \"selected_option_id\": 3 }, { \"question_id\": 2, \"selected_option_id\": 1 }, { \"question_id\": 3, \"selected_option_id\": 2 }, { \"question_id\": 4, \"selected_option_id\": 4 } ] }";
+//////			JsonObject json = (JsonObject) JsonParser.parseString(jsonString);
+//////			int quizId = json.get("quiz_id").getAsInt();
+//////			int idUtente= json.get("user_id").getAsInt();
+//////
+//////		    JsonArray answersArray = json.getAsJsonArray("answers");
+//////		    List<JsonObject> answersList = new ArrayList<>();
+//////		    answersArray.forEach(answer -> answersList.add(answer.getAsJsonObject()));
+//////
+//////		    Collections.sort(answersList, Comparator.comparingInt(o -> o.get("question_id").getAsInt()));
+//////
+//////		    int[] selectedOptionIds = new int[answersList.size()];
+//////		    for (int i = 0; i < answersList.size(); i++) {
+//////		        selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
+//////		    }
+//////			
+//////			Quiz.insertRisposteDate(idUtente, quizId, selectedOptionIds);
+//////			
+//////			String error = "{\"data\" : \"success\"}";
+////        	
+////			
+////        	
+////        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\",\"posizioni\":[{\"idCand\":1,\"position\":{\"idPos\":1,\"nome\":\"Posizione1\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione1\",\"descrizione\":\"Descrizione1\u003c3\"},\"stato\":0},{\"idCand\":2,\"position\":{\"idPos\":2,\"nome\":\"Posizione2\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione2\",\"descrizione\":\"Descrizione2\u003e:(((((\"},\"stato\":1}]}"
+////        	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
+////        	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+////        	//String json = gson.toJson(candidaturas);
+////        	//System.out.println(json);
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        };
 	}
 }
 
