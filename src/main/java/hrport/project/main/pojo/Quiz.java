@@ -119,7 +119,7 @@ public class Quiz {
 					
 				
 				idRisposte.add(q.domandaIndex(i).rispostaIndex(risUtente[i]-1).getId()); //TOGLIERE IL "-1" SE L'INDEX è DA 0 A 3
-				System.out.println("Stringa "+idRisposte.get(i));
+				System.out.println("Stringa "+idRisposte.get(idRisposte.size()-1));
 			}
 			
 			if(idRisposte.isEmpty()) {
