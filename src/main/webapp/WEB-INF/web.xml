@@ -93,13 +93,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>UerProfileInsertNoAttachments</display-name>
-    <servlet-name>UerProfileInsertNoAttachments</servlet-name>
+    <display-name>UserInsertProfileNoAttachments</display-name>
+    <servlet-name>UserInsertProfileNoAttachments</servlet-name>
     <servlet-class>hrport.project.main.controller.user.UerProfileInsertNoAttachments</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UerProfileInsertNoAttachments</servlet-name>
-    <url-pattern>/UerProfileInsertNoAttachments</url-pattern>
+    <servlet-name>UserInsertProfileNoAttachments</servlet-name>
+    <url-pattern>/UserInsertProfileNoAttachments</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -140,5 +140,75 @@
   <servlet-mapping>
     <servlet-name>UpdateEsperienzaLav</servlet-name>
     <url-pattern>/UpdateEsperienzaLav</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertCategoryWithSkills</display-name>
+    <servlet-name>InsertCategoryWithSkills</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.InsertCategoryWithSkills</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertCategoryWithSkills</servlet-name>
+    <url-pattern>/InsertCategoryWithSkills</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateCategoryWithSkills</display-name>
+    <servlet-name>UpdateCategoryWithSkills</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UpdateCategoryWithSkills</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateCategoryWithSkills</servlet-name>
+    <url-pattern>/UpdateCategoryWithSkills</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteIstruzione</display-name>
+    <servlet-name>DeleteIstruzione</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.DeleteIstruzione</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteIstruzione</servlet-name>
+    <url-pattern>/DeleteIstruzione</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteEsperienzaLav</display-name>
+    <servlet-name>DeleteEsperienzaLav</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.DeleteEsperienzaLav</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteEsperienzaLav</servlet-name>
+    <url-pattern>/DeleteEsperienzaLav</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteCategoryWithSkills</display-name>
+    <servlet-name>DeleteCategoryWithSkills</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.DeleteCategoryWithSkills</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteCategoryWithSkills</servlet-name>
+    <url-pattern>/DeleteCategoryWithSkills</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertCandidatura</display-name>
+    <servlet-name>InsertCandidatura</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.InsertCandidatura</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertCandidatura</servlet-name>
+    <url-pattern>/InsertCandidatura</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteCandidatura</display-name>
+    <servlet-name>DeleteCandidatura</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.DeleteCandidatura</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteCandidatura</servlet-name>
+    <url-pattern>/DeleteCandidatura</url-pattern>
   </servlet-mapping>
 </web-app>

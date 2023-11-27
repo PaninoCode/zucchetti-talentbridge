@@ -19,14 +19,14 @@
 
 <script type="text/javascript">
 	
-	let jsonDataUser = `<%=request.getAttribute("dataUser")%>`;
-	let jsonDataPositions = `<%=request.getAttribute("dataAllPositions")%>`;
-	let data = `<%=request.getAttribute("data")%>`;
-	let jsonUserOK = JSON.parse(jsonDataUser);
-	let jsonPositionsOK = JSON.parse(jsonDataPositions);
+	let jsonDataUser = `<%=request.getAttribute("first")%>`;
+	let jsonDataPositions = `<%=request.getAttribute("second")%>`;
+	// let data = `<%=request.getAttribute("data")%>`;
+	// let jsonUserOK = JSON.parse(jsonDataUser);
+	// let jsonPositionsOK = JSON.parse(jsonDataPositions);
 	
-	console.log(jsonUserOK);
-	console.log(jsonPositionsOK);
+	console.log(jsonDataUser);
+	console.log(jsonDataPositions);
 	
 	console.log(data);
 

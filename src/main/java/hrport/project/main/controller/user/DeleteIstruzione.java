@@ -12,33 +12,37 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import hrport.project.main.pojo.ProfiloUtente;
+import hrport.project.main.service.EspLavorativaService;
+import hrport.project.main.service.IstruzioneService;
 import hrport.project.main.service.ProfiloUtenteService;
 
 /**
- * Servlet implementation class UerProfileInsertNoAttachments
+ * Servlet implementation class DeleteIstruzione
  */
-@WebServlet("/user/insert-profile-no-attachments")
-public class UerProfileInsertNoAttachments extends HttpServlet {
+@WebServlet("/user/delete-istruzione/*")
+public class DeleteIstruzione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		
-		StringBuilder jsonContent = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonContent.append(line);
-            }
-        }catch(Exception e) {
-        	
-        	String error = "{\"data\" : " + "\"" + e.getMessage() + "\"" + "}";
+		String pathInfo = request.getPathInfo();
+        String[] pathParts = pathInfo.split("/");
+        String value = pathParts[1];
+        
+        Integer idTable = null;
+        try {
+			
+        	idTable = Integer.valueOf(value);
+		} catch (Exception e) {
+			// TODO: handle exception
+			String error = "{\"error\" : " + "\"" + e.getMessage() + "\"" + "}";
         	
         	PrintWriter out = response.getWriter();
             response.setContentType("application/json");
@@ -46,12 +50,13 @@ public class UerProfileInsertNoAttachments extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             out.print(error);
             out.flush();
-        }
+		}
         
         // parse the json String and take the attributes
         try {
         	
-        	ProfiloUtenteService.insertProfileInfo(jsonContent.toString(), idUtente);
+        	ProfiloUtente profilo = ProfiloUtenteService.getProfileUserByIdUtente(idUtente);
+        	IstruzioneService.deleteIstruzInfo(idTable, profilo.getIdCv());
 			
 			String data = "{\"data\" : \"success\"}";
         	

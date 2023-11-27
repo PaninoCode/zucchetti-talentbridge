@@ -15,7 +15,6 @@ public class PosizioneService {
 	public static List<Posizione> getAllPositions() throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
-		
 		ResultSet resultSetAllPositions = null;
 		List<Posizione> positions = new ArrayList<>();
 		
@@ -91,4 +90,52 @@ public class PosizioneService {
 		
 		return positions;
 	}
+	
+	public static Posizione getPosizioneById(Integer idPosizione) throws Exception {
+
+		Connection con = ConnectDatabase.getConnection();
+		ResultSet resultSet = null;
+		
+		
+		try {
+
+			con.setAutoCommit(false);
+			String sQLquery = "SELECT * from posizione";
+
+			PreparedStatement posStatement = con.prepareStatement(sQLquery);
+			
+			//posStatement.setInt(1, idPosizione);
+
+			resultSet = posStatement.executeQuery();
+			
+			resultSet.next();
+				
+				List <Candidatura> candidatura = CandidaturaService.getApplicationsFromPosition(idPosizione);
+				
+				Posizione posizione = new Posizione(
+						resultSet.getInt("idPos"),
+						resultSet.getString("nome"),
+						resultSet.getBoolean("aperta"),
+						resultSet.getString("fotoUrl"),
+						resultSet.getString("descrizione"),
+						candidatura);	
+				
+				//System.out.println(candidatura);
+			
+			con.commit();
+			return posizione;
+			
+		} catch (Exception e) {
+
+			resultSet.close();
+			con.rollback();
+			throw e;
+		} finally {
+			resultSet.close();
+			con.close();
+		}
+		
+	}
+	
+	
 }
