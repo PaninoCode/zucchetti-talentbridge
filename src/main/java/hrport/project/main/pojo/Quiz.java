@@ -102,16 +102,29 @@ public class Quiz {
 		
 	}
 	
-	public static void insertRisposteDate(int idUtente, int idQuiz, int risUtente[]) throws Exception {
+	public static void insertRisposteDate(int idUtente, int idQuiz, Integer risUtente[]) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
+		con.setAutoCommit(false);
 		try {
-			int idRisposte[]= new int[risUtente.length];
+			List<Integer> idRisposte= new ArrayList();
 			Quiz q= Quiz.initQuiz(idQuiz);
 			
 			for(int i=0; i<risUtente.length; i++) {
-				idRisposte[i]=q.domandaIndex(i).rispostaIndex(risUtente[i]-1).getId(); //TOGLIERE IL "-1" SE L'INDEX è DA 0 A 3
-				System.out.println(idRisposte[i]);
+				if(risUtente[i]==null) {
+					System.out.println("Check");
+					continue;
+					
+				}
+					
+				
+				idRisposte.add(q.domandaIndex(i).rispostaIndex(risUtente[i]-1).getId()); //TOGLIERE IL "-1" SE L'INDEX è DA 0 A 3
+				System.out.println("Stringa "+idRisposte.get(idRisposte.size()-1));
+			}
+			
+			if(idRisposte.isEmpty()) {
+				System.out.println("Size equivale a 0");
+				idRisposte.add(q.domandaIndex(0).getFirstIndexSbagliataRisposta());
 			}
 			
 			con.setAutoCommit(false);
@@ -127,6 +140,7 @@ public class Quiz {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			con.rollback();
 			throw e;
 		} finally {

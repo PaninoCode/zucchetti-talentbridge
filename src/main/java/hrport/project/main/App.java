@@ -26,16 +26,24 @@ public class App {
 //		}
 		
 		
-//		Set<EspLavorativa> esp = new HashSet<>();
-//		Set<Istruzione> ist = new HashSet<>();
-//		
-//		//ProfiloUtente profiloUtente = new ProfiloUtente(2, "test", "test", null, "test", "test", true, LocalDate.of(2023, 11, 19), "test", "test", "123", "test", "test", "test", esp, ist);
-//		
-//		// TODO Auto-generated method stub
-//		/*System.out.println("HelloWorld");
-//		 * 
-//		 *
-//		 
+//		String jsonString="{\"quiz_id\":1,\"user_id\":1,\"answers\":[{\"question_id\":1,\"selected_option_id\":null},{\"question_id\":2,\"selected_option_id\":2},{\"question_id\":3,\"selected_option_id\":null},{\"question_id\":4,\"selected_option_id\":1}]}";
+//		JsonObject json = (JsonObject) JsonParser.parseString(jsonString);
+//		int quizId = json.get("quiz_id").getAsInt();
+//
+//	    JsonArray answersArray = json.getAsJsonArray("answers");
+//	    List<JsonObject> answersList = new ArrayList<>();
+//	    answersArray.forEach(answer -> answersList.add(answer.getAsJsonObject()));
+//
+//	    Collections.sort(answersList, Comparator.comparingInt(o -> o.get("question_id").getAsInt()));
+//
+//	    Integer[] selectedOptionIds = new Integer[answersList.size()];
+//	    for (int i = 0; i < answersList.size(); i++) {
+//	    	try {
+//				selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
+//			} catch (Exception e) {
+//				selectedOptionIds[i]=null;
+//			}
+//	    }
 //		
 		try {
 //			Quiz q= Quiz.initQuiz(1);

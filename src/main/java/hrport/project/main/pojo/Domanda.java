@@ -88,7 +88,7 @@ public class Domanda {
 	
 	public void setIdRispostaUtente(Connection con, int idUtente) {
 		try {
-			String SQLUser = "SELECT * FROM Domanda d "
+			String SQLUser = "SELECT rd.idRisposta FROM Domanda d "
 							+ "JOIN Risposta r on d.idDomanda=r.idDomanda "
 							+ "JOIN RispostaData rd on r.idRisposta = rd.idRisposta "
 							+ "WHERE d.idDomanda= ? AND rd.idUtente = ?";
@@ -99,13 +99,25 @@ public class Domanda {
 			ResultSet resultSet = null;
 			
 			resultSet = Ris.executeQuery();
-			resultSet.next();
-			idRispostaUtente = resultSet.getInt(1);
+			if(resultSet.next())
+				idRispostaUtente = resultSet.getInt(1);
+			else 
+				idRispostaUtente= 0;
+		
 			
 		} catch(SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public int getFirstIndexSbagliataRisposta() {
+		for(int i=0; i<4; i++) {
+			if(!risposte[i].isGiusta()) {
+				return i+1;
+			}
+		}
+		return -1;
 	}
 
 	
