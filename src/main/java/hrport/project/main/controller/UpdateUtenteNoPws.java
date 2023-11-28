@@ -11,10 +11,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.UtenteService;
 
@@ -54,7 +59,8 @@ public class UpdateUtenteNoPws extends HttpServlet {
         // parse the json String and take the attributes
         try {
         	
-        	UtenteService.updateUtenteInfo(jsonContent.toString());
+        	Utente utente = UtenteService.getUserByIdUtenteWithPassword(idUtente);
+        	UtenteService.updateUtenteInfo(utente, jsonContent.toString());
 			
 			String data = "{\"data\" : \"success\"}";
         	

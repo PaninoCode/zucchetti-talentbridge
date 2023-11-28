@@ -251,28 +251,28 @@ public class UtenteService {
 		return candidati;
 	}
 	
-	public static void updateUtenteInfo(String json) throws Exception {
+	public static void updateUtenteInfo(Utente utente, String json) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-		Utente utente = null;
-			System.out.println("test");
+		Utente newDatiUtente = null;
+			//System.out.println("test");
 		try {
 			
 			con.setAutoCommit(false);
 			
-			utente = gson.fromJson(json, Utente.class);
+			newDatiUtente = gson.fromJson(json, Utente.class);
 					
 			String SQL = "UPDATE \"Utenti\""
-					+ "SET email = ?"
-					+ "SET nome = ?"
-					+ "SET email = ?"
+					+ "SET email = ?,"
+					+ "nome = ?,"
+					+ "cognome = ?"
 					+ "WHERE Utenti.idUtente = ?";
 			
 			PreparedStatement updateUser = con.prepareStatement(SQL);
-			updateUser.setString(1, utente.getEmail());
-			updateUser.setString(2, utente.getNome());
-			updateUser.setString(3, utente.getEmail());
+			updateUser.setString(1, newDatiUtente.getEmail());
+			updateUser.setString(2, newDatiUtente.getNome());
+			updateUser.setString(3, newDatiUtente.getCognome());
 			updateUser.setInt(4, utente.getIdUtente());
 			
 			updateUser.executeUpdate();
