@@ -97,7 +97,7 @@
                                 <h5>Conferma nuova Password</h5>
                             </label>
                             <input type="password" class="form-control"
-                                id="edit_account_password_input_confirm_new_password" minlength="8" required>
+                                id="edit_account_password_input_confirm_new_password" minlength="8">
                             <div class="invalid-tooltip">
                                 Conferma nuova la password
                             </div>
@@ -230,6 +230,20 @@
             alert("Not Valid!");
         }
     });
+
+
+    passwordEditSaveBtn.addEventListener('click', e => {
+        if (passwordEditForm.checkValidity() && passwordEditNewPassword.value == passwordEditConfirmNewPassword.value) {
+            let passwordEditJson = {
+                "oldPassword": passwordEditOldPassword.value,
+                "newPassword": passwordEditNewPassword.value,
+            }
+            editPasswordUtente(passwordEditJson);
+        } else {
+            alert("Not Valid!");
+        }
+    });
+
 
 
 

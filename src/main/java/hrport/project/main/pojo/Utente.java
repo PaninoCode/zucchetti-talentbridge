@@ -159,7 +159,7 @@ public class Utente {
 	
 	private Boolean authenticationOldPassword(String oldPassword) {
 		
-		return this.getPassword() == oldPassword ? true : false;
+		return this.getPassword().equals(oldPassword) ? true : false;
 	}
 	
 	public void updatePassword(String oldPassword, String newPassword) throws Exception {
