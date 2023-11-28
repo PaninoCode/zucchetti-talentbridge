@@ -81,7 +81,7 @@
                                 <div class="row mb-3">
                                     <label for="input_nome_posizione" class="col-sm-3 col-form-label">Nome</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="input_nome_posizione">
+                                        <input type="text" class="form-control" id="input_nome_posizione">
                                     </div>
                                 </div>
                                 <fieldset class="row mb-3">
@@ -195,18 +195,18 @@
             let form = document.getElementById('updateForm');
             let idPosizione = form.querySelector('#input_id_posizione').value;
             let nomePosizione = form.querySelector('#input_nome_posizione').value;
-            let stato = form.querySelector('input[name="input_stato"]:checked').value;
+            let stato = form.querySelector('input[name="input_stato"]:checked').value === "aperta" ? true : false;
             let idFotoUrl = form.querySelector('#input_id_foto_url').value;
             let descrizione = form.querySelector('#input_descrizione').value;
             
            
 			
             let positionData = {
-            		idPosizione: idPosizione,
-            		nomePosizione: nomePosizione,
-            		stato: stato,
-            		idFotoUrl: idFotoUrl,
-            		descrizione: descrizione
+            		idPos: JsonPosizione.idPos,
+            		nome: nomePosizione === "" ? JsonPosizione.nome : nomePosizione,
+            		aperta: stato === "" ? JsonPosizione.aperta : stato,
+            		fotoUrl: idFotoUrl === "" ? JsonPosizione.fotoUrl : idFotoUrl,
+            		descrizione: descrizione === "" ? JsonPosizione.descrizione : descrizione
             		
             }
            
@@ -215,8 +215,8 @@
             
             
             
-            fetch('http://localhost:8080/admin/update-posizione', {
-                method: 'POST',
+            fetch('http://localhost:8080/hrport/admin/update-posizione', {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -224,7 +224,7 @@
             })
             .then(response => response.json())
             .then(data => {
-            	 alert("test");
+            	 alert("Position Updated");
                 console.log('Server response:', data);
             })
             .catch(error => {
