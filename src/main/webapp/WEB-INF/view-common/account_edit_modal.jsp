@@ -14,6 +14,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-success d-none" id="account_data_success_text" role="alert">
+
+                </div>
+                <div class="alert alert-danger d-none" id="account_data_error_text" role="alert">
+    
+                </div>
                 <div class="d-flex justify-content-center align-items-start">
                     <form id="edit_account_data" class="needs-validation" style="width: 50%;" novalidate>
 
@@ -126,6 +132,9 @@
     const accountDataModal = new bootstrap.Modal('#account_data_modal', {});
     let accountDataModalEl = document.querySelector('#account_data_modal');
 
+    let accountDataErrorText = document.querySelector('#account_data_error_text');
+    let accountDataSuccessText = document.querySelector('#account_data_success_text');
+
     let accountEditForm = document.querySelector('#edit_account_data');
     let passwordEditForm = document.querySelector('#edit_account_password');
 
@@ -140,6 +149,12 @@
     let passwordEditSaveBtn = document.querySelector('#edit_account_password_save_btn');
 
     accountDataModalEl.addEventListener('show.bs.modal', e => {
+
+        accountDataErrorText.innerHTML = "";
+        accountDataErrorText.classList.add('d-none');
+
+        accountDataSuccessText.innerHTML = "";
+        accountDataSuccessText.classList.add('d-none');
 
         async function callDatiUtente() {
 
@@ -184,11 +199,13 @@
         console.log(result);
 
         if (result.error != null) {
-            alert("Errore!");
+            accountDataErrorText.innerHTML = "La richiesta non &egrave; andata a buon fine.";
+            accountDataErrorText.classList.remove('d-none');
         }
 
         if (response.ok) {
-            alert("Ok.");
+            accountDataSuccessText.innerHTML = "Dati account aggiornati con successo.";
+            accountDataSuccessText.classList.remove('d-none');
         }
     }
 
@@ -208,11 +225,13 @@
         console.log(result);
 
         if (result.error != null) {
-            alert("Errore!");
+            accountDataErrorText.innerHTML = "La richiesta non &egrave; andata a buon fine.";
+            accountDataErrorText.classList.remove('d-none');
         }
 
         if (response.ok) {
-            alert("Ok.");
+            accountDataSuccessText.innerHTML = "La password &egrave; stata cambiata con successo.";
+            accountDataSuccessText.classList.remove('d-none');
         }
     }
 
@@ -227,7 +246,8 @@
             }
             editDatiUtente(accountEditJson);
         } else {
-            alert("Not Valid!");
+            accountDataErrorText.innerHTML = "Compila tutti i dati in modo corretto.";
+            accountDataErrorText.classList.remove('d-none');
         }
     });
 
@@ -240,7 +260,8 @@
             }
             editPasswordUtente(passwordEditJson);
         } else {
-            alert("Not Valid!");
+            accountDataErrorText.innerHTML = "Compila tutti i dati in modo corretto.";
+            accountDataErrorText.classList.remove('d-none');
         }
     });
 
