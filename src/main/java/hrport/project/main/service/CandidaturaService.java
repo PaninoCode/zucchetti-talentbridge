@@ -245,8 +245,16 @@ public class CandidaturaService {
 			result.next();
 			int punteggioTot= result.getInt("1");
 			
+			SQL="UPDATE Candidatura \r\n"
+					+ "SET stato='1', punteggioTot=?\r\n"
+					+ "WHERE idPos=? AND idUtente=?";
 			
+			PreparedStatement updateCandidatura = con.prepareStatement(SQL);
+			updateCandidatura.setInt(1, punteggioTot);
+			updateCandidatura.setInt(2, idPos);
+			updateCandidatura.setInt(3, idUtente);
 			
+			updateCandidatura.executeUpdate();
 			
 			con.commit();
 		} catch (Exception e) {

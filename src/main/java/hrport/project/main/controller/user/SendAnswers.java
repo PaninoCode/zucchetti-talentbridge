@@ -21,6 +21,7 @@ import com.google.gson.JsonParser;
 
 import hrport.project.main.pojo.Quiz;
 import hrport.project.main.pojo.Utente;
+import hrport.project.main.service.CandidaturaService;
 import hrport.project.main.service.UtenteService;
 
 /**
@@ -90,6 +91,7 @@ public class SendAnswers {
 			
 			JsonObject json = (JsonObject) JsonParser.parseString(jsonContent.toString());
 			int quizId = json.get("quiz_id").getAsInt();
+			int posId = json.get("pos_id").getAsInt();
 
 		    JsonArray answersArray = json.getAsJsonArray("answers");
 		    List<JsonObject> answersList = new ArrayList<>();
@@ -104,11 +106,11 @@ public class SendAnswers {
 					selectedOptionIds[i] = answersList.get(i).get("selected_option_id").getAsInt();
 				} catch (Exception e) {
 					selectedOptionIds[i]=null;
-				}
+				} 
 		    }
 			
 			Quiz.insertRisposteDate(idUtente, quizId, selectedOptionIds);
-			
+			CandidaturaService.updateStatoCandidatura(posId, idUtente);
 			String error = "{\"data\" : \"success\"}";
         	
         	PrintWriter out = response.getWriter();
