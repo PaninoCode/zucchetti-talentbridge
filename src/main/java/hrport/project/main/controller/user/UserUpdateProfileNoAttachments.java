@@ -5,12 +5,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.ProfiloUtenteService;
 import hrport.project.main.service.UtenteService;
 
@@ -26,6 +28,8 @@ public class UserUpdateProfileNoAttachments extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		
 		StringBuilder jsonContent = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()))) {
@@ -48,7 +52,9 @@ public class UserUpdateProfileNoAttachments extends HttpServlet {
         // parse the json String and take the attributes
         try {
         	
-        	ProfiloUtenteService.updateProfileInfo(jsonContent.toString());
+        	Utente utente = UtenteService.getUserByIdUtenteWithPassword(idUtente);
+        	
+        	ProfiloUtenteService.updateProfileInfo(utente, jsonContent.toString());
 			
 			String data = "{\"data\" : \"success\"}";
         	
