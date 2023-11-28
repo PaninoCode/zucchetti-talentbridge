@@ -1,5 +1,6 @@
 package hrport.project.main.service;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -44,8 +45,9 @@ public class ProfiloUtenteService {
 					.getEducationByIdUtente(resultSetProfile.getString("idUtente"));
 			Set<EspLavorativa> experiences = EspLavorativaService
 					.getEducationByIdUtente(resultSetProfile.getString("idUtente"));
-			
-			Set<CategoriaSkills> category = CategorySkillsService.getCategoriesByIdCvWithSkills(resultSetProfile.getInt("idCv"));
+
+			Set<CategoriaSkills> category = CategorySkillsService
+					.getCategoriesByIdCvWithSkills(resultSetProfile.getInt("idCv"));
 
 			ProfiloUtente profiloUtente = new ProfiloUtente(Integer.valueOf(resultSetProfile.getString("idUtente")),
 					Integer.valueOf(resultSetProfile.getString("idCv")), resultSetProfile.getString("fileUrl"),
@@ -70,7 +72,7 @@ public class ProfiloUtenteService {
 			con.close();
 		}
 	}
-	
+
 	public static ProfiloUtente getProfileUserByIdUtente(Integer idUtente) throws Exception {
 
 		Connection con = ConnectDatabase.getConnection();
@@ -129,9 +131,7 @@ public class ProfiloUtenteService {
 			resultSetProfile = userProfile.executeQuery();
 
 			List<ProfiloUtente> profiles = new ArrayList<>();
-			
-			
-			
+
 			while (resultSetProfile.next()) {
 
 				Set<Istruzione> education = IstruzioneService
@@ -139,8 +139,6 @@ public class ProfiloUtenteService {
 				Set<EspLavorativa> experiences = EspLavorativaService
 						.getEducationByIdUtente(resultSetProfile.getString("idUtente"));
 
-							
-				
 				ProfiloUtente profiloUtente = new ProfiloUtente(
 						Integer.valueOf(resultSetProfile.getString("idUtente")),
 						resultSetProfile.getString("nome"),
@@ -155,7 +153,7 @@ public class ProfiloUtenteService {
 						experiences, education);
 
 				profiles.add(profiloUtente);
-				
+
 			}
 
 			con.commit();
@@ -170,32 +168,53 @@ public class ProfiloUtenteService {
 			con.close();
 		}
 	}
-	
-	public static void updateProfileInfo(String json) throws Exception {
-		
+
+	public static void updateProfileInfo(Utente utente, String json) throws Exception {
+
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		ProfiloUtente profilo = null;
-			
+
 		try {
-			
+
 			con.setAutoCommit(false);
-			
+
 			profilo = gson.fromJson(json, ProfiloUtente.class);
-					
-			String SQL = "UPDATE \"Profilo\""
-					+ "SET sesso = ?"
-					+ "SET dNascita = ?"
-					+ "SET indResidenza = ?"
-					+ "SET indDomicilio = ?"
-					+ "SET telefono = ?"
-					+ "SET codiceFiscale = ?"
-					+ "SET statoOrigine = ?"
-					+ "SET comNascita = ?"
+
+			String SQLFind = "SELECT COUNT(*) FROM Profilo WHERE Profilo.idUtente = ?;";
+
+			PreparedStatement findProfilo = con.prepareStatement(SQLFind);
+
+			findProfilo.setInt(1, utente.getIdUtente());
+
+			ResultSet findProfiloResultSet = findProfilo.executeQuery();
+
+			findProfiloResultSet.next();
+			
+			//System.out.println(findProfiloResultSet.getInt(1));
+
+			String SQLUpdate = "UPDATE \"Profilo\""
+					+ "SET sesso = ?,"
+					+ "dNascita = ?,"
+					+ "indResidenza = ?,"
+					+ "indDomicilio = ?,"
+					+ "telefono = ?,"
+					+ "codiceFiscale = ?,"
+					+ "statoOrigine = ?,"
+					+ "comNascita = ?"
 					+ "WHERE Profilo.idUtente = ?";
-			
-			PreparedStatement updateProfilo = con.prepareStatement(SQL);
-			
+
+			String SQLInsert = "INSERT INTO \"Profilo\" (sesso, dNascita, indResidenza, indDomicilio, telefono, codiceFiscale, statoOrigine, comNascita, idUtente)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement updateProfilo = null;
+
+			if (findProfiloResultSet.getInt(1) > 0) {
+				updateProfilo = con.prepareStatement(SQLUpdate);
+			}else{
+				updateProfilo = con.prepareStatement(SQLInsert);
+			}
+
 			updateProfilo.setInt(1, (profilo.isGender() ? 1 : 0));
 			updateProfilo.setDate(2, Date.valueOf(profilo.getdNascita()));
 			updateProfilo.setString(3, profilo.getIndResidenza());
@@ -204,39 +223,39 @@ public class ProfiloUtenteService {
 			updateProfilo.setString(6, profilo.getCodiceFiscale());
 			updateProfilo.setString(7, profilo.getStatoOrigine());
 			updateProfilo.setString(8, profilo.getComNascita());
-			updateProfilo.setInt(9, profilo.getIdUtente());
-			
+			updateProfilo.setInt(9, utente.getIdUtente());
+
 			updateProfilo.executeUpdate();
-			
+
 			con.commit();
 		} catch (Exception e) {
-			
+
 			con.rollback();
 			throw e;
 		} finally {
-			
+
 			con.close();
 		}
-			
+
 	}
-	
+
 	public static void insertProfileInfo(String json, Integer idUtente) throws Exception {
-		
+
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		ProfiloUtente profilo = null;
-			
+
 		try {
-			
+
 			con.setAutoCommit(false);
-			
+
 			profilo = gson.fromJson(json, ProfiloUtente.class);
-					
+
 			String SQL = "INSERT INTO \"Profile\" (\"idUtente\", \"sesso\", \"dNascita\", \"indResidenza\", \"indDomicilio\", \"codiceFiscale\", \"statoOrigine\", \"comNascita\")\r\n"
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-			
+
 			PreparedStatement insertProfilo = con.prepareStatement(SQL);
-			
+
 			insertProfilo.setInt(1, (profilo.isGender() ? 1 : 0));
 			insertProfilo.setInt(2, (profilo.isGender() ? 1 : 0));
 			insertProfilo.setDate(3, Date.valueOf(profilo.getdNascita()));
@@ -246,18 +265,18 @@ public class ProfiloUtenteService {
 			insertProfilo.setString(7, profilo.getCodiceFiscale());
 			insertProfilo.setString(8, profilo.getStatoOrigine());
 			insertProfilo.setString(9, profilo.getComNascita());
-			
+
 			insertProfilo.executeUpdate();
-			
+
 			con.commit();
 		} catch (Exception e) {
-			
+
 			con.rollback();
 			throw e;
 		} finally {
-			
+
 			con.close();
 		}
-			
+
 	}
 }
