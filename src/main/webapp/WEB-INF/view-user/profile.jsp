@@ -747,11 +747,9 @@
             anagraficaWidgetProPic.innerHTML = dataUser.nome[0] + dataUser.cognome[0];
         </script>
 
-        <script type="text/javascript">
-            <jsp:include page='scripts/profile_anagrafica.js'></jsp:include>
-            <jsp:include page='scripts/profile_istruzione.js'></jsp:include>
-            <jsp:include page='scripts/profile_esperienza.js'></jsp:include>
-        </script>
+        <jsp:include page='scripts/profile_anagrafica.jsp'></jsp:include>
+        <jsp:include page='scripts/profile_istruzione.jsp'></jsp:include>
+        <jsp:include page='scripts/profile_esperienza.jsp'></jsp:include>
 
     </body>
 

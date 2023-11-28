@@ -1,3 +1,4 @@
+<script>
 let esperienzaAccordion = document.querySelector('#esperienza_accordion');
 
 function buildEsperienza(id, nomeAzienda, posizione, dataInizio, dataFine, funzione){
@@ -28,3 +29,4 @@ if (dataUser.hasOwnProperty('profile')) {
         });
     }
 }
+</script>

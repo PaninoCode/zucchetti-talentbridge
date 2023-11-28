@@ -1,3 +1,4 @@
+<script>
 let istruzioneAccordion = document.querySelector('#istruzione_accordion');
 
 function buildIstruzione(id, titoloDiStudio, nomeIstituto, dataInizio, dataFine, voto){
@@ -28,3 +29,4 @@ if (dataUser.hasOwnProperty('profile')) {
         });
     }
 }
+</script>

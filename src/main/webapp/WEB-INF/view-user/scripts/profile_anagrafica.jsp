@@ -1,3 +1,4 @@
+<script>
 let anagraficaForm = document.querySelector('#anagrafica_form');
 
 let anagraficaInfoText = document.querySelector('#anagrafica_info_text');
@@ -132,3 +133,4 @@ anagraficaSalvaBtn.addEventListener('click', e => {
 
     }
 });
+</script>
