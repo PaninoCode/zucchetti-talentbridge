@@ -1,5 +1,9 @@
 let anagraficaForm = document.querySelector('#anagrafica_form');
 
+let anagraficaInfoText = document.querySelector('#anagrafica_info_text');
+let anagraficaSuccessText = document.querySelector('#anagrafica_success_text');
+let anagraficaErrorText = document.querySelector('#anagrafica_error_text');
+
 let anagraficaAbilitaModifica = document.querySelector('#anagrafica_abilita_modifica');
 
 let anagraficaDataNascita = document.querySelector('#anagrafica_data_nascita');
@@ -66,7 +70,8 @@ if (dataUser.hasOwnProperty('profile')) {
     }
 
 }else{
-    alert("Profilo mancante!");
+    anagraficaInfoText.classList.remove('d-none');
+    anagraficaInfoText.innerHTML = "Profilo non presente! Prima di continuare devi compilare il tuo profilo.";
 }
 
 async function editProfilo(jsonData) {
@@ -84,18 +89,21 @@ async function editProfilo(jsonData) {
     console.log(result);
 
     if (result.error != null) {
-        alert("error");
+        anagraficaErrorText.classList.remove('d-none');
+        anagraficaErrorText.innerHTML = "L'operazione di aggiornamento è fallita";
     }
 
     if (response.ok) {
-        alert("ok");
+        anagraficaSuccessText.classList.remove('d-none');
+        anagraficaSuccessText.innerHTML = "Dati aggiornati correttamente";
         anagraficaAbilitaModifica.click();
     }
 }
 
 anagraficaSalvaBtn.addEventListener('click', e => {
     let listaProvinceResults = document.querySelector('#lista_province option[value="' + anagraficaProvinciaNascita.value + '"]');
-    if (anagraficaForm.checkValidity() && listaProvinceResults != null && listaProvinceResults != undefined) {
+    let listaStatiResults = document.querySelector('#lista_paesi option[value="' + anagraficaStatoOrigine.value + '"]');
+    if (anagraficaForm.checkValidity() && listaProvinceResults != null && listaProvinceResults != undefined && listaStatiResults != null && listaStatiResults != undefined) {
 
         let datiProfilo = {
             'gender' : anagraficaSessoM.checked,
@@ -110,9 +118,17 @@ anagraficaSalvaBtn.addEventListener('click', e => {
 
         editProfilo(datiProfilo);
 
-    } else if (listaProvinceResults == null || listaProvinceResults == undefined) {
-        alert("Provincia non valida!");
     } else {
-        alert("Dati non validi!");
+        anagraficaErrorText.classList.remove('d-none');
+        anagraficaErrorText.innerHTML = "I dati inseriti non sono validi.";
+
+        if(anagraficaProvinciaNascita.value.length > 3 && (listaProvinceResults == null || listaProvinceResults == undefined)){
+            anagraficaErrorText.innerHTML += "<br>\"" + anagraficaProvinciaNascita.value + "\" non &egrave; una provincia valida.";
+        }
+
+        if(anagraficaStatoOrigine.value.length > 3 && (listaStatiResults == null || listaStatiResults == undefined)){
+            anagraficaErrorText.innerHTML += "<br>\"" + anagraficaStatoOrigine.value + "\" non &egrave; un paese valido.";
+        }
+
     }
 });
