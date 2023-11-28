@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Quiz;
 import hrport.project.main.pojo.Utente;
 
 public class CandidaturaService {
@@ -208,6 +210,63 @@ public class CandidaturaService {
 			con.close();
 		}
 			
+	}
+	
+	public static void updateStatoCandidatura(int idPos, int idUtente) throws Exception{
+		
+		List<Quiz> quiz=Quiz.getQuizFromPosizioneUtente(idPos, idUtente);
+		ResultSet result = null;
+		
+		for (Iterator iterator = quiz.iterator(); iterator.hasNext();) {
+			Quiz quiz2 = (Quiz) iterator.next();
+			if(!quiz2.isDone()) 
+				return;
+			
+		}
+		
+		Connection con = ConnectDatabase.getConnection();
+		try {
+			con.setAutoCommit(false);	
+			String SQL = "SELECT COALESCE(SUM(d.punteggio), 0) AS totPunteggio, u.idUtente, u.nome, u.cognome\r\n"
+					+ "FROM Utenti u\r\n"
+					+ "LEFT JOIN RispostaData rd ON u.idUtente = rd.idUtente\r\n"
+					+ "LEFT JOIN Risposta r ON rd.idRisposta = r.idRisposta AND r.giusta = 1\r\n"
+					+ "LEFT JOIN Domanda d ON r.idDomanda = d.idDomanda\r\n"
+					+ "LEFT JOIN posQuiz pq ON d.idQuiz = pq.idQuiz AND pq.idPos = ?\r\n"
+					+ "WHERE u.idUtente=?\r\n"
+					+ "GROUP BY u.idUtente, u.nome, u.cognome;";
+			
+			PreparedStatement getPunteggioTot = con.prepareStatement(SQL);
+			
+			getPunteggioTot.setInt(1, idPos);
+			getPunteggioTot.setInt(2, idUtente);
+			
+			result = getPunteggioTot.executeQuery();
+			result.next();
+			int punteggioTot= result.getInt("1");
+			
+			SQL="UPDATE Candidatura \r\n"
+					+ "SET stato='1', punteggioTot=?\r\n"
+					+ "WHERE idPos=? AND idUtente=?";
+			
+			PreparedStatement updateCandidatura = con.prepareStatement(SQL);
+			updateCandidatura.setInt(1, punteggioTot);
+			updateCandidatura.setInt(2, idPos);
+			updateCandidatura.setInt(3, idUtente);
+			
+			updateCandidatura.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+		
+		
 	}
 
 }
