@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form class="card-body">
+                            <form id="updateForm" class="card-body">
                                 <div class="row mb-3">
                                     <label for="input_id_posizione" class="col-sm-3 col-form-label">ID Posizione</label>
                                     <div class="col-sm-9">
@@ -81,7 +81,7 @@
                                 <div class="row mb-3">
                                     <label for="input_nome_posizione" class="col-sm-3 col-form-label">Nome</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="input_nome_posizione">
+                                        <input type="text" class="form-control" id="input_nome_posizione">
                                     </div>
                                 </div>
                                 <fieldset class="row mb-3">
@@ -135,7 +135,7 @@
                                 <hr class="mb-4">
                                 <div class="d-flex flex-row justify-content-between align-items-center p-2 mb-4">
                                     <a href="#" class="m-0 link-danger">Elimina posizione</a>
-                                    <button type="submit" class="btn btn-primary text-light">
+                                    <button type="submit" id="updatePositionBtn" class="btn btn-primary text-light" onclick="printFormValues()" >
                                         <h5 class="m-0">Salva</h5>
                                     </button>
                                 </div>
@@ -190,6 +190,54 @@
 		
         console.log(JsonPosizione);
         
+        function printFormValues() {
+            
+            let form = document.getElementById('updateForm');
+            let idPosizione = form.querySelector('#input_id_posizione').value;
+            let nomePosizione = form.querySelector('#input_nome_posizione').value;
+            let stato = form.querySelector('input[name="input_stato"]:checked').value === "aperta" ? true : false;
+            let idFotoUrl = form.querySelector('#input_id_foto_url').value;
+            let descrizione = form.querySelector('#input_descrizione').value;
+            
+           
+			
+            let positionData = {
+            		idPos: JsonPosizione.idPos,
+            		nome: nomePosizione === "" ? JsonPosizione.nome : nomePosizione,
+            		aperta: stato === "" ? JsonPosizione.aperta : stato,
+            		fotoUrl: idFotoUrl === "" ? JsonPosizione.fotoUrl : idFotoUrl,
+            		descrizione: descrizione === "" ? JsonPosizione.descrizione : descrizione
+            		
+            }
+           
+           console.log(positionData);
+            alert(positionData);
+            
+            
+            
+            fetch('http://localhost:8080/hrport/admin/update-posizione', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(positionData),
+            })
+            .then(response => response.json())
+            .then(data => {
+            	 alert("Position Updated");
+                console.log('Server response:', data);
+            })
+            .catch(error => {
+            	alert("error" + error);
+                console.error('Error:', error);
+            });
+        }
+            
+        
+        
+        
+        
+       
         
             let table = new DataTable('#myTable', {
                 dom: "PlftipB",

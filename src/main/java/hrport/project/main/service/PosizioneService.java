@@ -1,13 +1,20 @@
 package hrport.project.main.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Candidatura;
+import hrport.project.main.pojo.EspLavorativa;
 import hrport.project.main.pojo.Posizione;
 
 public class PosizioneService {
@@ -135,6 +142,48 @@ public class PosizioneService {
 			con.close();
 		}
 		
+	}
+	
+public static void updatePosizione(Posizione posizione) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		System.out.println(posizione.getNome());
+		System.out.println(posizione.getAperta());
+		System.out.println(posizione.getFotoUrl());
+		System.out.println(posizione.getDescrizione());
+		System.out.println(posizione.getIdPos());
+			
+		try {
+			
+			con.setAutoCommit(false);
+			
+					
+			String SQL = "UPDATE Posizione\r\n"
+					+ "SET nome = ?, aperta = ?, fotoUrl = ?, descrizione = ?\r\n"
+					+ "WHERE idPos = ?;";
+			
+			PreparedStatement updatePosizione = con.prepareStatement(SQL);
+			
+			
+			updatePosizione.setString(1, posizione.getNome());
+			updatePosizione.setBoolean(2, posizione.getAperta());
+			updatePosizione.setString(3, posizione.getFotoUrl());
+			updatePosizione.setString(4, posizione.getDescrizione());
+			updatePosizione.setInt(5, posizione.getIdPos());
+			
+			updatePosizione.executeUpdate();
+				
+			con.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+			
 	}
 	
 	
