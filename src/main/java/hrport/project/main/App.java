@@ -11,6 +11,7 @@ import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
 import hrport.project.main.service.CandidaturaService;
 import hrport.project.main.service.PosizioneService;
+import hrport.project.main.utilities.UtilitiesFile;
 
 public class App {
 	
@@ -54,6 +55,11 @@ public class App {
 //			System.out.println(((Domanda)q.getDomande()[0]).getTesto());
 //			
 //			String error = "{\"data\" : \"success\"}";
+			
+			String originalFileName = "example.txt";
+	        String uniqueFileName = UtilitiesFile.generateUniqueFileName(originalFileName);
+	        System.out.println("Original File Name: " + originalFileName);
+	        System.out.println("Unique File Name: " + uniqueFileName);
         	
 			List <Candidatura> candidatura = CandidaturaService.getApplicationsFromPosition(1);
         	//Set<CategoriaSkills> category = CategorySkillsService.getCategoriesByIdCvWithSkills(1);
