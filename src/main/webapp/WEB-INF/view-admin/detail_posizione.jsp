@@ -183,12 +183,66 @@
             src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.js"></script>
         <script>
         	
-      //Object from database
+      	//Object from database
         let JSPposizione = `<%=request.getAttribute("dataPos")%>`;
+        let JSPcandidati = `<%=request.getAttribute("candidati")%>`;
+        
+
 		//Object Json
         let JsonPosizione = JSON.parse(JSPposizione);
+		let JsonCandidati = JSON.parse(JSPcandidati);
 		
-        console.log(JsonPosizione);
+		//Generate position data detail
+		var inputNamePosition = document.getElementById("input_nome_posizione");
+		var inputIdPosition = document.getElementById("input_id_posizione");
+		var radioAperta = document.getElementById("input_stato_aperta");
+		
+		inputIdPosition.value = JsonPosizione.idPos;
+		inputNamePosition.value = JsonPosizione.nome;
+		radioAperta.checked = true;
+		
+		
+	
+		//Generate table candidati list
+		var tableBody = document.getElementById("profiles-data");
+		
+				JsonCandidati.forEach(function (candidato) {
+				
+				if(candidato.position.idPos === JsonPosizione.idPos){
+            	
+                var row = document.createElement("tr");
+
+                var idCell = document.createElement("td");
+                idCell.textContent = candidato.idCand;
+
+                var nomeCell = document.createElement("td");
+                nomeCell.textContent = candidato.user.nome;
+
+                var cognomeCell = document.createElement("td");
+                cognomeCell.textContent = candidato.user.cognome;
+
+                var posizioneCell = document.createElement("td");
+                posizioneCell.textContent = candidato.position.nome;
+
+                var linkCell = document.createElement("td");
+                var linkElement = document.createElement("a");
+                linkElement.textContent = "Profilo";
+                linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
+
+                linkCell.appendChild(linkElement);
+
+                row.appendChild(idCell);
+                row.appendChild(nomeCell);
+                row.appendChild(cognomeCell);
+                row.appendChild(posizioneCell);
+                row.appendChild(linkCell);
+
+                tableBody.appendChild(row);
+				}
+
+            });
+			
+        //console.log(JsonPosizione);
         
         function printFormValues() {
             
@@ -199,7 +253,6 @@
             let idFotoUrl = form.querySelector('#input_id_foto_url').value;
             let descrizione = form.querySelector('#input_descrizione').value;
             
-           
 			
             let positionData = {
             		idPos: JsonPosizione.idPos,
@@ -210,7 +263,7 @@
             		
             }
            
-           console.log(positionData);
+          // console.log(positionData);
             alert(positionData);
             
             
@@ -233,12 +286,6 @@
             });
         }
             
-        
-        
-        
-        
-       
-        
             let table = new DataTable('#myTable', {
                 dom: "PlftipB",
                 buttons: [

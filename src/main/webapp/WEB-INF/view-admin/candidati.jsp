@@ -67,7 +67,6 @@
 
             let JSPcandidati = `<%=request.getAttribute("candidati")%>`;
 
-
             let candidati = JSON.parse(JSPcandidati);
 
             console.log(candidati);

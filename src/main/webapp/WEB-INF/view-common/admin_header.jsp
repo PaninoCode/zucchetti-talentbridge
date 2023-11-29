@@ -9,10 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" id="menu_link_posizioni" href="posizioni">Posizioni</a>
+                    <a class="nav-link" id="menu_link_posizioni" href="http://localhost:8080/hrport/admin/posizioni">Posizioni</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="menu_link_candidati" href="candidati">Candidati</a>
+                    <a class="nav-link" id="menu_link_candidati" href="http://localhost:8080/hrport/admin/candidati">Candidati</a>
                 </li>
 
             </ul>

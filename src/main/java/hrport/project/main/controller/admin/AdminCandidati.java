@@ -39,7 +39,7 @@ public class AdminCandidati extends HttpServlet {
 
 		try {
 
-			//List<Utente> positionsWithApplications = UtenteService.getUtentiCandidati();
+			
 			List<Candidatura> candidati = CandidaturaService.getCandidateList();
 			
 			candidatiJson = gson.toJson(candidati);
