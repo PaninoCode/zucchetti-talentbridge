@@ -113,7 +113,7 @@ public class CandidaturaService {
 		try {
 
 			con.setAutoCommit(false);
-			String SQLquery = "  SELECT can.idCand, u.idUtente, u.nome, u.cognome, pos.idPos, pos.nome as nomePosizione, pos.aperta, can.stato from Candidatura can JOIN Utenti u ON u.idUtente = can.idUtente JOIN Posizione pos ON pos.idPos = can.idPos";
+			String SQLquery = "  SELECT can.idCand, u.idUtente, u.nome, u.cognome, pos.idPos, pos.nome as nomePosizione, pos.aperta, can.stato, can.punteggioTot from Candidatura can JOIN Utenti u ON u.idUtente = can.idUtente JOIN Posizione pos ON pos.idPos = can.idPos";
 
 			PreparedStatement candidateApplication = con.prepareStatement(SQLquery);
 			//UserApplications.setInt(1, idUtente);
@@ -131,7 +131,11 @@ public class CandidaturaService {
 													resultSetApplications.getString("nomePosizione"),
 													resultSetApplications.getBoolean("aperta"));
 				
-				Candidatura candidato = new Candidatura(resultSetApplications.getInt("idCand"), utente, posizione, resultSetApplications.getInt("stato"));
+				Candidatura candidato = new Candidatura(resultSetApplications.getInt("idCand"), 
+														utente, 
+														posizione, 
+														resultSetApplications.getInt("stato"), 
+														resultSetApplications.getInt("punteggioTot"));
 				
 				applications.add(candidato);	
 

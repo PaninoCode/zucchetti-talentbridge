@@ -201,7 +201,7 @@
 		inputNamePosition.value = JsonPosizione.nome;
 		radioAperta.checked = true;
 		
-		
+		console.log(JsonCandidati);
 	
 		//Generate table candidati list
 		var tableBody = document.getElementById("profiles-data");

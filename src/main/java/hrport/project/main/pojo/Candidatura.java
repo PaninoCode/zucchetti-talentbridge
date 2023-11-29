@@ -6,14 +6,24 @@ public class Candidatura {
 	private Utente user;
 	private Posizione position;
 	private Integer stato;
+	private Integer punteggioTot;
 	
 	
 	
-	public Candidatura(Integer idCand, Utente user, Posizione position, Integer stato) {
+	public Candidatura(Integer idCand, Utente user, Posizione position, Integer stato, Integer punteggioTot) {
 		this.idCand = idCand;
 		this.user = user;
 		this.position = position;
 		this.stato = stato;
+		this.punteggioTot = punteggioTot;
+	}
+
+	public Integer getPunteggioTot() {
+		return punteggioTot;
+	}
+
+	public void setPunteggioTot(Integer punteggioTot) {
+		this.punteggioTot = punteggioTot;
 	}
 
 	public Candidatura(Integer idCand, Utente user, Integer stato) {
