@@ -84,7 +84,7 @@ public class CandidaturaService {
 						resultSetApplications.getString("fotoUrl"), resultSetApplications.getString("descrizione"));
 
 				applications.add(new Candidatura(resultSetApplications.getInt("idCand"), posizione,
-						resultSetApplications.getInt("stato")));
+						resultSetApplications.getInt("stato"), resultSetApplications.getInt("punteggioTot")));
 
 			}
 
