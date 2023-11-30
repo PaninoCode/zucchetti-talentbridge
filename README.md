@@ -9,6 +9,7 @@ Gestione dei candidati
 - `/candidati:` Lista dei candidati, posizioni e candidato+posizione
 - `/app/get-info-user:` Tutti i dati dell'account
 - `/user/profile:` Tutti i dati del profilo
+- `/user/get-quiz` Tutti i dati di un quiz
 
 ### POST
 
@@ -16,11 +17,6 @@ Gestione dei candidati
 - `/app/update-info-user:` Invia i dati dell'account al server
 
 ## API Mancanti
-
-### GET
-
-- Skills
-- Quiz
 
 ### POST
 
