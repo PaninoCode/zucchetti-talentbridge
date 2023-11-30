@@ -57,6 +57,7 @@ public class UserInsertProfileAttachment extends HttpServlet {
 
             response.getWriter().println("File uploaded successfully!");
         } catch (Exception e) {
+        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("Error uploading file: " + e.getMessage());
         }
 	}

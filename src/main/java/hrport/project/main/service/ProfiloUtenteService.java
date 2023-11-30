@@ -291,7 +291,7 @@ public class ProfiloUtenteService {
 			con.setAutoCommit(false);
 
 			String SQLUpdate = "UPDATE \"Profilo\""
-					+ "SET fileUrl = ?,"
+					+ "SET fileUrl = ?"
 					+ "WHERE Profilo.idUtente = ?";
 
 			PreparedStatement updateProfilo = con.prepareStatement(SQLUpdate);

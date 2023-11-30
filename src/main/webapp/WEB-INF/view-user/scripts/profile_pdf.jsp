@@ -1,24 +1,21 @@
 <script>
-	function uploadFile() {
+	async function uploadFile() {
 	    const fileInput = document.getElementById("curriculum_upload");
 	    const file = fileInput.files[0];
+		console.log("entro")
 	
 	    if (file) {
 	        const formData = new FormData();
 	        formData.append('file', file);
 	
-	        fetch('/your-servlet-url', {
+	        const response = await fetch('http://localhost:8080/hrport/upload-image-profile', {
 	            method: 'POST',
 	            body: formData
-	        })
-	        .then(response => response.text())
-	        .then(result => {
-	            console.log(result);
-	            // Handle the server response if needed
-	        })
-	        .catch(error => {
-	            console.error('Error:', error);
 	        });
+
+			const result = await response.text();
+			console.log(result);
+	        
 	    } else {
 	        console.error('No file selected');
 	    }
