@@ -53,7 +53,7 @@ anagraficaAbilitaModifica.addEventListener('click', e => {
 if (dataUser.hasOwnProperty('profile')) {
 
     let userProfile = dataUser.profile;
-    console.log(userProfile);
+    // console.log(userProfile);
 
     anagraficaDataNascita.value = userProfile.dNascita;
     anagraficaProvinciaNascita.value = userProfile.comNascita;
@@ -87,7 +87,7 @@ async function editProfilo(jsonData) {
 
     const result = await response.json();
 
-    console.log(result);
+    // console.log(result);
 
     if (result.error != null) {
         anagraficaErrorText.classList.remove('d-none');

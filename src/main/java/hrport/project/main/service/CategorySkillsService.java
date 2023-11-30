@@ -39,9 +39,11 @@ public class CategorySkillsService {
 			
 			while(resultSetCategories.next()) {
 				
-				Set<Skill> skills = SkillService.getSkillsByIdCs(idCv);
+				int idCs = resultSetCategories.getInt("idCs");
 				
-				categories.add(new CategoriaSkills(resultSetCategories.getInt("idCv"), resultSetCategories.getInt("idCs"), skills, resultSetCategories.getString("nomeCategoria")));
+				Set<Skill> skills = SkillService.getSkillsByIdCs(idCs);
+				
+				categories.add(new CategoriaSkills(resultSetCategories.getInt("idCv"), idCs, skills, resultSetCategories.getString("nomeCategoria")));
 			}
 			
 			con.commit();
