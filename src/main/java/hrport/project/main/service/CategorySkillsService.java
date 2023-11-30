@@ -30,7 +30,7 @@ public class CategorySkillsService {
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUserPositions = "SELECT cg.* FROM CategoriaSkills cg WHERE cg.idCv = ?";
+			String SQLUserPositions = "SELECT cg.* FROM CategoriaSkills cg WHERE cg.idCv = ? ORDER BY cg.idCs";
 			
 			PreparedStatement userEducation = con.prepareStatement(SQLUserPositions);
 			userEducation.setInt(1, idCv);
@@ -125,7 +125,6 @@ public class CategorySkillsService {
 		Connection con = ConnectDatabase.getConnection();
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 		
-		ResultSet resultSetCategoryId = null;
 		CategoriaSkills category = null;
 
 		try {
@@ -149,15 +148,12 @@ public class CategorySkillsService {
 			updateCategory.setInt(2, category.getIdCs());
 			updateCategory.setInt(3, idCv);
 			
-			resultSetCategoryId = updateCategory.executeQuery();
+		    updateCategory.executeUpdate();
 			
 			String SQLSkills = "UPDATE \"Skill\""
 					+ "SET nomeSkill = ?"
 					+ "WHERE Skill.idCs = ?"
 					+ "AND Skill.idSkill = ?";
-			
-			resultSetCategoryId.next();
-			Integer lastId = resultSetCategoryId.getInt("lastId");
 			
 			for (Iterator<Skill> iterator = (category.getSkills()).iterator(); iterator.hasNext();) {
 				
@@ -193,7 +189,7 @@ public class CategorySkillsService {
 			
 			con.setAutoCommit(false);
 					
-			String SQL = "DELETE FROM CategoriaSkills cg WHERE cg.idCs = ? AND cg.idCv = ?;";
+			String SQL = "DELETE FROM CategoriaSkills WHERE CategoriaSkills.idCs = ? AND CategoriaSkills.idCv = ?;";
 			
 			PreparedStatement deleteCategoryWithSkill = con.prepareStatement(SQL);
 			

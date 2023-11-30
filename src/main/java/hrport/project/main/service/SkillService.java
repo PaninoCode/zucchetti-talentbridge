@@ -21,7 +21,7 @@ public class SkillService {
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUserPositions = "SELECT sk.* FROM Skill sk WHERE sk.idCs = ?";
+			String SQLUserPositions = "SELECT sk.* FROM Skill sk WHERE sk.idCs = ? ORDER BY sk.idSkill";
 			
 			PreparedStatement userEducation = con.prepareStatement(SQLUserPositions);
 			userEducation.setInt(1, idCs);
