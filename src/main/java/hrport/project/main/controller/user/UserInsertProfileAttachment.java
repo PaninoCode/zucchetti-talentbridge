@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
@@ -15,6 +16,9 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import hrport.project.main.service.ProfiloUtenteService;
+import hrport.project.main.utilities.UtilitiesFile;
 
 /**
  * Servlet implementation class UserInsertProfileAttachment
@@ -29,21 +33,27 @@ public class UserInsertProfileAttachment extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		Integer idUtente = (Integer) session.getAttribute("idUtente");
+		
 		try {
             Part filePart = request.getPart("file");
             InputStream fileContent = filePart.getInputStream();
 
             ServletContext sc = getServletContext();
-            String fileName = "desiredFileName.ext"; // You may want to generate a unique filename
-            Path filePath = Paths.get("/path/to/upload/directory", fileName);
+            String path = sc.getRealPath("/WEB-INF/static/pdf");
+            String fileName = UtilitiesFile.generateUniqueFileName(UtilitiesFile.getSubmittedFileName(filePart));
+            Path filePath = Paths.get(path, fileName);
 
-            try (OutputStream out = Files.newOutputStream(filePath)) {
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = fileContent.read(buffer)) > 0) {
-                    out.write(buffer, 0, length);
-                }
+//          scrive il file nella directory
+            OutputStream out = Files.newOutputStream(filePath);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = fileContent.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
             }
+            
+            ProfiloUtenteService.insertProfilePdf(fileName, idUtente);
 
             response.getWriter().println("File uploaded successfully!");
         } catch (Exception e) {
