@@ -112,7 +112,6 @@
 			//Object Json
 	        let posizioni = JSON.parse(JSPposizioni);
 			
-	        console.log(posizioni);
 	        
 	        //Catch only the data needed
 	       let jobPositions2 = [];
@@ -131,91 +130,72 @@
 	        	
 	        });
 	        
-	        //test ok
-	        /*
-	        console.log(jobPositions2[0].title);
-	        console.log(jobPositions2[0].idPos);
-	        console.log(jobPositions2[0].foto);
-	        */
-			//Create the selectors
-            let posizioniAperte = document.querySelector('#posizioni_aperte');
-            let template_posizione = document.querySelector('#template_posizione');
+	       
+	        
+	        //take checkbox open/close
+	        let checkbox_aperte = document.getElementById("check_posizioni_aperte");
+	        let checkbox_chiuse = document.getElementById("check_posizioni_chiuse");
+	        
+	        
+	        //take the templates
+	        let posizioniAperte = document.getElementById("posizioni_aperte");
+	        let template_posizione = document.getElementById("template_posizione");
+	        
+	     	// Event Listener checkbox APERTE
+	        checkbox_aperte.addEventListener("change", function () {
+	            updatePositionsDisplay();
+	        });
 
-            let posizioni_pagination = document.querySelector('#posizioni_pagination');
+	        // Event Listener CHIUSE
+	        checkbox_chiuse.addEventListener("change", function () {
+	            updatePositionsDisplay();
+	        });
 
-            let status_open = '<span class="badge text-bg-success text-light">Aperta</span>';
-            let status_closed = '<span class="badge text-bg-danger text-light">Chiusa</span>';
+	        // Initial check for both checkboxes
+	        if (checkbox_aperte.checked && checkbox_chiuse.checked) {
+	        	printAllPositions();
+	        }
 
-            const posizoniResultsNumberSelect = document.querySelector('#posizioni_results_number_select');
+	        function updatePositionsDisplay() {
+	            posizioniAperte.innerHTML = "";
 
-            showResults(0, posizoniResultsNumberSelect.value);
+	            if (checkbox_aperte.checked && checkbox_chiuse.checked) {
+	            	printAllPositions(); // Display all positions
+	            } else if (checkbox_aperte.checked) {
+	                printPositions(true); // Display open positions
+	            } else if (checkbox_chiuse.checked) {
+	                printPositions(false); // Display closed positions
+	            }
+	            
+	        }
 
-            posizoniResultsNumberSelect.addEventListener('change', e => {
-                showResults(0, posizoniResultsNumberSelect.value);
-            });
+	        function printPositions(state) {
+	            jobPositions2.forEach((position) => {
+	                if (position.aperta === state) {
+	                	console.log(position.aperta);
+	                    posizioniAperte.innerHTML += template_posizione.innerHTML
+	                        .replace('{position_title}', position.nome)
+	                        .replace('{position_description}', position.descrizione)
+	                        .replace('{position_img}', position.fotoUrl)
+	                        .replace('{position_status}', position.aperta)
+	                        .replace('{position_id}', position.idPos);
+	                }
+	            });
+	        }
+	        
+	        function printAllPositions() {
+	            jobPositions2.forEach((position) => {
+	                posizioniAperte.innerHTML += template_posizione.innerHTML
+	                    .replace('{position_title}', position.nome)
+	                    .replace('{position_description}', position.descrizione)
+	                    .replace('{position_img}', position.fotoUrl)
+	                    .replace('{position_status}', position.aperta)
+	                    .replace('{position_id}', position.idPos);
+	            });
+	        }
 
-            document.querySelector('#check_posizioni_aperte').addEventListener('change', e => {
-                showResults(0, posizoniResultsNumberSelect.value); 
-            });
-
-            document.querySelector('#check_posizioni_chiuse').addEventListener('change', e => {
-                showResults(0, posizoniResultsNumberSelect.value); 
-            });
-
-            function showResults(showPage, positionsPerPage) {
-
-                let pagesNumber = Math.ceil(jobPositions2.length / posizoniResultsNumberSelect.value);
-
-                let prevPage = showPage - 1;
-                let nextPage = showPage + 1;
-
-                posizioni_pagination.innerHTML = '<li id="prev_page" class="page-item"><a class="page-link" onclick="showResults(' + prevPage + ', ' + posizoniResultsNumberSelect.value + ')" href="#">Precedente</a></li>';
-
-                for (let i = 0; i < pagesNumber; i++) {
-                    let isActive = '';
-                    if (i == showPage) isActive = 'active';
-                    posizioni_pagination.innerHTML += '<li class="page-item"><a class="page-link ' + isActive + '" onclick="showResults(' + i + ', ' + posizoniResultsNumberSelect.value + ')" href="#">' + (i + 1) + '</a></li>'
-                }
-
-                posizioni_pagination.innerHTML += '<li id="next_page" class="page-item"><a class="page-link" onclick="showResults(' + nextPage + ', ' + posizoniResultsNumberSelect.value + ')" href="#">Next</a></li>'
-
-                if (prevPage < 0) document.querySelector('#prev_page').classList.add('disabled');
-                if (nextPage > pagesNumber - 1) document.querySelector('#next_page').classList.add('disabled');
-
-                posizioniAperte.innerHTML = "";
-
-                let startFrom = positionsPerPage * showPage;
-                let endAt = startFrom + positionsPerPage;
-
-                let check_posizioni_aperte = document.querySelector('#check_posizioni_aperte');
-                let check_posizioni_chiuse = document.querySelector('#check_posizioni_chiuse');
-
-                for (let i = startFrom; i < endAt; i++) {
-	
-                	let check_posizioni_aperte = document.querySelector('#check_posizioni_aperte');
-                	let check_posizioni_chiuse = document.querySelector('#check_posizioni_chiuse');
-                
-                	
-                   //if ((jobPositions2[i].aperta && check_posizioni_aperte.checked) || (!jobPositions2[i].aperta && check_posizioni_chiuse.checked)) {
-                	   if(jobPositions2[i].aperta){
-                        let stautsPosizione = status_closed;
-						
-                        if (jobPositions2[i].aperta){
-                        	stautsPosizione = status_open;
-                        	
-                        }
-
-                        posizioniAperte.innerHTML += template_posizione.innerHTML
-                            .replace('{position_title}', jobPositions2[i].nome)
-                            .replace('{position_description}', jobPositions2[i].descrizione)
-                            .replace('{position_img}', jobPositions2[i].fotoUrl)
-                            .replace('{position_status}', jobPositions2[i].aperta)
-                            .replace('{position_id}', jobPositions2[i].idPos);
-                    }
-                	   console.log(jobPositions2[i].idPos);
-                                  
-                }
-            }
+	        
+	      
         </script>
 </body>
 

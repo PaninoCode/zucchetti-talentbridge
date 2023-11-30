@@ -222,7 +222,7 @@
                 cognomeCell.textContent = candidato.user.cognome;
 
                 var posizioneCell = document.createElement("td");
-                posizioneCell.textContent = candidato.position.nome;
+                posizioneCell.textContent = candidato.punteggioTot;
 
                 var linkCell = document.createElement("td");
                 var linkElement = document.createElement("a");
