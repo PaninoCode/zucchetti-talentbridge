@@ -22,7 +22,7 @@ if (dataUser.hasOwnProperty('profile')) {
 
         let userEducation = dataUser.profile.education;
         
-        console.log(userEducation);
+        // console.log(userEducation);
 
         userEducation.forEach(educationElement => {
             buildIstruzione(educationElement.idIst, educationElement.titoloIstruzione, educationElement.istituto, educationElement.dInizio, educationElement.dFine, educationElement.voto);

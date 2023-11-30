@@ -22,7 +22,7 @@ if (dataUser.hasOwnProperty('profile')) {
 
         let userExperiences = dataUser.profile.experiences;
         
-        console.log(userExperiences);
+        // console.log(userExperiences);
 
         userExperiences.forEach(experiencesElement => {
             buildEsperienza(experiencesElement.idEl, experiencesElement.azienda, experiencesElement.posizione, experiencesElement.dInizio, experiencesElement.dFine, experiencesElement.funzione);
