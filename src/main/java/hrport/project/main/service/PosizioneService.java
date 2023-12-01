@@ -107,11 +107,11 @@ public class PosizioneService {
 		try {
 
 			con.setAutoCommit(false);
-			String sQLquery = "SELECT * from posizione";
+			String sQLquery = "SELECT * from posizione WHERE idPos = ?";
 
 			PreparedStatement posStatement = con.prepareStatement(sQLquery);
 			
-			//posStatement.setInt(1, idPosizione);
+			posStatement.setInt(1, idPosizione);
 
 			resultSet = posStatement.executeQuery();
 			

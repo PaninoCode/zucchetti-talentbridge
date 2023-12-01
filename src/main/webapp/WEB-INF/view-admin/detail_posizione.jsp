@@ -187,10 +187,14 @@
         let JSPposizione = `<%=request.getAttribute("dataPos")%>`;
         let JSPcandidati = `<%=request.getAttribute("candidati")%>`;
         
+       
+        
 
 		//Object Json
         let JsonPosizione = JSON.parse(JSPposizione);
 		let JsonCandidati = JSON.parse(JSPcandidati);
+		
+		console.log(JsonPosizione);
 		
 		//Generate position data detail
 		var inputNamePosition = document.getElementById("input_nome_posizione");

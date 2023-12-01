@@ -44,7 +44,7 @@
 							{position_status}</div>
 					</div>
 					<span class="m-2"></span>
-					<div class="d-flex justify-content-end align-items-center">
+					<div id="positionLink" class="d-flex justify-content-end align-items-center">
 						<a href="dettaglio-posizione/{position_id}"
 							class="btn btn-primary text-light">
 							<h5 class="m-0 d-flex justify-content-center align-items-center">
@@ -130,8 +130,9 @@
 	        	
 	        });
 	        
-	       
-	        
+	        //position Link
+	        var positionLink = document.getElementById("positionLink");
+	       	        
 	        //take checkbox open/close
 	        let checkbox_aperte = document.getElementById("check_posizioni_aperte");
 	        let checkbox_chiuse = document.getElementById("check_posizioni_chiuse");
@@ -179,18 +180,37 @@
 	                        .replace('{position_img}', position.fotoUrl)
 	                        .replace('{position_status}', position.aperta)
 	                        .replace('{position_id}', position.idPos);
+	                    
+	                    console.log(position.idPos);
+	                    
+	                    if (positionLink) {
+	                        var linkElement = positionLink.querySelector('a');
+	                        
+	                        if (linkElement) {
+	                            linkElement.href = "dettaglio-posizione/" + position.idPos;
+	                        }
+	                    }
 	                }
 	            });
 	        }
 	        
 	        function printAllPositions() {
 	            jobPositions2.forEach((position) => {
+	            	
+	            	  //position Link
+	            	    var linkElement = document.createElement('a');
+	            	    linkElement.href = "dettaglio-posizione/" + position.idPos;
+	    	        	
+	            	
 	                posizioniAperte.innerHTML += template_posizione.innerHTML
 	                    .replace('{position_title}', position.nome)
 	                    .replace('{position_description}', position.descrizione)
 	                    .replace('{position_img}', position.fotoUrl)
 	                    .replace('{position_status}', position.aperta)
 	                    .replace('{position_id}', position.idPos);
+	                
+	                console.log(position.idPos);
+					             
 	            });
 	        }
 
