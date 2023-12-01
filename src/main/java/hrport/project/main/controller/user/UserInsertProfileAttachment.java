@@ -23,7 +23,7 @@ import hrport.project.main.utilities.UtilitiesFile;
 /**
  * Servlet implementation class UserInsertProfileAttachment
  */
-@WebServlet("/upload-image-profile")
+@WebServlet("/upload-attachment/*")
 @MultipartConfig
 public class UserInsertProfileAttachment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,12 +36,16 @@ public class UserInsertProfileAttachment extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		
+		String pathInfo = request.getPathInfo();
+        String[] pathParts = pathInfo.split("/");
+        String value = pathParts[1];
+		
 		try {
             Part filePart = request.getPart("file");
             InputStream fileContent = filePart.getInputStream();
 
             ServletContext sc = getServletContext();
-            String path = sc.getRealPath("/WEB-INF/static/pdf");
+            String path = sc.getRealPath("/WEB-INF/static/" + value);
             String fileName = UtilitiesFile.generateUniqueFileName(UtilitiesFile.getSubmittedFileName(filePart));
             Path filePath = Paths.get(path, fileName);
 

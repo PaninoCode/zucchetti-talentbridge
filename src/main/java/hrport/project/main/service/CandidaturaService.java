@@ -176,6 +176,8 @@ public class CandidaturaService {
 			insertCandidatura.executeUpdate();
 			
 			con.commit();
+			
+			CandidaturaService.updateStatoCandidatura(idPos, idUtente);
 		} catch (Exception e) {
 			
 			con.rollback();
