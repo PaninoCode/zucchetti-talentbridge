@@ -64,6 +64,8 @@ public class AttachmentServlet extends HttpServlet {
 			streamFile(mimeType, filename, request, response);
 		} catch (FileNotFoundException fileNotFoundException) {
 			sc.log("Impossibile trovare: " + filename);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.getWriter().println("Impossibile trovare: " + filename);
 		}
 
 		// TODO Auto-generated method stub

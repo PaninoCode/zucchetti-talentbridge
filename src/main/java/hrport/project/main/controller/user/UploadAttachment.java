@@ -71,10 +71,10 @@ public class UploadAttachment extends HttpServlet {
             	ProfiloUtenteService.insertProfilePdf(fileName, idUtente);
             } else if(value.equals("immagine_profilo")) {
             	
-            	
+            	ProfiloUtenteService.insertImageProfile(fileName, idUtente);
             } else if(value.equals("immagini_posizioni")) {
             	
-            	
+            	// inserire il path per le immagini
             }
 
             response.getWriter().println("File uploaded successfully!");
