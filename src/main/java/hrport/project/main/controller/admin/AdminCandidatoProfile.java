@@ -45,8 +45,9 @@ public class AdminCandidatoProfile extends HttpServlet {
 	                System.out.println(userId);
 	                
 	                try {
-						Utente profiloUtente = UtenteService.getUserByIdUtenteWithPositions(Integer.valueOf(userId));
-						dataUser = gson.toJson(profiloUtente);
+						
+						Utente utente = UtenteService.getUserByIdUtenteWithProfile(Integer.valueOf(userId));
+						dataUser = gson.toJson(utente);
 					} catch (NumberFormatException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -55,7 +56,7 @@ public class AdminCandidatoProfile extends HttpServlet {
 						e.printStackTrace();
 					}
 	                request.setAttribute("dataUser", dataUser);
-	                request.getRequestDispatcher("/WEB-INF/view-admin/candidatoProfileTest.jsp").forward(request, response);
+	                request.getRequestDispatcher("/WEB-INF/view-admin/profilo_candidato.jsp").forward(request, response);
 	                return;
 	            }
 	        }
