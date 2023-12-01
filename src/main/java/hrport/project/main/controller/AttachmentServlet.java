@@ -13,21 +13,17 @@ import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.io.IOException;
 
 /**
  * Servlet implementation class ImageServlet
  */
-@WebServlet("/app/getImage")
-public class ImageServlet extends HttpServlet {
+@WebServlet("/app/getAttachment/*")
+public class AttachmentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Default constructor.
-	 */
-	public ImageServlet() {
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -35,9 +31,21 @@ public class ImageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		ServletContext sc = getServletContext();
-		String filename = sc.getRealPath("/WEB-INF/static/" + request.getParameter("imgPath"));
+		
+		String pathInfo = request.getPathInfo();
+        String[] pathParts = pathInfo.split("/");
+        String value = pathParts[1].toLowerCase();
+        
+        String[] ammissiblevalues = {"pdf", "immagine_profilo", "immagini_posizioni"};
+        if(value.isBlank() || !Arrays.stream(ammissiblevalues).anyMatch(value::equals)) {
+        	
+        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().println("Error uploading file: inserire un parametro valido" + value);
+            return;
+        }
+        
+        ServletContext sc = getServletContext();
+		String filename = sc.getRealPath("/WEB-INF/static/" + value + "/" + request.getParameter("imgPath"));
 		boolean isFile = new File(filename).isFile();
 		
 		if(!isFile){
@@ -56,6 +64,8 @@ public class ImageServlet extends HttpServlet {
 			streamFile(mimeType, filename, request, response);
 		} catch (FileNotFoundException fileNotFoundException) {
 			sc.log("Impossibile trovare: " + filename);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.getWriter().println("Impossibile trovare: " + filename);
 		}
 
 		// TODO Auto-generated method stub

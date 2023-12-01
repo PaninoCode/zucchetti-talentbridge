@@ -211,4 +211,14 @@
     <servlet-name>DeleteCandidatura</servlet-name>
     <url-pattern>/DeleteCandidatura</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserInsertProfileAttachment</display-name>
+    <servlet-name>UserInsertProfileAttachment</servlet-name>
+    <servlet-class>hrport.project.main.controller.user.UserInsertProfileAttachment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserInsertProfileAttachment</servlet-name>
+    <url-pattern>/UserInsertProfileAttachment</url-pattern>
+  </servlet-mapping>
 </web-app>
