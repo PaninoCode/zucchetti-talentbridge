@@ -58,6 +58,7 @@ public class AttachmentServlet extends HttpServlet {
 		if (mimeType == null) {
 			sc.log("Could not get MIME type of " + filename);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return;
 		}
 
 		try {
@@ -66,6 +67,7 @@ public class AttachmentServlet extends HttpServlet {
 			sc.log("Impossibile trovare: " + filename);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter().println("Impossibile trovare: " + filename);
+			return;
 		}
 
 		// TODO Auto-generated method stub
