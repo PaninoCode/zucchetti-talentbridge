@@ -236,6 +236,9 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="mb-3">
+                                                    <div class="alert alert-danger d-none"
+                                                        id="skills_aggiungi_categoria_modal_error_text" role="alert">
+                                                    </div>
                                                     <label for="skills_aggiungi_categoria_modal_nome"
                                                         class="form-label">Nome Categoria</label>
                                                     <input type="text" class="form-control"
@@ -266,31 +269,27 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content border border-2 border-primary">
                                         <div class="modal-header bg-body-tertiary">
-                                            <h1 class="modal-title fs-5">Modifica Skill</h1>
+                                            <h1 class="modal-title fs-5">Aggiungi Skill</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="mb-3">
-                                                    <label for="skills_gestisci_skill_modal_nome"
+                                                    <div class="alert alert-danger d-none"
+                                                        id="skills_aggiungi_skill_modal_error_text" role="alert">
+                                                    </div>
+                                                    <label for="skills_aggiungi_skill_modal_nome"
                                                         class="form-label">Nome Skill</label>
                                                     <input type="text" class="form-control"
-                                                        id="skills_gestisci_skill_modal_nome">
-                                                    <div class="alert alert-danger d-none"
-                                                        id="skills_gestisci_skill_modal_error_text" role="alert">
-                                                    </div>
+                                                        id="skills_aggiungi_skill_modal_nome">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" id="skills_gestisci_skill_modal_elimina_btn"
-                                                class="btn btn-danger text-light">
-                                                <h5 class="m-0">Elimina Categoria</h5>
-                                            </button>
-                                            <button type="button" id="skills_gestisci_skill_modal_salva_btn"
+                                            <button type="button" id="skills_aggiungi_skill_modal_aggiungi_btn"
                                                 class="btn btn-primary text-light">
-                                                <h5 class="m-0">Salva</h5>
+                                                <h5 class="m-0">Aggiungi</h5>
                                             </button>
                                         </div>
                                     </div>
@@ -308,13 +307,14 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="mb-3">
+                                                    <div class="alert alert-danger d-none"
+                                                        id="skills_gestisci_skill_modal_error_text" role="alert">
+                                                    </div>
                                                     <label for="skills_gestisci_skill_modal_nome"
                                                         class="form-label">Nome Skill</label>
                                                     <input type="text" class="form-control"
                                                         id="skills_gestisci_skill_modal_nome">
-                                                    <div class="alert alert-danger d-none"
-                                                        id="skills_gestisci_skill_modal_error_text" role="alert">
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -344,13 +344,14 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="mb-3">
+                                                    <div class="alert alert-danger d-none"
+                                                        id="skills_gestisci_categoria_modal_error_text" role="alert">
+                                                    </div>
                                                     <label for="skills_gestisci_categoria_modal_nome"
                                                         class="form-label">Nome Categoria</label>
                                                     <input type="text" class="form-control"
                                                         id="skills_gestisci_categoria_modal_nome">
-                                                    <div class="alert alert-danger d-none"
-                                                        id="skills_gestisci_categoria_modal_error_text" role="alert">
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -372,6 +373,10 @@
                             <div class="card mb-3" style="width: 100%;">
                                 <div class="card-body">
 
+                                    <div class="alert alert-info d-none" id="skills_info_text" role="alert">
+
+                                    </div>
+
                                     <span id="template_skill_pill" class="d-none">
                                         <span
                                             class="badge rounded-pill text-bg-primary text-light p-2 m-2 d-flex justify-content-center align-items-center">
@@ -379,9 +384,8 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 style="cursor: pointer;" fill="currentColor" class="bi bi-pencil m-1"
                                                 viewBox="0 0 16 16" data-bs-toggle="modal"
-                                                data-bs-target="#skills_gestisci_categoria_modal"
-                                                data-bs-whatever="@getbootstrap" data-id-categoria="{id_categoria}"
-                                                data-nome-categoria="{nome_categoria}">
+                                                data-bs-target="#skills_gestisci_skill_modal" data-id-skill="{id_skill}"
+                                                data-id-categoria="{id_categoria}" data-nome-skill="{nome_skill}">
                                                 <path
                                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                             </svg>
@@ -392,7 +396,7 @@
                                         <div class="row">
                                             <div class="mb-2 mt-3">
                                                 <div class="row">
-                                                    <div class="col-10">
+                                                    <div class="col-11">
                                                         <h4>{nome_categoria}</h4>
                                                     </div>
                                                     <div class="col-1">
@@ -407,14 +411,6 @@
                                                                 d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                                         </svg>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            style="cursor: pointer;" fill="currentColor"
-                                                            class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                                            <path fill-rule="evenodd"
-                                                                d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                                                        </svg>
-                                                    </div>
                                                 </div>
                                                 <hr>
                                             </div>
@@ -422,6 +418,18 @@
                                         <div class="row">
                                             <div class="d-flex">
                                                 {skills_pills}
+
+                                                <span
+                                                    class="badge rounded-pill text-bg-primary text-light p-2 m-2 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        style="cursor: pointer;" fill="currentColor"
+                                                        class="bi bi-plus-lg" data-bs-toggle="modal"
+                                                        data-bs-target="#skills_aggiungi_skill_modal"
+                                                        data-id-categoria="{id_categoria}" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                                                    </svg>
+                                                </span>
                                             </div>
                                         </div>
                                     </span>

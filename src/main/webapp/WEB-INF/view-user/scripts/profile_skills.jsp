@@ -10,7 +10,21 @@
     let skillsAggiungiCategoriaModal = document.querySelector('#skills_aggiungi_categoria_modal');
     let skillsAggiungiCategoriaModalNome = document.querySelector('#skills_aggiungi_categoria_modal_nome');
     let skillsAggiungiCategoriaModalSkills = document.querySelector('#skills_aggiungi_categoria_modal_skills');
+    let skillsAggiungiCategoriaModalErrorText = document.querySelector('#skills_aggiungi_categoria_modal_error_text');
     let skillsAggiungiCategoriaModalAggiungiBtn = document.querySelector('#skills_aggiungi_categoria_modal_aggiungi_btn');
+
+    let skillsGestisciSkillsModal = document.querySelector('#skills_gestisci_skill_modal');
+    let skillsGestisciSkillsModalNome = document.querySelector('#skills_gestisci_skill_modal_nome');
+    let skillsGestisciSkillsModalErrorText = document.querySelector('#skills_gestisci_skill_modal_error_text');
+    let skillsGestisciSkillsModalEliminaBtn = document.querySelector('#skills_gestisci_skill_modal_elimina_btn');
+    let skillsGestisciSkillsModalSalvaBtn = document.querySelector('#skills_gestisci_skill_modal_salva_btn');
+
+    let skillsAggiungiSkillsModal = document.querySelector('#skills_aggiungi_skill_modal');
+    let skillsAggiungiSkillsModalNome = document.querySelector('#skills_aggiungi_skill_modal_nome');
+    let skillsAggiungiSkillsModalErrorText = document.querySelector('#skills_aggiungi_skill_modal_error_text');
+    let skillsAggiungiSkillsModalAggiungiBtn = document.querySelector('#skills_aggiungi_skill_modal_aggiungi_btn');
+
+    let skillsInfoText = document.querySelector('#skills_info_text');
 
     let skillsCategoryTemplate = document.querySelector('#template_cetegoria_skills');
     let skillPillTemplate = document.querySelector('#template_skill_pill');
@@ -24,6 +38,8 @@
             loadSkills(userCategory);
 
             let newCategory = {};
+
+            // GESTISCI CATEGORIA
 
             skillsGestisciCategoriaModal.addEventListener('show.bs.modal', event => {
                 let btn = event.relatedTarget;
@@ -69,24 +85,143 @@
             });
 
 
+            // AGGIUNGI CATEGORIA
+
             skillsAggiungiCategoriaModalAggiungiBtn.addEventListener('click', e => {
+
+                if (skillsAggiungiCategoriaModalNome.value < 3 || skillsAggiungiCategoriaModalSkills.value < 3) {
+                    skillsAggiungiCategoriaModalErrorText.innerHTML = "Inserisci dei dati validi per continuare.";
+                    skillsAggiungiCategoriaModalErrorText.classList.remove('d-none');
+                } else {
+                    let insertCategory = {
+                        nomeCategoria: skillsAggiungiCategoriaModalNome.value,
+                        skills: []
+                    }
+
+                    let newSkills = skillsAggiungiCategoriaModalSkills.value.split("\n");
+
+                    newSkills.forEach(skill => {
+                        insertCategory.skills.push({ nomeSkill: skill });
+                    });
+
+                    newCategoryAndSkills(insertCategory, function (error, data) {
+                        if (error == null) {
+                            location.reload();
+                            return;
+                        }
+
+                        skillsAggiungiCategoriaModalErrorText.innerHTML = "Errore nel completamento dell'operazione.";
+                        skillsAggiungiCategoriaModalErrorText.classList.remove('d-none');
+                    });
+                }
+            });
+
+            // GESTISCI SKILL
+
+            skillsGestisciSkillsModal.addEventListener('show.bs.modal', event => {
+                let btn = event.relatedTarget;
+                let idCategoria = parseInt(btn.getAttribute('data-id-categoria'));
+
+                userCategory.forEach(category => {
+                    if (category.idCs == idCategoria) newCategory = category;
+                });
+
+                skillsGestisciSkillsModalNome.value = btn.getAttribute('data-nome-skill');
+                skillsGestisciSkillsModal.setAttribute('data-id-skill', btn.getAttribute('data-id-skill'));
+
+            });
+
+            skillsGestisciSkillsModalEliminaBtn.addEventListener('click', e => {
+                let idSkill = parseInt(skillsGestisciSkillsModal.getAttribute('data-id-skill'));
                 let insertCategory = {
-                    nomeCategoria: skillsAggiungiCategoriaModalNome.value,
+                    idCs: newCategory.idCs,
+                    idCv: newCategory.idCv,
+                    nomeCategoria: newCategory.nomeCategoria,
                     skills: []
                 }
-
-                let newSkills = skillsAggiungiCategoriaModalSkills.value.split("\n");
-                
-                newSkills.forEach(skill => {
-                    insertCategory.skills.push({nomeSkill: skill});
-                });
-
-                newCategoryAndSkills(insertCategory, function (error, data) {
-                    if (error == null) {
-                        location.reload();
-                        return;
+                for (let i = 0; i < newCategory.skills.length; i++) {
+                    if (newCategory.skills[i].idSkill != idSkill) {
+                        insertCategory.skills.push(newCategory.skills[i]);
                     }
+                }
+                console.log(newCategory);
+                console.log(insertCategory);
+
+                deleteCategory(newCategory, function (error, data) {
+                    newCategoryAndSkills(insertCategory, function (error, data) {
+                        if (error == null) {
+                            location.reload();
+                            return;
+                        }
+
+                        skillsGestisciSkillsModalErrorText.innerHTML = "Errore nel completamento dell'operazione.";
+                        skillsGestisciSkillsModalErrorText.classList.remove('d-none');
+                    });
                 });
+
+
+            });
+
+            skillsGestisciSkillsModalSalvaBtn.addEventListener('click', e => {
+                if (skillsGestisciSkillsModalNome.value < 3) {
+                    skillsGestisciSkillsModalErrorText.innerHTML = "Inserisci un nome valido per continuare.";
+                    skillsGestisciSkillsModalErrorText.classList.remove('d-none');
+                } else {
+                    let idSkill = parseInt(skillsGestisciSkillsModal.getAttribute('data-id-skill'));
+                    for (let i = 0; i < newCategory.skills.length; i++) {
+                        if (newCategory.skills[i].idSkill == idSkill) {
+                            newCategory.skills[i].nomeSkill = skillsGestisciSkillsModalNome.value;
+                        }
+                    }
+
+                    console.log(newCategory);
+
+                    updateExistingCategoryAndSkills(newCategory, function (error, data) {
+                        if (error == null) {
+                            location.reload();
+                            return;
+                        }
+
+                        skillsGestisciSkillsModalErrorText.innerHTML = "Errore nel completamento dell'operazione.";
+                        skillsGestisciSkillsModalErrorText.classList.remove('d-none');
+                    });
+                }
+            });
+
+            // AGGIUNGI SKILL
+
+            skillsAggiungiSkillsModal.addEventListener('show.bs.modal', event => {
+                let btn = event.relatedTarget;
+                let idCategoria = parseInt(btn.getAttribute('data-id-categoria'));
+
+                userCategory.forEach(category => {
+                    if (category.idCs == idCategoria) newCategory = category;
+                });
+
+                skillsAggiungiSkillsModalNome.value = "";
+            });
+
+            skillsAggiungiSkillsModalAggiungiBtn.addEventListener('click', e => {
+                if (skillsAggiungiSkillsModalNome.value < 3) {
+                    skillsAggiungiSkillsModalErrorText.innerHTML = "Inserisci un nome valido per continuare.";
+                    skillsAggiungiSkillsModalErrorText.classList.remove('d-none');
+                } else {
+                    let newSkill = {
+                        nomeSkill: skillsAggiungiSkillsModalNome.value
+                    }
+                    deleteCategory(newCategory, function (error, data) {
+                        newCategory.skills.push(newSkill);
+                        newCategoryAndSkills(newCategory, function (error, data) {
+                            if (error == null) {
+                                location.reload();
+                                return;
+                            }
+
+                            skillsAggiungiSkillsModalErrorText.innerHTML = "Inserisci un nome valido per continuare.";
+                            skillsAggiungiSkillsModalErrorText.classList.remove('d-none');
+                        });
+                    });
+                }
             });
 
         }
@@ -138,7 +273,7 @@
     }
 
     async function updateExistingCategoryAndSkills(category, callback) {
-        const response = await fetch('http://localhost:8080/hrport/user/insert-category-and-skills', {
+        const response = await fetch('http://localhost:8080/hrport/user/update-category-and-skills', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -161,6 +296,11 @@
 
     function loadSkills(userCategory) {
 
+        if(userCategory.length < 1){
+            skillsInfoText.innerHTML = "Il tuo profilo non ha nessuna Skill."
+            skillsInfoText.classList.remove('d-none');
+        }
+
         skillsList.innerHTML = "";
 
         userCategory.forEach(category => {
@@ -181,7 +321,10 @@
         }
 
         skills.forEach(skill => {
-            htmlResult += skillPillTemplate.innerHTML.replaceAll('{nome_skill}', skill.nomeSkill);
+            htmlResult += skillPillTemplate.innerHTML
+                .replaceAll('{nome_skill}', skill.nomeSkill)
+                .replaceAll('{id_skill}', skill.idSkill)
+                .replaceAll('{id_categoria}', skill.idCs);
         });
 
         return htmlResult;
