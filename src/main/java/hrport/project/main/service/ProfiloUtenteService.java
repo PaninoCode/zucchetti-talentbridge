@@ -311,4 +311,36 @@ public class ProfiloUtenteService {
 			con.close();
 		}
 	}
+	
+	public static void insertImageProfile(String fileName, Integer idUtente) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		ProfiloUtente profilo = null;
+
+		try {
+
+			con.setAutoCommit(false);
+
+			String SQLUpdate = "UPDATE \"Profilo\""
+					+ "SET fotoUrl = ?"
+					+ "WHERE Profilo.idUtente = ?";
+
+			PreparedStatement updateProfilo = con.prepareStatement(SQLUpdate);
+
+			updateProfilo.setString(1, fileName);
+			updateProfilo.setInt(2, idUtente);
+
+			updateProfilo.executeUpdate();
+
+			con.commit();
+		} catch (Exception e) {
+
+			con.rollback();
+			throw e;
+		} finally {
+
+			con.close();
+		}
+	}
 }

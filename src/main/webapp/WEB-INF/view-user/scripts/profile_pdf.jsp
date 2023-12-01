@@ -8,7 +8,7 @@
 	        const formData = new FormData();
 	        formData.append('file', file);
 	
-	        const response = await fetch('http://localhost:8080/hrport/upload-image-profile', {
+	        const response = await fetch('http://localhost:8080/hrport/app/upload-attachment/pdf', {
 	            method: 'POST',
 	            body: formData
 	        });

@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import hrport.project.main.service.ProfiloUtenteService;
 import hrport.project.main.utilities.UtilitiesFile;
@@ -23,9 +24,9 @@ import hrport.project.main.utilities.UtilitiesFile;
 /**
  * Servlet implementation class UserInsertProfileAttachment
  */
-@WebServlet("/upload-attachment/*")
+@WebServlet("/app/upload-attachment/*")
 @MultipartConfig
-public class UserInsertProfileAttachment extends HttpServlet {
+public class UploadAttachment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -38,7 +39,15 @@ public class UserInsertProfileAttachment extends HttpServlet {
 		
 		String pathInfo = request.getPathInfo();
         String[] pathParts = pathInfo.split("/");
-        String value = pathParts[1];
+        String value = pathParts[1].toLowerCase();
+        
+        String[] ammissiblevalues = {"pdf", "immagine_profilo", "immagini_posizioni"};
+        if(value.isBlank() || !Arrays.stream(ammissiblevalues).anyMatch(value::equals)) {
+        	
+        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().println("Error uploading file: inserire un parametro valido" + value);
+            return;
+        }
 		
 		try {
             Part filePart = request.getPart("file");
@@ -57,7 +66,16 @@ public class UserInsertProfileAttachment extends HttpServlet {
                 out.write(buffer, 0, length);
             }
             
-            ProfiloUtenteService.insertProfilePdf(fileName, idUtente);
+            if(value.equals("pdf")) {
+            	
+            	ProfiloUtenteService.insertProfilePdf(fileName, idUtente);
+            } else if(value.equals("immagine_profilo")) {
+            	
+            	
+            } else if(value.equals("immagini_posizioni")) {
+            	
+            	
+            }
 
             response.getWriter().println("File uploaded successfully!");
         } catch (Exception e) {
