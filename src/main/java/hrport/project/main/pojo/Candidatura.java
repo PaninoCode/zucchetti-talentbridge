@@ -33,11 +33,12 @@ public class Candidatura {
 		this.setStato(stato);
 	}
 	
-	public Candidatura(Integer idCand, Posizione position, Integer stato) {
+	public Candidatura(Integer idCand, Posizione position, Integer stato, Integer punteggioTot) {
 		
 		this.setIdCand(idCand);
 		this.setPosition(position);
 		this.setStato(stato);
+		this.setPunteggioTot(punteggioTot);
 	}
 	
 	

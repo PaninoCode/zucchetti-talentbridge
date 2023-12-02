@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
                                         <div class="col-2">
-                                            <button type="button" class="btn btn-primary text-light w-100">
+                                            <button type="button" id="image_upload_profile" class="btn btn-primary text-light w-100">
                                                 <h5 class="m-0">Carica</h5>
                                             </button>
                                         </div>
@@ -215,7 +215,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-2">
-                                                <button type="button" class="btn btn-primary text-light w-100">
+                                                <button type="button" id="pdf_upload_curriculum" class="btn btn-primary text-light w-100">
                                                     <h5 class="m-0">Carica</h5>
                                                 </button>
                                             </div>
@@ -615,6 +615,8 @@
         <jsp:include page='scripts/profile_skills.jsp'></jsp:include>
         <jsp:include page='scripts/profile_istruzione.jsp'></jsp:include>
         <jsp:include page='scripts/profile_esperienza.jsp'></jsp:include>
+        <jsp:include page='scripts/profile_pdf.jsp'></jsp:include>
+        <jsp:include page='scripts/profile_image.jsp'></jsp:include>
 
     </body>
 
