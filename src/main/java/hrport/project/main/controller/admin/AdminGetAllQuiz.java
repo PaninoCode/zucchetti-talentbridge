@@ -16,7 +16,7 @@ import hrport.project.main.service.QuizService;
 /**
  * Servlet implementation class AdminGetAllQuiz
  */
-@WebServlet("")
+@WebServlet("/admin/create-new-position")
 public class AdminGetAllQuiz extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class AdminGetAllQuiz extends HttpServlet {
 			String jsonQuiz = gson.toJson(quiz);
 			
 			request.setAttribute("data", jsonQuiz);
-			request.getRequestDispatcher("/WEB-INF/view-user/profile.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String error = e.getMessage();
