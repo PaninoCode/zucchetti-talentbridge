@@ -43,7 +43,7 @@ public class UploadAttachment extends HttpServlet {
         String[] pathParts = pathInfo.split("/");
         String value = pathParts[1].toLowerCase();
         
-        String[] ammissiblevalues = {"pdf", "immagine_profilo", "immagini_posizioni"};
+        String[] ammissiblevalues = {"pdf", "immagine_profilo"};
         if(value.isBlank() || !Arrays.stream(ammissiblevalues).anyMatch(value::equals)) {
         	
         	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -92,9 +92,6 @@ public class UploadAttachment extends HttpServlet {
             	}
             	
             	ProfiloUtenteService.insertImageProfile(fileName, idUtente);
-            } else if(value.equals("immagini_posizioni")) {
-            	
-            	// inserire il path per le immagini
             }
 
             response.getWriter().println("File uploaded successfully!");
