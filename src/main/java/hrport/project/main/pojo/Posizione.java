@@ -30,7 +30,13 @@ public class Posizione {
 		setApplications(applications);
 	}
 	
-	
+	public Posizione(String nome, Boolean aperta, String fotoUrl, String descrizione){
+		
+		setNome(nome);
+		setAperta(aperta);
+		setFotoUrl(fotoUrl);
+		setDescrizione(descrizione);
+	}
 
 	public Posizione(Integer idPos, String nome, Boolean aperta) {
 		super();
