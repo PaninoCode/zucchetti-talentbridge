@@ -144,7 +144,7 @@ public class PosizioneService {
 		
 	}
 	
-public static void updatePosizione(Posizione posizione) throws Exception {
+	public static void updatePosizione(Posizione posizione) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
@@ -186,5 +186,7 @@ public static void updatePosizione(Posizione posizione) throws Exception {
 			
 	}
 	
-	
+	public static void insertNewPosition(Posizione posizione) throws Exception {
+		
+	}
 }
