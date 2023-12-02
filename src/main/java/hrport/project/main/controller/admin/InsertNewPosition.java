@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import hrport.project.main.pojo.Posizione;
 import hrport.project.main.pojo.Quiz;
+import hrport.project.main.service.PosizioneService;
 import hrport.project.main.utilities.UtilitiesFile;
 
 /**
@@ -65,11 +66,13 @@ public class InsertNewPosition extends HttpServlet {
                 out.write(buffer, 0, length);
             }
             
-            response.getWriter().println("File uploaded successfully!");
+            PosizioneService.insertNewPosition(newPosition, quiz);
+            
+            response.getWriter().println("Success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().println("Error uploading file: " + e.getMessage());
+            response.getWriter().println("Error: " + e.getMessage());
 		}
 	}
 

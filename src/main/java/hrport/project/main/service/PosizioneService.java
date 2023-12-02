@@ -16,6 +16,7 @@ import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.EspLavorativa;
 import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Quiz;
 
 public class PosizioneService {
 	
@@ -186,7 +187,55 @@ public class PosizioneService {
 			
 	}
 	
-	public static void insertNewPosition(Posizione posizione) throws Exception {
+	public static void insertNewPosition(Posizione posizione, Quiz[] quiz) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSet = null;
+		try {
+			
+			con.setAutoCommit(false);
+			
+			String SQLPosition = "INSERT INTO \"Posizione\" (\"nome\", \"aperta\", \"fotoUrl\", \"descrizione\")\r\n"
+					+ "VALUES (?, ?, ?, ?);"
+					+ "SELECT SCOPE_IDENTITY() as 'lastId'";
+			
+			PreparedStatement statementPosition = con.prepareStatement(SQLPosition);
+			
+			statementPosition.setString(1, posizione.getNome());
+			statementPosition.setBoolean(2, posizione.getAperta());
+			statementPosition.setString(3, posizione.getFotoUrl());
+			statementPosition.setString(4, posizione.getDescrizione());
+			
+			resultSet = statementPosition.executeQuery();
+			
+			String SQLposQuiz = "INSERT INTO \"posQuiz\" (\"idPos\", \"idQuiz\")\r\n"
+					+ "VALUES (?, ?);";
+			
+			resultSet.next();
+			Integer generatedId = resultSet.getInt("lastId");
+			
+			for (int i = 0; i < quiz.length; i++) {
+				
+				Integer idQuiz = quiz[i].getId();
+				
+				PreparedStatement insertQuiz = con.prepareStatement(SQLposQuiz);
+				
+				insertQuiz.setInt(1, generatedId);
+				insertQuiz.setInt(2, idQuiz);
+				
+				insertQuiz.executeUpdate();
+			}
+			
+			con.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
 		
 	}
 }
