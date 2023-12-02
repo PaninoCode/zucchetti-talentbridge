@@ -37,9 +37,8 @@ Gestione dei candidati
 
 - /admin/dettaglioPosizione
 - /admin/candidati
-
-### Mancanti
-
 - /user/profile
 - /user/completaQuiz
+
+### Mancanti
 - /admin/dattaglioCandidato
