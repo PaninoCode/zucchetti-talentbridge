@@ -36,10 +36,7 @@
 
                                     <div class="mb-5">
                                         <div class="text-center">
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <h1 class="rounded-circle bg-primary text-light d-flex justify-content-center align-items-center"
-                                                    style="width: 140px; height: 140px;" id="anagrafica_propic">
-                                                </h1>
+                                            <div class="d-flex justify-content-center align-items-center" style="width: 120px; height: 120px; background-position: center center; background-repeat: no-repeat;" id="anagrafica_propic">
                                             </div>
                                             <p class="fs-3" id="anagrafica_full_name"></p>
                                         </div>
@@ -182,13 +179,13 @@
                                 <div class="card-body p-0">
                                     <div class="position-relative bg-dark rounded-top-1 w-100"
                                         style="min-height: 200px;">
-                                        <object data="<%=request.getContextPath()%>/pdfs/esempio_cv.pdf"
+                                        <object id="pdf_display_object" data=""
                                             type="application/pdf" class="rounded-top-1 shadow-sm w-100"
                                             style="height: 500px;">
                                             <div class="w-100 p-5" style="z-index: 1200;">
                                                 <p class="text-light text-center">
-                                                    Impossibile mostrare questa risorsa, puoi <a
-                                                        href="<%=request.getContextPath()%>/pdfs/esempio_cv.pdf"
+                                                    Impossibile mostrare questa risorsa, puoi <a id="pdf_download_link"
+                                                        href=""
                                                         target="_blank">aprirla in un altra scheda</a>.
                                                 </p>
                                             </div>
@@ -807,7 +804,6 @@
         <jsp:include page='data/lista_province.jsp'></jsp:include>
 
         <script type="text/javascript">
-            let anagraficaWidgetProPic = document.querySelector('#anagrafica_propic');
             let anagraficaWidgetFullName = document.querySelector('#anagrafica_full_name');
 
             let dataUser = JSON.parse(`<%=request.getAttribute("dataUser")%>`);
@@ -815,7 +811,6 @@
             console.log(dataUser);
 
             anagraficaWidgetFullName.innerHTML = dataUser.nome + " " + dataUser.cognome;
-            anagraficaWidgetProPic.innerHTML = dataUser.nome[0] + dataUser.cognome[0];
         </script>
 
         <jsp:include page='scripts/profile_anagrafica.jsp'></jsp:include>
