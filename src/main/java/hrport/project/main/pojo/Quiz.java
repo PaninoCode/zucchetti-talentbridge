@@ -107,7 +107,7 @@ public class Quiz {
 		Connection con = ConnectDatabase.getConnection();
 		con.setAutoCommit(false);
 		try {
-			List<Integer> idRisposte= new ArrayList();
+			List<Integer> idRisposte= new ArrayList<>();
 			Quiz q= Quiz.initQuiz(idQuiz);
 			
 			for(int i=0; i<risUtente.length; i++) {
@@ -342,9 +342,5 @@ public class Quiz {
 		}
 		
 	}
-
 	
-	
-	
-		
 }

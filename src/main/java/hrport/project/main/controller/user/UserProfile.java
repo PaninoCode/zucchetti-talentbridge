@@ -44,7 +44,7 @@ public class UserProfile extends HttpServlet {
 			String error = e.getMessage();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("data", error);
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view-user/profile.jsp").forward(request, response);
 			return;
 		}
 		
