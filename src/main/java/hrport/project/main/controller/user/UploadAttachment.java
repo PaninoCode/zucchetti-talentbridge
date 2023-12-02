@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import hrport.project.main.pojo.ProfiloUtente;
 import hrport.project.main.service.ProfiloUtenteService;
 import hrport.project.main.utilities.UtilitiesFile;
 
@@ -41,7 +43,7 @@ public class UploadAttachment extends HttpServlet {
         String[] pathParts = pathInfo.split("/");
         String value = pathParts[1].toLowerCase();
         
-        String[] ammissiblevalues = {"pdf", "immagine_profilo", "immagini_posizioni"};
+        String[] ammissiblevalues = {"pdf", "immagine_profilo"};
         if(value.isBlank() || !Arrays.stream(ammissiblevalues).anyMatch(value::equals)) {
         	
         	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -66,15 +68,30 @@ public class UploadAttachment extends HttpServlet {
                 out.write(buffer, 0, length);
             }
             
+            ProfiloUtente profile = ProfiloUtenteService.getProfileUserByIdUtente(idUtente);
+            
             if(value.equals("pdf")) {
+            	
+            	String pathPrevious = path + "/" + profile.getFileUrl();
+            	File previousFile = new File(pathPrevious);
+            	
+            	if(previousFile.isFile()) {
+            		
+            		previousFile.delete();
+            	}
             	
             	ProfiloUtenteService.insertProfilePdf(fileName, idUtente);
             } else if(value.equals("immagine_profilo")) {
             	
-            	ProfiloUtenteService.insertImageProfile(fileName, idUtente);
-            } else if(value.equals("immagini_posizioni")) {
+            	String pathPrevious = path + "/" + profile.getFotoUrl();
+            	File previousFile = new File(pathPrevious);
             	
-            	// inserire il path per le immagini
+            	if(previousFile.isFile()) {
+            		
+            		previousFile.delete();
+            	}
+            	
+            	ProfiloUtenteService.insertImageProfile(fileName, idUtente);
             }
 
             response.getWriter().println("File uploaded successfully!");
