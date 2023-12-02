@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import hrport.project.main.pojo.ProfiloUtente;
 import hrport.project.main.service.ProfiloUtenteService;
 import hrport.project.main.utilities.UtilitiesFile;
 
@@ -66,10 +68,28 @@ public class UploadAttachment extends HttpServlet {
                 out.write(buffer, 0, length);
             }
             
+            ProfiloUtente profile = ProfiloUtenteService.getProfileUserByIdUtente(idUtente);
+            
             if(value.equals("pdf")) {
+            	
+            	String pathPrevious = path + "/" + profile.getFileUrl();
+            	File previousFile = new File(pathPrevious);
+            	
+            	if(previousFile.isFile()) {
+            		
+            		previousFile.delete();
+            	}
             	
             	ProfiloUtenteService.insertProfilePdf(fileName, idUtente);
             } else if(value.equals("immagine_profilo")) {
+            	
+            	String pathPrevious = path + "/" + profile.getFotoUrl();
+            	File previousFile = new File(pathPrevious);
+            	
+            	if(previousFile.isFile()) {
+            		
+            		previousFile.delete();
+            	}
             	
             	ProfiloUtenteService.insertImageProfile(fileName, idUtente);
             } else if(value.equals("immagini_posizioni")) {
