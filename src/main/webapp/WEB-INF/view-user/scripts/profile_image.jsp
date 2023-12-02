@@ -1,5 +1,5 @@
 <script>
-	async function uploadFile() {
+	async function uploadImage() {
 	    const fileInput = document.getElementById("anagrafica_foto_upload");
 	    const file = fileInput.files[0];
 		console.log("entro")
@@ -25,6 +25,6 @@
 
 	uploadImageProfile.addEventListener('click', function() {
 		
-		uploadFile();
+		uploadImage();
 	})
 </script>
