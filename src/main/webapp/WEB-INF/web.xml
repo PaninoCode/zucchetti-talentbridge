@@ -221,4 +221,14 @@
     <servlet-name>UserInsertProfileAttachment</servlet-name>
     <url-pattern>/UserInsertProfileAttachment</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertNewPosition</display-name>
+    <servlet-name>InsertNewPosition</servlet-name>
+    <servlet-class>hrport.project.main.controller.admin.InsertNewPosition</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertNewPosition</servlet-name>
+    <url-pattern>/InsertNewPosition</url-pattern>
+  </servlet-mapping>
 </web-app>
