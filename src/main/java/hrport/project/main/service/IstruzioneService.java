@@ -106,12 +106,12 @@ public class IstruzioneService {
 			education = gson.fromJson(json, Istruzione.class);
 					
 			String SQL = "UPDATE \"Istruzione\""
-					+ "SET titoloIstruzione = ?"
-					+ "SET istituto = ?"
-					+ "SET indirizzo = ?"
-					+ "SET voto = ?"
-					+ "SET dInizio = ?"
-					+ "SET dFine = ?"
+					+ "SET titoloIstruzione = ?,"
+					+ "istituto = ?,"
+					+ "indirizzo = ?,"
+					+ "voto = ?,"
+					+ "dInizio = ?,"
+					+ "dFine = ?"
 					+ "WHERE Istruzione.idIst = ?"
 					+ "AND Istruzione.idCv = ?";
 			
@@ -148,7 +148,7 @@ public class IstruzioneService {
 			
 			con.setAutoCommit(false);
 					
-			String SQL = "DELETE FROM Istruzione ist WHERE ist.idIst = ? AND ist.idCv = ?;";
+			String SQL = "DELETE FROM Istruzione WHERE Istruzione.idIst = ? AND Istruzione.idCv = ?;";
 			
 			PreparedStatement deleteIstruz = con.prepareStatement(SQL);
 			

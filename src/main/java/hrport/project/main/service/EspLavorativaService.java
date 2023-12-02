@@ -105,12 +105,12 @@ public class EspLavorativaService {
 			experience = gson.fromJson(json, EspLavorativa.class);
 					
 			String SQL = "UPDATE \"EspLavorativa\""
-					+ "SET azienda = ?"
-					+ "SET dInizio = ?"
-					+ "SET dFine = ?"
-					+ "SET posizione = ?"
-					+ "SET funzione = ?"
-					+ "SET indirizzo = ?"
+					+ "SET azienda = ?,"
+					+ "dInizio = ?,"
+					+ "dFine = ?,"
+					+ "posizione = ?,"
+					+ "funzione = ?,"
+					+ "indirizzo = ?"
 					+ "WHERE EspLavorativa.idEL = ?"
 					+ "AND EspLavorativa.idCv = ?";
 			
@@ -147,7 +147,7 @@ public class EspLavorativaService {
 			
 			con.setAutoCommit(false);
 					
-			String SQL = "DELETE FROM EspLavorativa esp WHERE esp.idEL = ? AND esp.idCv = ?;";
+			String SQL = "DELETE FROM EspLavorativa WHERE EspLavorativa.idEL = ? AND EspLavorativa.idCv = ?;";
 			
 			PreparedStatement deleteExperience = con.prepareStatement(SQL);
 			

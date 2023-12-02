@@ -166,7 +166,8 @@
                                             </div>
                                         </div>
                                         <div class="col-2">
-                                            <button type="button" id="image_upload_profile" class="btn btn-primary text-light w-100">
+                                            <button type="button" id="image_upload_profile"
+                                                class="btn btn-primary text-light w-100">
                                                 <h5 class="m-0">Carica</h5>
                                             </button>
                                         </div>
@@ -215,7 +216,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-2">
-                                                <button type="button" id="pdf_upload_curriculum" class="btn btn-primary text-light w-100">
+                                                <button type="button" id="pdf_upload_curriculum"
+                                                    class="btn btn-primary text-light w-100">
                                                     <h5 class="m-0">Carica</h5>
                                                 </button>
                                             </div>
@@ -455,37 +457,206 @@
                     </div>
                 </div>
 
-                <div class="modal fade" id="istruzione_aggiungi_modal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="istruzione_modifica_modal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content border border-2 border-primary">
                             <div class="modal-header bg-body-tertiary">
-                                <h1 class="modal-title fs-5">Aggiungi Istruzione</h1>
+                                <h1 class="modal-title fs-5" id="istruzione_modifica_modal_title">Istruzione</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-
+                                <div class="alert alert-danger d-none" id="istruzione_modifica_modal_error_text"
+                                    role="alert">
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="istruzione_modifica_modal_titolo_di_studio"
+                                            class="form-label">Titolo di
+                                            studio</label>
+                                        <input type="text" class="form-control"
+                                            id="istruzione_modifica_modal_titolo_di_studio">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="istruzione_modifica_modal_nome_istituto" class="form-label">Nome
+                                            istituto</label>
+                                        <input type="text" class="form-control"
+                                            id="istruzione_modifica_modal_nome_istituto">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="istruzione_modifica_modal_indirizzo_istituto"
+                                            class="form-label">Indirizzo istituto</label>
+                                        <input type="text" class="form-control"
+                                            id="istruzione_modifica_modal_indirizzo_istituto">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="istruzione_modifica_modal_data_inizio" class="form-label">Data
+                                                di inizio</label>
+                                            <input type="date" class="form-control"
+                                                id="istruzione_modifica_modal_data_inizio">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="istruzione_modifica_modal_data_fine" class="form-label">Data di
+                                                fine</label>
+                                            <input type="date" class="form-control"
+                                                id="istruzione_modifica_modal_data_fine">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="istruzione_modifica_modal_voto" class="form-label">Voto</label>
+                                            <input type="number" class="form-control"
+                                                id="istruzione_modifica_modal_voto">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                <button type="button" id="istruzione_modifica_modal_modifica_btn"
+                                    class="btn btn-primary text-light d-none">
+                                    <h5 class="m-0">Modifica</h5>
+                                </button>
+                                <button type="button" id="istruzione_modifica_modal_aggiungi_btn"
+                                    class="btn btn-primary text-light d-none">
+                                    <h5 class="m-0">Aggiungi</h5>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="esperienza_aggiungi_modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal fade" id="istruzione_elimina_modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content border border-2 border-primary">
                             <div class="modal-header bg-body-tertiary">
-                                <h1 class="modal-title fs-5">Aggiungi Esperienza</h1>
+                                <h1 class="modal-title fs-5">Elimina Istruzione</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-
+                                <p>Sei veramente sicuro di voler eliminare: "<span
+                                        id="istruzione_elimina_modal_titolo_di_studio"></span>"?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                <button type="button" id="istruzione_elimina_modal_elimina_btn"
+                                    class="btn btn-danger text-light">
+                                    <h5 class="m-0">Elimina</h5>
+                                </button>
+                                <button type="button" data-bs-dismiss="modal" class="btn btn-primary text-light">
+                                    <h5 class="m-0">Annulla</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="esperienza_modifica_modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content border border-2 border-primary">
+                            <div class="modal-header bg-body-tertiary">
+                                <h1 class="modal-title fs-5" id="esperienza_modifica_modal_title">Esperienza</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger d-none" id="esperienza_modifica_modal_error_text"
+                                    role="alert">
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="esperienza_modifica_modal_posizione"
+                                            class="form-label">Posizione</label>
+                                        <input type="text" class="form-control"
+                                            id="esperienza_modifica_modal_posizione">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="esperienza_modifica_modal_azienda"
+                                            class="form-label">Azienda</label>
+                                        <input type="text" class="form-control" id="esperienza_modifica_modal_azienda">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="esperienza_modifica_modal_indirizzo_azienda"
+                                            class="form-label">Indirizzo azienda</label>
+                                        <input type="text" class="form-control"
+                                            id="esperienza_modifica_modal_indirizzo_azienda">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="esperienza_modifica_modal_data_inizio" class="form-label">Data
+                                                di inizio</label>
+                                            <input type="date" class="form-control"
+                                                id="esperienza_modifica_modal_data_inizio">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="esperienza_modifica_modal_data_fine" class="form-label">Data di
+                                                fine</label>
+                                            <input type="date" class="form-control"
+                                                id="esperienza_modifica_modal_data_fine">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <p>Funzione</p>
+                                        <textarea id="esperienza_modifica_modal_funzione" class="w-100 mb-1 form-control" rows="10"></textarea>
+                                        <p class="text-muted text-end w-100"><span
+                                                id="esperienza_modifica_modal_funzione_charcounter">0</span>/500</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="esperienza_modifica_modal_modifica_btn"
+                                    class="btn btn-primary text-light d-none">
+                                    <h5 class="m-0">Modifica</h5>
+                                </button>
+                                <button type="button" id="esperienza_modifica_modal_aggiungi_btn"
+                                    class="btn btn-primary text-light d-none">
+                                    <h5 class="m-0">Aggiungi</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="esperienza_elimina_modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border border-2 border-primary">
+                            <div class="modal-header bg-body-tertiary">
+                                <h1 class="modal-title fs-5">Elimina Istruzione</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Sei veramente sicuro di voler eliminare: "<span
+                                        id="esperienza_elimina_modal_posizione"></span>"?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="esperienza_elimina_modal_elimina_btn"
+                                    class="btn btn-danger text-light">
+                                    <h5 class="m-0">Elimina</h5>
+                                </button>
+                                <button type="button" data-bs-dismiss="modal" class="btn btn-primary text-light">
+                                    <h5 class="m-0">Annulla</h5>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -496,31 +667,48 @@
                     <div class="card bg-white">
                         <div class="card-body">
 
+                            <div class="alert alert-info d-none" id="istruzione_info_text" role="alert">
+
+                            </div>
+
                             <span class="d-none" id="istruzione_accordion_example_item">
-                                <div class="accordion-item">
+                                <!-- <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button"
                                             data-bs-toggle="collapse"
-                                            data-bs-target="#istruzione_accordion_collapse_sampleId"
-                                            aria-expanded="true" aria-controls="istruzione_accordion_collapse_sampleId">
-                                            {titolo_di_studio}
+                                            data-bs-target="#istruzione_accordion_collapse_{id_istruzione}"
+                                            aria-expanded="true"
+                                            aria-controls="istruzione_accordion_collapse_{id_istruzione}">
+                                            "{titolo_di_studio}" presso: {nome_istituto}
                                         </button>
                                     </h2>
-                                    <div id="istruzione_accordion_collapse_sampleId"
+                                    <div id="istruzione_accordion_collapse_{id_istruzione}"
                                         class="accordion-collapse collapse collapsed"
                                         data-bs-parent="#istruzione_accordion">
                                         <div class="accordion-body">
                                             <h3>
                                                 {nome_istituto}
                                             </h3>
+                                            <h5>
+                                                {indirizzo_istituto}
+                                            </h5>
                                             <h6>
                                                 Da {data_inizio} a {data_fine}
                                             </h6><br>
                                             <h2><span class="badge bg-primary">{voto}</span></h2>
-
+                                            <br><br>
+                                            <p>
+                                                <a style="cursor: pointer;" data-bs-toggle="modal"
+                                                    data-bs-target="#istruzione_modifica_modal" class="m-0 link-primary"
+                                                    data-istruzione-id="{id_istruzione}">Modifica istruzione</a>
+                                                    -
+                                                <a style="cursor: pointer;" data-bs-toggle="modal"
+                                                    data-bs-target="#istruzione_elimina_modal" class="m-0 link-danger"
+                                                    data-istruzione-id="{id_istruzione}">Elimina istruzione</a>
+                                            </p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </span>
 
                             <div class="accordion mb-3" id="istruzione_accordion">
@@ -530,7 +718,7 @@
                                 <div class="col-10"></div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-primary text-light w-100"
-                                        data-bs-toggle="modal" data-bs-target="#istruzione_aggiungi_modal">
+                                        data-bs-toggle="modal" data-bs-target="#istruzione_modifica_modal">
                                         <h5 class="m-0">Aggiungi</h5>
                                     </button>
                                 </div>
@@ -544,32 +732,51 @@
                     <div class="card bg-white">
                         <div class="card-body">
 
+                            <div class="alert alert-info d-none" id="esperienza_info_text" role="alert">
+
+                            </div>
+
                             <span class="d-none" id="esperienza_accordion_example_item">
-                                <div class="accordion-item">
+                                <!-- <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button"
                                             data-bs-toggle="collapse"
-                                            data-bs-target="#esperienza_accordion_collapse_sampleId"
-                                            aria-expanded="true" aria-controls="esperienza_accordion_collapse_sampleId">
-                                            {nome_azienda}
+                                            data-bs-target="#esperienza_accordion_collapse_{id_esperienza}"
+                                            aria-expanded="true"
+                                            aria-controls="esperienza_accordion_collapse_{id_esperienza}">
+                                            "{posizione}" presso: {nome_azienda}
                                         </button>
                                     </h2>
-                                    <div id="esperienza_accordion_collapse_sampleId" class="accordion-collapse collapse"
-                                        data-bs-parent="#esperienza_accordion">
+                                    <div id="esperienza_accordion_collapse_{id_esperienza}"
+                                        class="accordion-collapse collapse" data-bs-parent="#esperienza_accordion">
                                         <div class="accordion-body">
                                             <h3>
                                                 {posizione}
                                             </h3>
+                                            <h5>
+                                                {indirizzo_azienda}
+                                            </h5>
                                             <h6>
                                                 Da {data_inizio} a {data_fine}
                                             </h6><br>
                                             <p>
                                                 {funzione}
                                             </p>
-
+                                            <br><br>
+                                            <p>
+                                                <a style="cursor: pointer;" data-bs-toggle="modal"
+                                                    data-bs-target="#esperienza_modifica_modal" class="m-0 link-primary"
+                                                    data-bs-toggle="modal" data-esperienza-id="{id_esperienza}">Modifica
+                                                    esperienza</a>
+                                                -
+                                                <a style="cursor: pointer;" data-bs-toggle="modal"
+                                                    data-bs-target="#esperienza_elimina_modal" class="m-0 link-danger"
+                                                    data-bs-toggle="modal" data-esperienza-id="{id_esperienza}">Elimina
+                                                    esperienza</a>
+                                            </p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </span>
 
                             <div class="accordion mb-3" id="esperienza_accordion">
@@ -579,7 +786,7 @@
                                 <div class="col-10"></div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-primary text-light w-100"
-                                        data-bs-toggle="modal" data-bs-target="#esperienza_aggiungi_modal">
+                                        data-bs-toggle="modal" data-bs-target="#esperienza_modifica_modal">
                                         <h5 class="m-0">Aggiungi</h5>
                                     </button>
                                 </div>
