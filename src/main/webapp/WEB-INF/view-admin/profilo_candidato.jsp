@@ -276,28 +276,42 @@
 				<div class="card bg-white">
 					<div class="card-body">
 
+						<div class="alert alert-info d-none" id="esperienza_info_text" role="alert">
+
+						</div>
+
 						<span class="d-none" id="esperienza_accordion_example_item">
-							<div class="accordion-item">
-
-								<div id="esperienza_accordion_collapse_sampleId"
-									class="accordion-collapse collapse"
-									data-bs-parent="#esperienza_accordion">
+							<!-- <div class="accordion-item">
+								<h2 class="accordion-header">
+									<button class="accordion-button collapsed" type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#esperienza_accordion_collapse_{id_esperienza}"
+										aria-expanded="true"
+										aria-controls="esperienza_accordion_collapse_{id_esperienza}">
+										"{posizione}" presso: {nome_azienda}
+									</button>
+								</h2>
+								<div id="esperienza_accordion_collapse_{id_esperienza}"
+									class="accordion-collapse collapse" data-bs-parent="#esperienza_accordion">
 									<div class="accordion-body">
-										<h3>{posizione}</h3>
-										<h6>Da {data_inizio} a {data_fine}</h6>
-										<br>
-										<p>{funzione}</p>
-
+										<h3>
+											{posizione}
+										</h3>
+										<h5>
+											{indirizzo_azienda}
+										</h5>
+										<h6>
+											Da {data_inizio} a {data_fine}
+										</h6><br>
+										<p>
+											{funzione}
+										</p>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</span>
 
-						<div class="accordion mb-3" id="esperienza_accordion"></div>
-
-						<div class="row">
-							<div class="col-10"></div>
-
+						<div class="accordion mb-3" id="esperienza_accordion">
 						</div>
 
 					</div>
@@ -327,6 +341,7 @@
 	<jsp:include page='scripts/profile_anagrafica.jsp'></jsp:include>
 	<jsp:include page='scripts/profile_skills.jsp'></jsp:include>
 	<jsp:include page='scripts/profile_istruzione.jsp'></jsp:include>
+	<jsp:include page='scripts/profile_esperienza.jsp'></jsp:include>
 
 </body>
 
