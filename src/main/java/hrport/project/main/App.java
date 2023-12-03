@@ -61,15 +61,16 @@ public class App {
 	        System.out.println("Original File Name: " + originalFileName);
 	        System.out.println("Unique File Name: " + uniqueFileName);
         	
-			List <Candidatura> candidatura = CandidaturaService.getApplicationsFromPosition(1);
+			List<Candidatura> candidatura = CandidaturaService.getApplicationsFromPosition(1);
+			List<Posizione> posizioni = PosizioneService.getAllPositions("2", true);
         	//Set<CategoriaSkills> category = CategorySkillsService.getCategoriesByIdCvWithSkills(1);
         	//CategorySkillsService.insertCategoryWithSkills("{\"idCv\":2,\"skills\":[{\"nomeSkill\":\"Skill5\"}],\"nomeCategoria\":\"Categoria5\"}", 2);
         	// "{\"idCv\":1,\"skills\":[{\"nomeSkill\":\"Skill1\"}],\"nomeCategoria\":\"Categoria1\"}"
         	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\",\"posizioni\":[{\"idCand\":1,\"position\":{\"idPos\":1,\"nome\":\"Posizione1\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione1\",\"descrizione\":\"Descrizione1\u003c3\"},\"stato\":0},{\"idCand\":2,\"position\":{\"idPos\":2,\"nome\":\"Posizione2\",\"aperta\":true,\"fotoUrl\":\"FotoPosizione2\",\"descrizione\":\"Descrizione2\u003e:(((((\"},\"stato\":1}]}"
         	// "{\"idUtente\":1,\"email\":\"utente1@example.com\",\"admin\":false,\"nome\":\"Nome1\",\"cognome\":\"Cognome1\"}"
         	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        	String json = gson.toJson(candidatura);
-        	//System.out.println(json);
+        	String json = gson.toJson(posizioni);
+        	System.out.println(json);
         	
         } catch (Exception e) {
             e.printStackTrace();
