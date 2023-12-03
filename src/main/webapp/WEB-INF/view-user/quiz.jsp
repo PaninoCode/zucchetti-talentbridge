@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="p-3 d-flex justify-content-between">
-                    <h4 class="mb-0">
+                    <h4 class="mb-0 text-contents-nome-quiz">
                         {nome_quiz}
                     </h4>
                     <div class="d-flex justify-content-center align-items-center">
@@ -43,32 +43,31 @@
                     <div class="card-body m-2">
 
                         <span id="quiz_question_screen" style="display: none;">
-                            <div class="row mb-3">
-                                <div class="col-1">
-                                    <h3>
-                                        {numero_domanda}.
-                                    </h3>
-                                </div>
-                                <div class="col-11">
+                            <div class="row mb-3 d-flex flex-row">
                                     <h4>
-                                        {testo_domanda}
+                                        <span class="text-contents-numero-domanda"></span>. &nbsp; <span class="text-contents-testo-domanda"></span>
                                     </h4>
-                                </div>
                             </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input me-4" style="transform: scale(2);" type="radio"
-                                    name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    {numero_risposta}. {testo_risposta}
-                                </label>
-                            </div>
+                            <span id="form_answer_template" class="d-none">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input me-4 form-answer-radio" data-id-risposta="{id_risposta}" data-id-domanda="{id_domanda}" style="transform: scale(2);" type="radio"
+                                        name="flexRadioDefault" id="form_answer_radio_{id_risposta}">
+                                    <label class="form-check-label" for="form_answer_radio_{id_risposta}">
+                                        {numero_risposta}. {testo_risposta}
+                                    </label>
+                                </div>
+                            </span>
+
+                            <span id="form_answers_container">
+
+                            </span>
 
                         </span>
 
                         <span id="quiz_welcome_screen">
                             <div class="row mb-3">
-                                <h2>
+                                <h2 class="text-contents-nome-quiz">
                                     {nome_quiz}
                                 </h2>
                             </div>
@@ -115,11 +114,11 @@
 
             <div class="fixed-bottom bg-white w-100 shadow-sm border-top border-2 border-primary">
                 <div class="p-2 d-flex justify-content-end align-items-center">
-                    <button type="button" class="btn btn-primary text-light" disabled>
+                    <button type="button" class="btn btn-primary text-light" id="btn_indietro" disabled>
                         <h5 class="m-0">&laquo; Indietro</h5>
                     </button>
                     <div class="mx-2"></div>
-                    <button type="button" class="btn btn-primary text-light" disabled>
+                    <button type="button" class="btn btn-primary text-light" id="btn_avanti" disabled>
                         <h5 class="m-0">Avanti &raquo;</h5>
                     </button>
                     <div class="mx-2"></div>
@@ -135,6 +134,12 @@
             let quizWelcomeScreenCloseBtn = document.querySelector('#quiz_welcome_screen_close_btn');
             let quizWelcomeScreenStartBtn = document.querySelector('#quiz_welcome_screen_start_btn');
 
+            let quizAvantiBtn = document.querySelector('#btn_avanti');
+            let quizIndietroBtn = document.querySelector('#btn_indietro');
+            let currentIndex = null;
+            let numDomande = null;
+            let answers = []
+
             // open quiz logic
 
             let indexRedirect = setInterval(function () {
@@ -143,7 +148,13 @@
             }, 500);
 
 
-            function initTakeQuiz(id) {
+            function initTakeQuiz(id, nome) {
+
+                document.querySelectorAll('.text-contents-nome-quiz').forEach(elem => {
+                    elem.innerHTML = nome;
+                });
+
+                document.body.setAttribute('data-quiz-id', id);
 
                 if (id == undefined || id == null || id == "") return;
 
@@ -182,7 +193,7 @@
 
                     if (timer - 1 <= -1) {
                         endQuiz('timeover');
-                        clearInterval(timerInterval);   
+                        clearInterval(timerInterval);
                         //timer = duration;
                     }
 
@@ -191,8 +202,8 @@
                 }, 1000);
             }
 
-            function endQuiz(status){
-                setTimeout(function(){
+            function endQuiz(status) {
+                setTimeout(function () {
                     document.querySelector('BODY').setAttribute('data-quiz-status', status);
                     window.close();
                 }, 1000);
@@ -212,13 +223,22 @@
                 }
 
                 setTimeout(function () {
-                    quizProgressBar.classList.remove('bg-info');
-                    quizProgressBar.style.width = '0%';
-                    startTimer(5, document.querySelector('#demo'));
 
-                    document.querySelector('BODY').setAttribute('data-quiz-status', 'started');
-                    quizWelcomeScreen.style.display = "none";
-                    quizQuestionScreen.style.display = "block";
+                    window.opener.startQuiz(parseInt(document.querySelector('BODY').getAttribute('data-quiz-id')), function (isDone, numd) {
+                        if(isDone == true){ window.close(); }
+
+                        quizProgressBar.classList.remove('bg-info');
+                        quizProgressBar.style.width = '0%';
+                        document.querySelector('BODY').setAttribute('data-quiz-status', 'started');
+                        quizWelcomeScreen.style.display = "none";
+                        numDomande = numd;
+                        console.log("t1 " + numDomande);
+                        console.log("t2 " + numd);
+                        startTimer(15 * 60, document.querySelector('#demo'));
+                        currentIndex = 0;
+                        displayAnswerBlock(1, currentIndex);
+                    });
+
                 }, 1500);
             }
 
@@ -231,6 +251,77 @@
                 } else if (document.msExitFullscreen) { /* IE11 */
                     document.msExitFullscreen();
                 }
+            }
+
+            quizAvantiBtn.addEventListener('click', e => {
+                setSelectedAnswer();
+                currentIndex++;
+                displayAnswerBlock(1, currentIndex);
+            });
+
+            quizIndietroBtn.addEventListener('click', e => {
+                setSelectedAnswer();
+                currentIndex--;
+                displayAnswerBlock(1, currentIndex);
+            });
+
+            function setSelectedAnswer(){
+                let answersEl = document.querySelectorAll('.form-answer-radio');
+
+                answersEl.forEach(answerEl => {
+                    if(answerEl.checked){
+                        answers[currentIndex] = {
+                            questionId: answerEl.getAttribute('data-question-id'),
+                            answerId: answerEl.getAttribute('data-answer-id')
+                        }
+                    }
+                });
+
+                console.log(answers);
+            }
+
+            function displayAnswerBlock(questionNumer, index){
+
+                quizAvantiBtn.disabled = true;
+                quizIndietroBtn.disabled = true;
+
+                console.log(index);
+
+                if(index != 0){
+                    quizIndietroBtn.disabled = false;
+                }
+
+                console.log(numDomande - 1);
+
+                if(index < (numDomande - 1)){
+                    quizAvantiBtn.disabled = false;
+                }
+
+                let questionData = window.opener.getQuestion(index);
+                console.log(questionData);
+
+                document.querySelectorAll('.text-contents-numero-domanda').forEach(elem => {
+                    elem.innerHTML = index + 1;
+                });
+
+                document.querySelectorAll('.text-contents-testo-domanda').forEach(elem => {
+                    elem.innerHTML = questionData.testo;
+                });
+
+                let answerCounter = 0;
+                let formAnswersContainer = document.querySelector('#form_answers_container');
+                let formAnswerTemplate = document.querySelector('#form_answer_template');
+                formAnswersContainer.innerHTML = "";
+                questionData.risposte.forEach(risposta => {
+                    formAnswersContainer.innerHTML += formAnswerTemplate.innerHTML
+                                                        .replaceAll('{numero_risposta}', ++answerCounter)
+                                                        .replaceAll('{testo_risposta}', risposta.testo)
+                                                        .replaceAll('{id_risposta}', risposta.id)
+                                                        .replaceAll('{id_domanda}', questionData.id);
+                });
+
+
+                quizQuestionScreen.style.display = "block";
             }
         </script>
 
