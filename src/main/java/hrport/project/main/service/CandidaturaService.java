@@ -249,16 +249,20 @@ public class CandidaturaService {
 			
 			result = getPunteggioTot.executeQuery();
 			result.next();
-			int punteggioTot= result.getInt("1");
+			int punteggioTot= result.getInt(1);
+			
+			//SQL="UPDATE Candidatura \r\n"
+			//		+ "SET stato='1', totPunteggio=?\r\n"
+			//		+ "WHERE idPos=? AND idUtente=?";
 			
 			SQL="UPDATE Candidatura \r\n"
-					+ "SET stato='1', punteggioTot=?\r\n"
+					+ "SET stato='1'\r\n"
 					+ "WHERE idPos=? AND idUtente=?";
 			
 			PreparedStatement updateCandidatura = con.prepareStatement(SQL);
-			updateCandidatura.setInt(1, punteggioTot);
-			updateCandidatura.setInt(2, idPos);
-			updateCandidatura.setInt(3, idUtente);
+			//updateCandidatura.setInt(1, punteggioTot);
+			updateCandidatura.setInt(1, idPos);
+			updateCandidatura.setInt(2, idUtente);
 			
 			updateCandidatura.executeUpdate();
 			
