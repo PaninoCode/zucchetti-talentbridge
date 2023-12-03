@@ -231,34 +231,42 @@
 				<div class="card bg-white">
 					<div class="card-body">
 
+						<div class="alert alert-info d-none" id="istruzione_info_text" role="alert">
+
+						</div>
+
 						<span class="d-none" id="istruzione_accordion_example_item">
-							<div class="accordion-item">
+							<!-- <div class="accordion-item">
 								<h2 class="accordion-header">
 									<button class="accordion-button collapsed" type="button"
 										data-bs-toggle="collapse"
-										data-bs-target="#istruzione_accordion_collapse_sampleId"
+										data-bs-target="#istruzione_accordion_collapse_{id_istruzione}"
 										aria-expanded="true"
-										aria-controls="istruzione_accordion_collapse_sampleId">
-										{titolo_di_studio}</button>
+										aria-controls="istruzione_accordion_collapse_{id_istruzione}">
+										"{titolo_di_studio}" presso: {nome_istituto}
+									</button>
 								</h2>
-								<div id="istruzione_accordion_collapse_sampleId"
+								<div id="istruzione_accordion_collapse_{id_istruzione}"
 									class="accordion-collapse collapse collapsed"
 									data-bs-parent="#istruzione_accordion">
 									<div class="accordion-body">
-										<h3>{nome_istituto}</h3>
-										<h6>Da {data_inizio} a {data_fine}</h6>
-										<br>
-										<h2>
-											<span class="badge bg-primary">{voto}</span>
-										</h2>
-
+										<h3>
+											{nome_istituto}
+										</h3>
+										<h5>
+											{indirizzo_istituto}
+										</h5>
+										<h6>
+											Da {data_inizio} a {data_fine}
+										</h6><br>
+										<h2><span class="badge bg-primary">{voto}</span></h2>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</span>
 
-						<div class="accordion mb-3" id="istruzione_accordion"></div>
-
+						<div class="accordion mb-3" id="istruzione_accordion">
+						</div>
 
 					</div>
 				</div>
@@ -318,6 +326,7 @@
 
 	<jsp:include page='scripts/profile_anagrafica.jsp'></jsp:include>
 	<jsp:include page='scripts/profile_skills.jsp'></jsp:include>
+	<jsp:include page='scripts/profile_istruzione.jsp'></jsp:include>
 
 </body>
 
