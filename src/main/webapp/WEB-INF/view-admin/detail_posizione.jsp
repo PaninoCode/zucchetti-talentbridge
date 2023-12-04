@@ -52,31 +52,8 @@
 				<div class="col-5">
 					<h2 class="mb-3">Dati posizione</h2>
 					<div class="card" style="width: 100%;">
-						<style>
-.foto-url-example {
-	aspect-ratio: 5/4;
-	height: 220px;
-	background-position: center center;
-	background-size: cover;
-}
-</style>
-						<div id="foto_url_example"
-							class="card-img-top foto-url-example position-relative">
-							<div class="w-100 h-100 position-absolute bg-dark opacity-25"></div>
-							<div class="position-absolute bottom-0 end-0">
-								<div id="expand_img_btn"
-									class="bg-dark rounded shadow-sm border border-light-subtle p-2 m-2"
-									style="cursor: pointer;" data-bs-toggle="modal"
-									data-bs-target="#expanded_image">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="#FFFFFF" class="bi bi-arrows-angle-expand"
-										viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-											d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707" />
-                                        </svg>
-								</div>
-							</div>
-						</div>
+						<div class="rounded shadow-sm mb-1 bg-dark" style="width: 100%; height: 220px; background-position: center center; background-size: cover; background-repeat: no-repeat; aspect-ratio: 5/4;" id="position_propic">
+                        </div>
 						<div id="updateForm" class="card-body">
 							<div class="row mb-3">
 								<label for="input_id_posizione" class="col-sm-3 col-form-label">ID
@@ -121,19 +98,6 @@
 								</div>
 							</div>
 							<div class="row mb-3 d-flex justify-content-end p-2"></div>
-							<script>
-                                    let inputFotoUrl = document.querySelector('#input_id_foto_url');
-                                    let fotoUrlExample = document.querySelector('#foto_url_example');
-                                    let modalFotoUrlExample = document.querySelector('#modal_expanded_image');
-                                    inputFotoUrl.addEventListener('keyup', loadExamplePic);
-                                    loadExamplePic();
-
-                                    function loadExamplePic() {
-                                        fotoUrlExample.style.backgroundImage = "url('<%=request.getContextPath()%>/app/getImage?imgPath=" + inputFotoUrl.value + "')";
-                                        modalFotoUrlExample.src = "<%=request.getContextPath()%>/app/getImage?imgPath=" + inputFotoUrl.value;
-                                    }
-                                </script>
-							<hr>
 							<div class="row mb-3">
 								<label for="input_descrizione" class="col-sm-3 col-form-label">Descrizione</label>
 								<div class="col-sm-9">
@@ -233,41 +197,47 @@
 		//Generate table candidati list
 		var tableBody = document.getElementById("profiles-data");
 		
-				JsonCandidati.forEach(function (candidato) {
-				
-				if(candidato.position.idPos === JsonPosizione.idPos){
-            	
-                var row = document.createElement("tr");
+		JsonCandidati.forEach(function (candidato) {
+		
+			if(candidato.position.idPos === JsonPosizione.idPos){
+	          	
+	            var row = document.createElement("tr");
+	
+	            var idCell = document.createElement("td");
+	            idCell.textContent = candidato.idCand;
+	
+	            var nomeCell = document.createElement("td");
+	            nomeCell.textContent = candidato.user.nome;
+	
+	            var cognomeCell = document.createElement("td");
+	            cognomeCell.textContent = candidato.user.cognome;
+	
+	            var posizioneCell = document.createElement("td");
+	            posizioneCell.textContent = candidato.punteggioTot;
+	
+	            var linkCell = document.createElement("td");
+	            var linkElement = document.createElement("a");
+	            linkElement.textContent = "Profilo";
+	            linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
+	
+	            linkCell.appendChild(linkElement);
+	
+	            row.appendChild(idCell);
+	            row.appendChild(nomeCell);
+	            row.appendChild(cognomeCell);
+	            row.appendChild(posizioneCell);
+	            row.appendChild(linkCell);
+	
+	            tableBody.appendChild(row);
+	            
+			}
 
-                var idCell = document.createElement("td");
-                idCell.textContent = candidato.idCand;
+        });
+        let fotoUrl = "http://localhost:8080/hrport/app/getAttachment/immagini_posizioni?imgPath=" + JsonPosizione.fotoUrl;
 
-                var nomeCell = document.createElement("td");
-                nomeCell.textContent = candidato.user.nome;
+   		let anagraficaWidgetProPic = document.querySelector('#position_propic');
 
-                var cognomeCell = document.createElement("td");
-                cognomeCell.textContent = candidato.user.cognome;
-
-                var posizioneCell = document.createElement("td");
-                posizioneCell.textContent = candidato.punteggioTot;
-
-                var linkCell = document.createElement("td");
-                var linkElement = document.createElement("a");
-                linkElement.textContent = "Profilo";
-                linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
-
-                linkCell.appendChild(linkElement);
-
-                row.appendChild(idCell);
-                row.appendChild(nomeCell);
-                row.appendChild(cognomeCell);
-                row.appendChild(posizioneCell);
-                row.appendChild(linkCell);
-
-                tableBody.appendChild(row);
-				}
-
-            });
+   		anagraficaWidgetProPic.style.backgroundImage = "url('" + fotoUrl + "')";
 			
         //console.log(JsonPosizione);
         
