@@ -13,6 +13,38 @@
 
     <body class="bg-body-tertiary" data-quiz-status="opened" style="width: 100%; height: 100%;">
 
+        <div class="modal fade" id="submit_warning_modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border border-2 border-warning">
+                    <div class="modal-header bg-warning-subtle">
+                        <h1 class="modal-title fs-5 d-flex flex-row justify-content-start align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-exclamation-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                            </svg>
+                            <span class="m-2"></span>
+                            Quiz Completato
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Sei veramente sicuro di voler terminare il quiz e inviare le tue risposte?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning text-dark" id="btn_submit_confirm" data-bs-dismiss="modal">
+                            <h5 class="m-0">Invia Risposte</h5>
+                        </button>
+                        <button class="btn btn-primary text-light" data-bs-dismiss="modal">
+                            <h5 class="m-0">Torna al quiz</h5>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <span id="take_quiz_section" style="display: none;">
             <div class="fixed-top bg-white w-100 shadow-sm">
                 <div class="progress rounded-0" role="progressbar" style="height: 10px">
@@ -51,7 +83,7 @@
 
                             <span id="form_answer_template" class="d-none">
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input me-4 form-answer-radio" data-id-risposta="{id_risposta}" data-id-domanda="{id_domanda}" style="transform: scale(2);" type="radio"
+                                    <input class="form-check-input me-4 form-answer-radio" onclick="setSelectedAnswer();" data-id-risposta="{index_risposta}" data-id-domanda="{id_domanda}" style="transform: scale(2);" type="radio"
                                         name="flexRadioDefault" id="form_answer_radio_{id_risposta}">
                                     <label class="form-check-label" for="form_answer_radio_{id_risposta}">
                                         {numero_risposta}. {testo_risposta}
@@ -62,6 +94,21 @@
                             <span id="form_answers_container">
 
                             </span>
+
+                            <div class="w-100 p-2 d-flex justify-content-end align-items-center">
+                                <button type="button" class="btn btn-primary text-light" id="btn_indietro" disabled>
+                                    <h5 class="m-0">&laquo; Indietro</h5>
+                                </button>
+                                <div class="mx-2"></div>
+                                <button type="button" class="btn btn-primary text-light" id="btn_avanti" disabled>
+                                    <h5 class="m-0">Avanti &raquo;</h5>
+                                </button>
+                                <div class="mx-2"></div>
+                                <button type="button" class="btn btn-primary text-light" id="btn_submit" disabled>
+                                    <h5 class="m-0">Invia Risposte &checkmark;</h5>
+                                </button>
+                                <div class="mx-2"></div>
+                            </div>
 
                         </span>
 
@@ -106,6 +153,9 @@
                                     </button>
                                 </div>
                             </div>
+                            <button style="opacity: 0.1;" onclick="setTimeTestFunc();">
+                                ...
+                            </button>
                         </span>
                     </div>
                 </div>
@@ -113,16 +163,7 @@
             </div>
 
             <div class="fixed-bottom bg-white w-100 shadow-sm border-top border-2 border-primary">
-                <div class="p-2 d-flex justify-content-end align-items-center">
-                    <button type="button" class="btn btn-primary text-light" id="btn_indietro" disabled>
-                        <h5 class="m-0">&laquo; Indietro</h5>
-                    </button>
-                    <div class="mx-2"></div>
-                    <button type="button" class="btn btn-primary text-light" id="btn_avanti" disabled>
-                        <h5 class="m-0">Avanti &raquo;</h5>
-                    </button>
-                    <div class="mx-2"></div>
-                </div>
+                &nbsp;
             </div>
         </span>
 
@@ -136,9 +177,17 @@
 
             let quizAvantiBtn = document.querySelector('#btn_avanti');
             let quizIndietroBtn = document.querySelector('#btn_indietro');
+            let quizSubmitBtn = document.querySelector('#btn_submit');
+            let quizSubmitConfirmBtn = document.querySelector('#btn_submit_confirm');
             let currentIndex = null;
             let numDomande = null;
             let answers = []
+
+            let timeInSeconds = 15*60;
+
+            function setTimeTestFunc(){
+                timeInSeconds = 15;
+            }
 
             // open quiz logic
 
@@ -188,7 +237,7 @@
 
                     let totalSeconds = (minutes * 60) + seconds;
                     let percent = 100 - (totalSeconds / duration) * 100 + "%";
-                    console.log(percent);
+                    // console.log(percent);
                     quizProgressBar.style.width = percent;
 
                     if (timer - 1 <= -1) {
@@ -224,6 +273,8 @@
 
                 setTimeout(function () {
 
+                    window.opener.clearAnswerData();
+                    
                     window.opener.startQuiz(parseInt(document.querySelector('BODY').getAttribute('data-quiz-id')), function (isDone, numd) {
                         if(isDone == true){ window.close(); }
 
@@ -234,9 +285,10 @@
                         numDomande = numd;
                         console.log("t1 " + numDomande);
                         console.log("t2 " + numd);
-                        startTimer(15 * 60, document.querySelector('#demo'));
+                        startTimer(timeInSeconds, document.querySelector('#demo'));
                         currentIndex = 0;
                         displayAnswerBlock(1, currentIndex);
+                        quizSubmitBtn.disabled = false;
                     });
 
                 }, 1500);
@@ -254,30 +306,38 @@
             }
 
             quizAvantiBtn.addEventListener('click', e => {
-                setSelectedAnswer();
                 currentIndex++;
                 displayAnswerBlock(1, currentIndex);
             });
 
             quizIndietroBtn.addEventListener('click', e => {
-                setSelectedAnswer();
                 currentIndex--;
                 displayAnswerBlock(1, currentIndex);
             });
 
+            const submitWarningModal = new bootstrap.Modal('#submit_warning_modal', {});
+            quizSubmitBtn.addEventListener('click', e => {
+                submitWarningModal.show();
+            });
+
+            quizSubmitConfirmBtn.addEventListener('click', e => {
+                endQuiz('usersubmitted');
+            });
+
             function setSelectedAnswer(){
                 let answersEl = document.querySelectorAll('.form-answer-radio');
-
+                let answerData = null;
                 answersEl.forEach(answerEl => {
+                    console.log(answerEl.checked);
                     if(answerEl.checked){
-                        answers[currentIndex] = {
-                            questionId: answerEl.getAttribute('data-question-id'),
-                            answerId: answerEl.getAttribute('data-answer-id')
+                        answerData = {
+                            questionId: currentIndex,
+                            answerId: answerEl.getAttribute('data-id-risposta')
                         }
                     }
                 });
 
-                console.log(answers);
+                window.opener.saveAnswerData(answerData);
             }
 
             function displayAnswerBlock(questionNumer, index){
@@ -312,12 +372,15 @@
                 let formAnswersContainer = document.querySelector('#form_answers_container');
                 let formAnswerTemplate = document.querySelector('#form_answer_template');
                 formAnswersContainer.innerHTML = "";
+                let indexRisposta = 0;
                 questionData.risposte.forEach(risposta => {
                     formAnswersContainer.innerHTML += formAnswerTemplate.innerHTML
                                                         .replaceAll('{numero_risposta}', ++answerCounter)
                                                         .replaceAll('{testo_risposta}', risposta.testo)
                                                         .replaceAll('{id_risposta}', risposta.id)
+                                                        .replaceAll('{index_risposta}', indexRisposta)
                                                         .replaceAll('{id_domanda}', questionData.id);
+                    indexRisposta++;
                 });
 
 
