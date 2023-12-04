@@ -241,4 +241,14 @@
     <servlet-name>AdminGetAllQuiz</servlet-name>
     <url-pattern>/AdminGetAllQuiz</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllPositionFilter</display-name>
+    <servlet-name>GetAllPositionFilter</servlet-name>
+    <servlet-class>hrport.project.main.controller.GetPositionFilter</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllPositionFilter</servlet-name>
+    <url-pattern>/GetAllPositionFilter</url-pattern>
+  </servlet-mapping>
 </web-app>
