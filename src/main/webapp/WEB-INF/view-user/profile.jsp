@@ -369,7 +369,7 @@
                             </div>
 
                             <h2 class="mb-3">Skills</h2>
-                            <div class="card mb-3" style="width: 100%;">
+                            <div class="card mb-3" id="skills_card" style="width: 100%;">
                                 <div class="card-body">
 
                                     <div class="alert alert-info d-none" id="skills_info_text" role="alert">
@@ -441,6 +441,7 @@
                                         <div class="col-10"></div>
                                         <div class="col-2">
                                             <button type="button" class="btn btn-primary text-light w-100"
+                                                id="skills_aggiungi_openmodal_btn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#skills_aggiungi_categoria_modal">
                                                 <h5 class="m-0">Aggiungi</h5>
@@ -661,7 +662,7 @@
 
                 <div class="row mb-3">
                     <h2 class="mb-3">Istruzione</h2>
-                    <div class="card bg-white">
+                    <div class="card bg-white" id="istruzione_card">
                         <div class="card-body">
 
                             <div class="alert alert-info d-none" id="istruzione_info_text" role="alert">
@@ -715,6 +716,7 @@
                                 <div class="col-10"></div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-primary text-light w-100"
+                                    id="istruzione_aggiungi_openmodal_btn"
                                         data-bs-toggle="modal" data-bs-target="#istruzione_modifica_modal">
                                         <h5 class="m-0">Aggiungi</h5>
                                     </button>
@@ -726,7 +728,7 @@
                 </div>
                 <div class="row mb-3">
                     <h2 class="mb-3">Esperienza</h2>
-                    <div class="card bg-white">
+                    <div class="card bg-white" id="esperienza_card">
                         <div class="card-body">
 
                             <div class="alert alert-info d-none" id="esperienza_info_text" role="alert">
@@ -783,6 +785,7 @@
                                 <div class="col-10"></div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-primary text-light w-100"
+                                    id="esperienza_aggiungi_openmodal_btn"
                                         data-bs-toggle="modal" data-bs-target="#esperienza_modifica_modal">
                                         <h5 class="m-0">Aggiungi</h5>
                                     </button>
