@@ -60,7 +60,7 @@ selected_option_id:		si riferisce al n della risposta rispetto alla domanda (ind
 
  */
 @WebServlet("/user/sendAnswers")
-public class SendAnswers {
+public class SendAnswers extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
