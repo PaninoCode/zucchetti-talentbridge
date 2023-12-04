@@ -77,7 +77,7 @@
 								</div>
 							</div>
 						</div>
-						<form id="updateForm" class="card-body">
+						<div id="updateForm" class="card-body">
 							<div class="row mb-3">
 								<label for="input_id_posizione" class="col-sm-3 col-form-label">ID
 									Posizione</label>
@@ -117,7 +117,7 @@
 								<label for="input_id_foto_url" class="col-sm-3 col-form-label">URL
 									Immagine</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="input_id_foto_url">
+									<input type="file" class="form-control" id="input_id_foto_url">
 								</div>
 							</div>
 							<div class="row mb-3 d-flex justify-content-end p-2"></div>
@@ -149,12 +149,12 @@
 									class="m-0 link-danger" onclick="deletePosizione()">
 									<h5 class="m-0">Elimina posizione</h5>
 								</button>
-								<button type="submit" id="updatePositionBtn"
+								<button id="updatePositionBtn"
 									class="btn btn-primary text-light" onclick="updatePosizione()">
 									<h5 class="m-0">Salva</h5>
 								</button>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 				<div class="col-7">
@@ -271,13 +271,13 @@
 			
         //console.log(JsonPosizione);
         
-        function updatePosizione() {
+        async function updatePosizione() {
             
             let form = document.getElementById('updateForm');
             let idPosizione = form.querySelector('#input_id_posizione').value;
             let nomePosizione = form.querySelector('#input_nome_posizione').value;
             let stato = form.querySelector('input[name="input_stato"]:checked').value === "aperta" ? true : false;
-            let idFotoUrl = form.querySelector('#input_id_foto_url').value;
+            let idFotoUrl = form.querySelector('#input_id_foto_url');
             let descrizione = form.querySelector('#input_descrizione').value;
             
 			
@@ -285,53 +285,59 @@
             		idPos: JsonPosizione.idPos,
             		nome: nomePosizione === "" ? JsonPosizione.nome : nomePosizione,
             		aperta: stato === "" ? JsonPosizione.aperta : stato,
-            		fotoUrl: idFotoUrl === "" ? JsonPosizione.fotoUrl : idFotoUrl,
             		descrizione: descrizione === "" ? JsonPosizione.descrizione : descrizione
             		
             }
+            
+    	    const file = idFotoUrl.files[0];
+    		console.log("entro")
+    	
+    	    const formData = new FormData();
+    		formData.append('idPos', positionData.idPos);
+			formData.append('nome', positionData.nome);
+			formData.append('aperta', positionData.aperta);
+			formData.append('descrizione', positionData.descrizione);
+    	    if (file) {
+    	    	
+    	        formData.append('file', file);
+    	    }    
                      
             //Update posizione
-            fetch('http://localhost:8080/hrport/admin/update-posizione', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(positionData),
-            })
-            .then(response => response.json())
-            .then(data => {
-            	 alert("Position Updated");
-            	 window.location.href = "http://localhost:8080/hrport/admin/posizioni";
-            })
-            .catch(error => {
-            	alert("error" + error);
-                console.error('Error:', error);
-            });
-            window.location.href = "http://localhost:8080/hrport/admin/posizioni";
+            await fetch('http://localhost:8080/hrport/admin/update-posizione', {
+	            method: 'POST',
+	            body: formData
+	        }).then((response) => {
+
+				const result = response.text();
+				console.log(result);
+			
+				if (response.ok) {
+					
+					console.log("success")
+					window.location.href = "http://localhost:8080/hrport/admin/posizioni"
+				}
+			});
         }
         
         //Delete posizione
         function deletePosizione() {
-    		fetch('http://localhost:8080/hrport/admin/delete-posizione/' + JsonPosizione.idPos, {
-        	method: 'DELETE',
-        	headers: {
-            'Content-Type': 'application/json',
-        },
-    	})
-    		.then(response => response.json())
-    		.then(data => {
-       		alert("Position Deleted");
-        	window.location.href = "http://localhost:8080/hrport/admin/posizioni";
-    	})
-    		.catch(error => {
-        	alert("error" + error);
-        	console.error('Error:', error);
-    	});
-    		window.location.href = "http://localhost:8080/hrport/admin/posizioni";
-}
-
-        
-            
+			fetch('http://localhost:8080/hrport/admin/delete-posizione/' + JsonPosizione.idPos, {
+				method: 'DELETE',
+				headers: {
+				'Content-Type': 'application/json',
+			},
+			})
+				.then(response => response.json())
+				.then(data => {
+				alert("Position Deleted");
+				window.location.href = "http://localhost:8080/hrport/admin/posizioni";
+			})
+				.catch(error => {
+				alert("error" + error);
+				console.error('Error:', error);
+			});
+				window.location.href = "http://localhost:8080/hrport/admin/posizioni";
+		}
             let table = new DataTable('#myTable', {
                 dom: "PlftipB",
                 buttons: [
