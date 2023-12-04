@@ -48,23 +48,28 @@ public class InsertNewPosition extends HttpServlet {
 		try {
 			
 			Part filePart = request.getPart("file");
-            InputStream fileContent = filePart.getInputStream();
-
-            ServletContext sc = getServletContext();
-            String path = sc.getRealPath("/WEB-INF/static/immagini_posizioni");
-            String fileName = UtilitiesFile.generateUniqueFileName(UtilitiesFile.getSubmittedFileName(filePart));
-            Path filePath = Paths.get(path, fileName);
-            
-            fotoUrl = fileName;
-            Posizione newPosition = new Posizione(nome, aperta, fotoUrl, descrizione);
-
-//          scrive il file nella directory
-            OutputStream out = Files.newOutputStream(filePath);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = fileContent.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
-            }
+			
+			if(filePart != null) {
+				
+				InputStream fileContent = filePart.getInputStream();
+				
+				ServletContext sc = getServletContext();
+				String path = sc.getRealPath("/WEB-INF/static/immagini_posizioni");
+				String fileName = UtilitiesFile.generateUniqueFileName(UtilitiesFile.getSubmittedFileName(filePart));
+				Path filePath = Paths.get(path, fileName);
+				
+				fotoUrl = fileName;
+				
+//          	scrive il file nella directory
+				OutputStream out = Files.newOutputStream(filePath);
+				byte[] buffer = new byte[1024];
+				int length;
+				while ((length = fileContent.read(buffer)) > 0) {
+					out.write(buffer, 0, length);
+				}
+			}
+			
+			Posizione newPosition = new Posizione(nome, aperta, fotoUrl, descrizione);
             
             PosizioneService.insertNewPosition(newPosition, quiz);
             
