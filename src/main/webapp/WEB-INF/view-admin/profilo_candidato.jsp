@@ -16,10 +16,10 @@
 
         <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
-
-        <jsp:include page='../view-common/user_header.jsp'>
-            <jsp:param name="activeLinkId" value="profilo" />
-        </jsp:include>
+		<!-- CHANGE THIS to ADMIN -->
+        <jsp:include page='../view-common/admin_header.jsp'>
+		<jsp:param name="activeLinkId" value="posizioni" />
+	</jsp:include>
 
         <section style="min-height: 100vh;">
             <div class="container-fluid p-4">
@@ -42,7 +42,6 @@
                                             <div class="d-flex justify-content-center align-items-center">
                                                 <h1 class="rounded-circle bg-primary text-light d-flex justify-content-center align-items-center"
                                                     style="width: 140px; height: 140px;" id="anagrafica_propic">
-                                        		  <img src="C:\\Users\\atacai\\Documents\\GitHub\\hrport\\src\main\\webapp\\WEB-INF\\view-admin\\daniel3.png" alt="Profile Picture" >
                                                 </h1>
                                             </div>
                                             <p class="fs-3" id="anagrafica_full_name"></p>
