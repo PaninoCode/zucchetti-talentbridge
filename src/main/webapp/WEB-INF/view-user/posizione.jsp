@@ -21,7 +21,7 @@
             <jsp:param name="activeLinkId" value="home" />
         </jsp:include>
 
-        <div class="modal fade" id="quiz_failed_modal" tabindex="-1">
+        <div class="modal fade quiz-end-modal" id="quiz_failed_modal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border border-2 border-danger">
                     <div class="modal-header bg-danger-subtle">
@@ -38,13 +38,115 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            <b>
-                                Il quiz &egrave; terminato.
-                            </b>
+                            <b>Hai abbandonato il quiz.</b><br>
+
+                            Le risposte che hai inserito fin ora sono state inviate.
                         </p>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-danger text-dark" data-bs-dismiss="modal">
+                            <h5 class="m-0">Chiudi</h5>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade quiz-end-modal" id="quiz_time_over_modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border border-2 border-danger">
+                    <div class="modal-header bg-danger-subtle">
+                        <h1 class="modal-title fs-5 d-flex flex-row justify-content-start align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-exclamation-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                            </svg>
+                            <span class="m-2"></span>
+                            Tempo scaduto
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <b>Il tempo a tua disposizione &egrave; terminato.</b><br>
+
+                            Le risposte che hai inserito fin ora sono state inviate.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-danger text-dark" data-bs-dismiss="modal">
+                            <h5 class="m-0">Chiudi</h5>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade quiz-end-modal" id="quiz_user_submitted_modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border border-2 border-success">
+                    <div class="modal-header bg-success-subtle">
+                        <h1 class="modal-title fs-5 d-flex flex-row justify-content-start align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-exclamation-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                            </svg>
+                            <span class="m-2"></span>
+                            Quiz Completato
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <b>Quiz completato!</b><br>
+
+                            Le tue risposte sono state inviate al server.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success text-dark" data-bs-dismiss="modal">
+                            <h5 class="m-0">Chiudi</h5>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="quiz_results_modal" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content border border-2 border-primary">
+                    <div class="modal-header bg-primary-subtle">
+                        <h1 class="modal-title fs-5 d-flex flex-row justify-content-start align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+                                <path
+                                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z" />
+                            </svg>
+                            <span class="m-2"></span>
+                            Risultati Quiz
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 id="quiz_results_modal_nome_quiz">{nome_quiz}</h3>
+                        <p>Scheda Risultato:</p>
+                        <div class="card mb-2">
+                            <div class="card-body overflow-scroll p-4" style="height: 550px;">
+                                <span id="quiz_results_modal_results_table" class="">
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                        <h4 class="text-end">
+                            Punteggio finale: <span id="quiz_results_modal_somma_punti"></span>/<span id="quiz_results_modal_punti_totali"></span>
+                        </h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary text-light" data-bs-dismiss="modal">
                             <h5 class="m-0">Chiudi</h5>
                         </button>
                     </div>
@@ -118,7 +220,7 @@
                             </button> -->
                         </span>
                         <span id="button_vedi_risultati" style="display: none;">
-                            <!-- <button type="button" class="btn btn-primary text-light btn-quiz-open" data-quiz-id="{id_quiz}" data-quiz-nome="{nome_quiz}">
+                            <!-- <button type="button" class="btn btn-primary text-light btn-results-open" data-quiz-id="{id_quiz}" data-quiz-nome="{nome_quiz}">
                                 <h6 class="m-0 d-flex justify-content-center align-items-center">
                                     Vedi risultati
                                     <span class="m-1"></span>
@@ -185,16 +287,23 @@
             let quizBadgeFatto = '<span class="badge bg-secondary bg-info">Fatto</span>';
             let quizBadgeDaFare = '<span class="badge bg-secondary bg-warning">Da Fare</span>';
 
-            let quizMostrati = 0;
+            let idQuizMostrati = [];
             dataQuiz.forEach(quiz => {
-                listaQuiz.innerHTML += templateQuiz.innerHTML
-                    .replaceAll('<!--', '')
-                    .replaceAll('-->', '')
-                    .replaceAll('{nome_quiz}', quiz.nome)
-                    .replaceAll('{badge_quiz}', getQuizBadge(quiz.isDone))
-                    .replaceAll('{controlli_quiz}', getControlliQuiz(quiz.isDone, quiz.id, quiz.nome));
-                if(++quizMostrati == dataQuiz.length){
+                if (idQuizMostrati.includes(quiz.id)) {
+                    idQuizMostrati.push(null);
+                } else {
+                    listaQuiz.innerHTML += templateQuiz.innerHTML
+                        .replaceAll('<!--', '')
+                        .replaceAll('-->', '')
+                        .replaceAll('{nome_quiz}', quiz.nome)
+                        .replaceAll('{badge_quiz}', getQuizBadge(quiz.isDone))
+                        .replaceAll('{controlli_quiz}', getControlliQuiz(quiz.isDone, quiz.id, quiz.nome));
+                    idQuizMostrati.push(quiz.id);
+                }
+                console.log(idQuizMostrati.length);
+                if (idQuizMostrati.length == dataQuiz.length) {
                     initQuizButtons();
+                    initResultsButtons();
                 }
             });
 

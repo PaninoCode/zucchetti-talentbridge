@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/user/get-quiz-answers")
 public class GetQuizAnswers extends HttpServlet{
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
