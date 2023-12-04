@@ -186,7 +186,7 @@
             let quizSubmitConfirmBtn = document.querySelector('#btn_submit_confirm');
             let currentIndex = null;
             let numDomande = null;
-            let answers = []
+            let rememberAnswers = []
 
             let timeInSeconds = 15 * 60;
 
@@ -335,6 +335,8 @@
                 answersEl.forEach(answerEl => {
                     console.log(answerEl.checked);
                     if (answerEl.checked) {
+                        console.log(answerEl.id);
+                        rememberAnswers[currentIndex] = answerEl.id;
                         answerData = {
                             questionId: currentIndex,
                             answerId: answerEl.getAttribute('data-id-risposta')
@@ -388,6 +390,9 @@
                     indexRisposta++;
                 });
 
+                if(currentIndex <= rememberAnswers.length - 1){
+                    document.querySelector("#" + rememberAnswers[currentIndex]).checked = true;
+                }
 
                 hljs.highlightAll();
 
