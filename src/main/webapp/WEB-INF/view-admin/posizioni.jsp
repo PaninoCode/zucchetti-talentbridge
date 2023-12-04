@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Posizioni | Amministrazione - TalentBridge</title>
 <link href="/hrport/resources/css/custom/custom.css" rel="stylesheet">
-<script type="text/javascript"
-	src="/hrport/temp-admin/resources/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/hrport/resources/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
 <body class="bg-body-tertiary">

@@ -129,7 +129,7 @@
                                 <tr>\
                                     <th scope="row">' + rispostaRow + '</th>\
                                     <td>\
-                                        ' + risposta.testo + '\
+                                        ' + sanitizeCode(risposta.testo) + '\
                                     </td>\
                                     <td>';
 
@@ -182,6 +182,9 @@
                         reulstsQuizModalNomeResultsTable.innerHTML = '<div class="alert alert-info" role="alert">Non ci sono dettagli da mostrare relativi a questo risultato.</div><br>';
                     }
 
+                    hljs.highlightAll();
+
+                    
                     resultsQuizModal.show();
                 });
             });
@@ -435,6 +438,22 @@
 
         if (response.ok && result != null) {
             callback(null, result);
+        }
+    }
+
+
+
+    function sanitizeCode(str) {
+        
+        let regexForHTML = /<[!-?-]*[\s\S][a-z][\s\S]*>/i;
+        let isValid = regexForHTML.test(str);
+
+        let htmlString = "<pre><code>" + str.replaceAll('<', '&lt;').replaceAll('>', '&gt;') + "</code></pre>";
+
+        if (isValid) {
+            return htmlString;
+        } else {
+            return str;
         }
     }
 

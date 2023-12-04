@@ -9,6 +9,9 @@
         <link href="<%=request.getContextPath()%>/resources/css/custom/custom.css" rel="stylesheet">
         <script type="text/javascript"
             src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     </head>
 
@@ -142,7 +145,8 @@
                         </div>
                         <br>
                         <h4 class="text-end">
-                            Punteggio finale: <span id="quiz_results_modal_somma_punti"></span>/<span id="quiz_results_modal_punti_totali"></span>
+                            Punteggio finale: <span id="quiz_results_modal_somma_punti"></span>/<span
+                                id="quiz_results_modal_punti_totali"></span>
                         </h4>
                     </div>
                     <div class="modal-footer">
@@ -156,7 +160,7 @@
 
         <section style="min-height: 100vh;">
             <div class="container-fluid p-4">
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center position-relative">
                     <div class="col-10">
                         <div class="rounded shadow-sm" id="dettaglio_foto_posizione"
                             style="height: 250px; background-position: center center; background-size: cover; background-repeat: no-repeat;">
@@ -178,10 +182,11 @@
                                 <p id="dettaglio_posizione_descrizione">
 
                                 </p>
+
                                 <br>
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-6">
-                                        <button type="button" class="w-100 btn btn-primary text-light"
+                                        <button type="button" id="btn_invia_candidatura" class="w-100 btn btn-primary text-light"
                                             data-quiz-id="{id_quiz}">
                                             <h5 class="m-0 d-flex justify-content-center align-items-center">
                                                 Invia Candidatura
@@ -192,6 +197,20 @@
                                                         d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z" />
                                                     <path
                                                         d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0" />
+                                                </svg>
+                                            </h5>
+                                        </button>
+                                        <button type="button" id="btn_ritira_candidatura" class="w-100 btn btn-danger text-light d-none"
+                                            data-quiz-id="{id_quiz}">
+                                            <h5 class="m-0 d-flex justify-content-center align-items-center">
+                                                Ritira Candidatura
+                                                <span class="m-1"></span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                                    <path
+                                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                                                 </svg>
                                             </h5>
                                         </button>
@@ -261,6 +280,7 @@
         <jsp:include page='../view-common/footer.jsp'></jsp:include>
 
         <jsp:include page='scripts/quiz_logic.jsp'></jsp:include>
+        <jsp:include page='scripts/candidatura.jsp'></jsp:include>
 
         <script type="text/javascript">
 
