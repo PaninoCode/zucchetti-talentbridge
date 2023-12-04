@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -16,8 +17,85 @@ import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.EspLavorativa;
 import hrport.project.main.pojo.Posizione;
+import hrport.project.main.pojo.Quiz;
 
 public class PosizioneService {
+	
+	public static List<Posizione> getAllPositions(String nome, Boolean aperta) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		ResultSet resultSetAllPositions = null;
+		List<Posizione> positions = new ArrayList<>();
+		
+		try {
+			
+			con.setAutoCommit(false);
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz \r\n";
+			
+			List<String> addedParameters = new ArrayList<>();
+			String addNome = null;
+			String addAperta = null;
+			if(nome != null || aperta != null) {
+				
+				String addWHERE = "WHERE ";
+				SQLUserPositions += addWHERE;
+				if(nome != null) {
+					
+					addNome = "pz.nome LIKE ? ";
+					addedParameters.add(addNome);
+				}
+				if(aperta != null) {
+					
+					addAperta = "pz.aperta = ? ";
+					addedParameters.add(addAperta);
+				}
+			}
+			
+			for (Iterator<String> iterator = addedParameters.iterator(); iterator.hasNext();) {
+				
+				String element = iterator.next();
+				
+				if(iterator.hasNext()) {
+					
+					SQLUserPositions += element + "AND ";
+				} else {
+					
+					SQLUserPositions += element;
+				}
+			}
+			
+			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
+			
+			Integer counter = 0;
+			for (Iterator<String> iterator = addedParameters.iterator(); iterator.hasNext();) {
+				
+				String element = iterator.next();
+				counter++;
+				
+				if(element.equalsIgnoreCase(addNome)) UserPositions.setString(counter, "%" + nome + "%");
+				if(element.equalsIgnoreCase(addAperta)) UserPositions.setBoolean(counter, aperta);
+			}
+			
+			resultSetAllPositions = UserPositions.executeQuery();
+			
+			while(resultSetAllPositions.next()) {
+				
+				positions.add(new Posizione(Integer.valueOf(resultSetAllPositions.getString("idPos")), resultSetAllPositions.getString("nome"), Boolean.valueOf((resultSetAllPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetAllPositions.getString("fotoUrl"), resultSetAllPositions.getString("descrizione")));
+			}
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			positions = new ArrayList<>();
+		} finally {
+			
+			if(resultSetAllPositions != null) resultSetAllPositions.close();
+			con.close();
+		}
+		
+		return positions;
+	}
 	
 	public static List<Posizione> getAllPositions() throws Exception {
 		
@@ -39,15 +117,14 @@ public class PosizioneService {
 				positions.add(new Posizione(Integer.valueOf(resultSetAllPositions.getString("idPos")), resultSetAllPositions.getString("nome"), Boolean.valueOf((resultSetAllPositions.getString("aperta").equalsIgnoreCase("1")) ? "true" : "false"), resultSetAllPositions.getString("fotoUrl"), resultSetAllPositions.getString("descrizione")));
 			}
 			
-			resultSetAllPositions.close();
 			con.commit();
 		} catch (Exception e) {
 			
-			resultSetAllPositions.close();
 			con.rollback();
 			positions = new ArrayList<>();
 		} finally {
 			
+			if(resultSetAllPositions != null) resultSetAllPositions.close();
 			con.close();
 		}
 		
@@ -144,7 +221,7 @@ public class PosizioneService {
 		
 	}
 	
-public static void updatePosizione(Posizione posizione) throws Exception {
+	public static void updatePosizione(Posizione posizione) throws Exception {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
@@ -186,5 +263,55 @@ public static void updatePosizione(Posizione posizione) throws Exception {
 			
 	}
 	
-	
+	public static void insertNewPosition(Posizione posizione, Quiz[] quiz) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		ResultSet resultSet = null;
+		try {
+			
+			con.setAutoCommit(false);
+			
+			String SQLPosition = "INSERT INTO \"Posizione\" (\"nome\", \"aperta\", \"fotoUrl\", \"descrizione\")\r\n"
+					+ "VALUES (?, ?, ?, ?);"
+					+ "SELECT SCOPE_IDENTITY() as 'lastId'";
+			
+			PreparedStatement statementPosition = con.prepareStatement(SQLPosition);
+			
+			statementPosition.setString(1, posizione.getNome());
+			statementPosition.setBoolean(2, posizione.getAperta());
+			statementPosition.setString(3, posizione.getFotoUrl());
+			statementPosition.setString(4, posizione.getDescrizione());
+			
+			resultSet = statementPosition.executeQuery();
+			
+			String SQLposQuiz = "INSERT INTO \"posQuiz\" (\"idPos\", \"idQuiz\")\r\n"
+					+ "VALUES (?, ?);";
+			
+			resultSet.next();
+			Integer generatedId = resultSet.getInt("lastId");
+			
+			for (int i = 0; i < quiz.length; i++) {
+				
+				Integer idQuiz = quiz[i].getId();
+				
+				PreparedStatement insertQuiz = con.prepareStatement(SQLposQuiz);
+				
+				insertQuiz.setInt(1, generatedId);
+				insertQuiz.setInt(2, idQuiz);
+				
+				insertQuiz.executeUpdate();
+			}
+			
+			con.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+		
+	}
 }

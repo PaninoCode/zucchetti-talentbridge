@@ -221,4 +221,24 @@
     <servlet-name>UserInsertProfileAttachment</servlet-name>
     <url-pattern>/UserInsertProfileAttachment</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertNewPosition</display-name>
+    <servlet-name>InsertNewPosition</servlet-name>
+    <servlet-class>hrport.project.main.controller.admin.InsertNewPosition</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertNewPosition</servlet-name>
+    <url-pattern>/InsertNewPosition</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminGetAllQuiz</display-name>
+    <servlet-name>AdminGetAllQuiz</servlet-name>
+    <servlet-class>hrport.project.main.controller.admin.AdminGetAllQuiz</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminGetAllQuiz</servlet-name>
+    <url-pattern>/AdminGetAllQuiz</url-pattern>
+  </servlet-mapping>
 </web-app>

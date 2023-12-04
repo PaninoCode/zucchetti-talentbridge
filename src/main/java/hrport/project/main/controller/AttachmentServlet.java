@@ -69,9 +69,7 @@ public class AttachmentServlet extends HttpServlet {
 			response.getWriter().println("Impossibile trovare: " + filename);
 			return;
 		}
-
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 
 	}
 

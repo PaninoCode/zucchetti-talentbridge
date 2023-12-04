@@ -22,14 +22,15 @@
                                 d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                         </svg>
                         <span class="m-2"></span>
-                        Quiz Annullato
+                        Quiz Terminato
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>
-                        Hai provato a barare al quiz della zucchetti.<br><br>
-                        Sei proprio un fallito
+                        <b>
+                            Il quiz &egrave; terminato.
+                        </b>
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -43,70 +44,13 @@
 
     <section style="min-height: 100vh;" id="open_quiz_section">
         <div class="container-fluid p-4">
-            <button type="button" class="btn btn-primary text-light" id="temp_open_quiz">
+            <button type="button" class="btn btn-primary text-light btn-quiz-open" data-quiz-id="1">
                 <h5 class="m-0">Apri quiz</h5>
             </button>
         </div>
     </section>
 
-    <script>
-        let openquiz = document.querySelector('#temp_open_quiz');
-        const failedQuizModal = new bootstrap.Modal('#quiz_failed_modal', {});
-
-        openquiz.addEventListener('click', e => {
-            let quizWindow = open('<%=request.getContextPath()%>/user/quiz', 'quiz_window', 'toolbar=no,scrollbars=no,resizable=no,top=0,left=0,width=40000,height=40000')
-            quizWindow.focus();
-
-            quizWindow.onload = function () {
-                quizWindow.initTakeQuiz('1');
-            };
-
-            quizWindow.oncontextmenu = function () {
-                return false;     // cancel default menu
-            }
-
-            quizWindow.addEventListener('blur', e => {
-                if (quizWindow.document.querySelector('BODY').getAttribute('data-quiz-status') == "opened") {
-                    quizWindow.close();
-                    return;
-                }
-                quizClosed();
-            });
-
-            quizWindow.window.addEventListener('fullscreenchange', e => {
-                if (!quizWindow.document.fullscreenElement) {
-                    e.preventDefault();
-                    quizClosed();
-                }
-            });
-
-            quizWindow.window.addEventListener('mouseout', e => {
-                if (quizWindow.document.querySelector('BODY').getAttribute('data-quiz-status') == "opened") return;
-                e = e ? e : window.event;
-                var from = e.relatedTarget || e.toElement;
-                if (!from || from.nodeName == "HTML") {
-                    quizClosed();
-                }
-            })
-
-            function quizClosed() {
-                let quizStatus = quizWindow.document.querySelector('BODY').getAttribute('data-quiz-status');
-                quizWindow.close();
-
-                if(quizStatus == "timeover"){
-                    alert("TEMPO SCADUTO! Il quiz e' stato inviato correttamente.");
-                }
-
-                if(quizStatus == "started"){
-                    failedQuizModal.show();
-                }
-
-                if(quizStatus == "usersubmitted"){
-                    alert("Il quiz e' stato inviato correttamente.");
-                }
-            }
-        });
-    </script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/quiz/quizWidget.js"></script>
 
 </body>
 

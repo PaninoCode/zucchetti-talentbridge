@@ -1,5 +1,5 @@
 <script>
-	async function uploadFile() {
+	async function uploadImage() {
 	    const fileInput = document.getElementById("anagrafica_foto_upload");
 	    const file = fileInput.files[0];
 		console.log("entro")
@@ -25,6 +25,16 @@
 
 	uploadImageProfile.addEventListener('click', function() {
 		
-		uploadFile();
+		uploadImage();
 	})
+
+	if (dataUser.hasOwnProperty('profile')) {
+		let fotoUrl = "http://localhost:8080/hrport/app/getAttachment/immagine_profilo?imgPath=" + dataUser.profile.fotoUrl;
+
+		let anagraficaWidgetProPic = document.querySelector('#anagrafica_propic');
+
+		pdfDownloadBtn.addEventListener('click', e => { pdfDownloadLink.click(); });
+
+		anagraficaWidgetProPic.style.backgroundImage = "url('" + fotoUrl + "')";
+	}
 </script>
