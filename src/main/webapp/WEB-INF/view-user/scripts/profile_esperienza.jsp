@@ -1,5 +1,8 @@
 <script>
 
+let esperienzaCard = document.querySelector('#esperienza_card');
+    let esperienzaAggiungiOpenModalBtn = document.querySelector('#esperienza_aggiungi_openmodal_btn')
+
     let esperienzaInfoText = document.querySelector('#esperienza_info_text');
 
     let esperienzaAccordion = document.querySelector('#esperienza_accordion');
@@ -184,6 +187,9 @@
             });
 
         }
+    }else{
+        esperienzaCard.style.opacity = "0.5";
+        esperienzaAggiungiOpenModalBtn.disabled = true;
     }
 
     async function updateEsperienza(category, callback) {

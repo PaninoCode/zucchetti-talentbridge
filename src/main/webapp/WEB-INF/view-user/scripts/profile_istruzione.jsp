@@ -1,5 +1,8 @@
 <script>
 
+    let istruzioneCard = document.querySelector('#istruzione_card');
+    let istruzioneAggiungiOpenModalBtn = document.querySelector('#istruzione_aggiungi_openmodal_btn')
+
     let istruzioneInfoText = document.querySelector('#istruzione_info_text');
 
     let istruzioneAccordion = document.querySelector('#istruzione_accordion');
@@ -183,6 +186,9 @@
                 });
             });
         }
+    }else{
+        istruzioneCard.style.opacity = "0.5";
+        istruzioneAggiungiOpenModalBtn.disabled = true;
     }
 
     async function updateIstruzione(category, callback) {

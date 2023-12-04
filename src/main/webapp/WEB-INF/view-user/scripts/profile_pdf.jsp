@@ -17,6 +17,10 @@
 
 			const result = await response.text();
 			console.log(result);
+			
+			if(response.ok){
+				location.reload();
+			}
 	        
 	    } else {
 	        console.error('No file selected');
@@ -42,5 +46,7 @@
 
 		pdfDisplayObject.data = fileUrl;
 		pdfDownloadLink.href = fileUrl;
+	}else{
+		uploadCurriculum.disabled = true;
 	}
 </script>
