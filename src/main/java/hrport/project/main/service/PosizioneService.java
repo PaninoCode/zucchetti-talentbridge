@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -225,12 +226,7 @@ public class PosizioneService {
 		
 		Connection con = ConnectDatabase.getConnection();
 		
-		System.out.println(posizione.getNome());
-		System.out.println(posizione.getAperta());
-		System.out.println(posizione.getFotoUrl());
-		System.out.println(posizione.getDescrizione());
-		System.out.println(posizione.getIdPos());
-			
+
 		try {
 			
 			con.setAutoCommit(false);
@@ -314,4 +310,43 @@ public class PosizioneService {
 		}
 		
 	}
+	
+	public static void deletePosizione(Integer idPosizione) throws Exception {
+	    Connection con = ConnectDatabase.getConnection();
+	    try {
+	        con.setAutoCommit(false);
+
+	        // Separate DELETE statements for each table
+	        String posQuizQuery = "DELETE FROM posQuiz WHERE idPos = ?";
+	        String candidaturaQuery = "DELETE FROM Candidatura WHERE idPos = ?";
+	        String posizioneQuery = "DELETE FROM Posizione WHERE idPos = ?";
+
+	        // Prepare statements
+	        try (PreparedStatement posQuizStatement = con.prepareStatement(posQuizQuery);
+	             PreparedStatement candidaturaStatement = con.prepareStatement(candidaturaQuery);
+	             PreparedStatement posizioneStatement = con.prepareStatement(posizioneQuery)) {
+
+	            // Set parameters
+	            posQuizStatement.setInt(1, idPosizione);
+	            candidaturaStatement.setInt(1, idPosizione);
+	            posizioneStatement.setInt(1, idPosizione);
+
+	            // Execute the DELETE statements
+	            posQuizStatement.executeUpdate();
+	            candidaturaStatement.executeUpdate();
+	            posizioneStatement.executeUpdate();
+
+	            // Commit the transaction
+	            con.commit();
+	        } catch (SQLException e) {
+	            // Rollback and rethrow the exception
+	        	System.out.println(e.getMessage());
+	            con.rollback();
+	            throw e;
+	        }
+	    } finally {
+	        con.close();
+	    }
+	}
+
 }

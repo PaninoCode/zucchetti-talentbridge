@@ -43,7 +43,7 @@ public class AdminDettaglioPosizione extends HttpServlet {
 			if (pathParts.length > 1) {
 				String posizioneId = pathParts[1];
 				
-				System.out.println(posizioneId);
+				
 
 				try {
 					Posizione posizione = PosizioneService.getPosizioneById(Integer.parseInt(posizioneId));

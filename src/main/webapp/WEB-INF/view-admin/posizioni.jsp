@@ -187,7 +187,7 @@
 	                        var linkElement = positionLink.querySelector('a');
 	                        
 	                        if (linkElement) {
-	                            linkElement.href = "dettaglio-posizione/" + position.idPos;
+	                        	linkElement.href = "dettaglio-posizione/" + position.idPos + "?input_stato=" + (position.aperta === true ? "aperta" : "chiusa");
 	                        }
 	                    }
 	                }
@@ -198,8 +198,13 @@
 	            jobPositions2.forEach((position) => {
 	            	
 	            	  //position Link
-	            	    var linkElement = document.createElement('a');
-	            	    linkElement.href = "dettaglio-posizione/" + position.idPos;
+	            	   if (positionLink) {
+	                        var linkElement = positionLink.querySelector('a');
+	                        
+	                        if (linkElement) {
+	                            linkElement.href = "dettaglio-posizione/" + position.idPos + "?input_stato=" + (position.aperta === true ? "aperta" : "chiusa");
+	                        }
+	                    }
 	    	        	
 	            	
 	                posizioniAperte.innerHTML += template_posizione.innerHTML
