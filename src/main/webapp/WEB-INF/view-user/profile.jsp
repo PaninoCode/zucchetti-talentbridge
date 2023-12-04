@@ -35,8 +35,8 @@
                                 <div class="card-body">
 
                                     <div class="mb-5">
-                                        <div class="text-center">
-                                            <div class="d-flex justify-content-center align-items-center" style="width: 120px; height: 120px; background-position: center center; background-repeat: no-repeat;" id="anagrafica_propic">
+                                        <div class="d-flex justify-content-center align-items-center flex-column">
+                                            <div class="rounded shadow-sm mb-1 bg-dark" style="width: 150px; height: 150px; background-position: center center; background-size: cover; background-repeat: no-repeat;" id="anagrafica_propic">
                                             </div>
                                             <p class="fs-3" id="anagrafica_full_name"></p>
                                         </div>
