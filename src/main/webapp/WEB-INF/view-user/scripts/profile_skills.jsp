@@ -1,5 +1,8 @@
 <script>
 
+    let skillsCard = document.querySelector('#skills_card');
+    let skillsAggiungiOpenModalBtn = document.querySelector('#skills_aggiungi_openmodal_btn');
+
     let skillsGestisciCategoriaModal = document.querySelector('#skills_gestisci_categoria_modal');
     let skillsGestisciCategoriaModalNome = document.querySelector('#skills_gestisci_categoria_modal_nome');
     let skillsGestisciCategoriaModalErrorText = document.querySelector('#skills_gestisci_categoria_modal_error_text');
@@ -225,6 +228,9 @@
             });
 
         }
+    }else{
+        skillsCard.style.opacity = "0.5";
+        skillsAggiungiOpenModalBtn.disabled = true;
     }
 
 
