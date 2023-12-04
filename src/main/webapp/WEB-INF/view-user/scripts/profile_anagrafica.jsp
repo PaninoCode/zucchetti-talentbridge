@@ -50,6 +50,8 @@ anagraficaAbilitaModifica.addEventListener('click', e => {
     }
 });
 
+let firstTime = false;
+
 if (dataUser.hasOwnProperty('profile')) {
 
     let userProfile = dataUser.profile;
@@ -71,6 +73,7 @@ if (dataUser.hasOwnProperty('profile')) {
     }
 
 }else{
+    firstTime = true;
     anagraficaInfoText.classList.remove('d-none');
     anagraficaInfoText.innerHTML = "Profilo non presente! Prima di continuare devi compilare il tuo profilo.";
 }
@@ -98,6 +101,7 @@ async function editProfilo(jsonData) {
         anagraficaSuccessText.classList.remove('d-none');
         anagraficaSuccessText.innerHTML = "Dati aggiornati correttamente";
         anagraficaAbilitaModifica.click();
+        if(firstTime) location.reload();
     }
 }
 
