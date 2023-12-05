@@ -158,6 +158,43 @@
             </div>
         </div>
 
+        <div class="modal fade quiz-end-modal" id="candidatura_remove_modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border border-2 border-danger">
+                    <div class="modal-header bg-danger-subtle">
+                        <h1 class="modal-title fs-5 d-flex flex-row justify-content-start align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x-square" viewBox="0 0 16 16">
+                                <path
+                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                            <span class="m-2"></span>
+                            Ritira Candidatura
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Sei sicuro di voler ritirare la tua candidatura per questa posizione?<br><br>
+                            I risultati dei quiz non verranno rimossi.<br>
+                            Se cambi idea potrai ricandidarti in qualsiasi momento.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-danger text-dark" id="btn_ritira_candidatura"
+                            data-bs-dismiss="modal">
+                            <h5 class="m-0">Ritira Candidatura</h5>
+                        </button>
+                        <button type="submit" class="btn btn-outline-primary text-dark" data-bs-dismiss="modal">
+                            <h5 class="m-0">Chiudi</h5>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section style="min-height: 100vh;">
             <div class="container-fluid p-4">
                 <div class="row d-flex justify-content-center position-relative">
@@ -172,6 +209,57 @@
                     </div>
                 </div>
                 <hr>
+                <div class="row d-none" id="candidatura_status_missing">
+                    <div class="col-12">
+                        <div class="alert alert-warning" role="alert">
+                            <b>Candidatura da completare</b> Per poter completare questa candidatura devi eseguire tutti i quiz nella sezione "Skills richieste".
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-none" id="candidatura_status_sent">
+                    <div class="col-12">
+                        <div class="alert alert-success" role="alert">
+                            <b>Candidatura completata!</b> Tutti i quiz per questa candidatura sono stati fatti e la
+                            candidatura risulta completa.
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-none" id="candidatura_status_denied">
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            <b>Posizione chiusa.</b> Ci dispiace ma non sei stato accettato per questa posizione.
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-none" id="candidatura_status_closed_generic">
+                    <div class="col-12">
+                        <div class="alert alert-warning" role="alert">
+                            <b>Posizione chiusa.</b> Questa posizione è stata chiusa.
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-none" id="candidatura_status_accepted">
+                    <div class="col-12">
+                        <div class="card mb-5" style="width: 100%;">
+                            <div class="card-body">
+                                <div class="mb-3"></div>
+                                <div class="d-flex justify-content-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="145" height="145" fill="#00a808"
+                                        class="bi bi-trophy-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935" />
+                                    </svg>
+                                </div><br>
+                                <h1 class="text-center">
+                                    Congratulazioni!
+                                </h1><br>
+                                <h3 class="text-center">
+                                    Sei stato accettato per questa posizione.
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <h2>
@@ -186,8 +274,8 @@
                                 <br>
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-6">
-                                        <button type="button" id="btn_invia_candidatura" class="w-100 btn btn-primary text-light"
-                                            data-quiz-id="{id_quiz}">
+                                        <button type="button" id="btn_invia_candidatura"
+                                            class="w-100 btn btn-primary text-light d-none" data-quiz-id="{id_quiz}">
                                             <h5 class="m-0 d-flex justify-content-center align-items-center">
                                                 Invia Candidatura
                                                 <span class="m-1"></span>
@@ -200,8 +288,9 @@
                                                 </svg>
                                             </h5>
                                         </button>
-                                        <button type="button" id="btn_ritira_candidatura" class="w-100 btn btn-danger text-light d-none"
-                                            data-quiz-id="{id_quiz}">
+                                        <button type="button" class="w-100 btn btn-danger text-light d-none"
+                                            data-bs-toggle="modal" data-bs-target="#candidatura_remove_modal"
+                                            id="btn_ritira_candidatura_modal">
                                             <h5 class="m-0 d-flex justify-content-center align-items-center">
                                                 Ritira Candidatura
                                                 <span class="m-1"></span>
@@ -224,6 +313,7 @@
                             Skill richieste
                         </h2>
 
+                        <div class="alert alert-info d-none" id="quiz_info_text" role="alert"></div>
 
                         <span id="button_svolgi_quiz" style="display: none;">
                             <!-- <button type="button" class="btn btn-primary text-light btn-quiz-open" data-quiz-id="{id_quiz}" data-quiz-nome="{nome_quiz}">
@@ -265,8 +355,10 @@
                             </a> -->
                         </span>
 
-                        <div class="card mb-3" style="width: 100%;">
+                        <div class="card mb-3" id="quiz_card" style="width: 100%;">
                             <div class="card-body">
+                                <div class="list-group d-none" id="lista_quiz_disabled">
+                                </div>
                                 <div class="list-group" id="lista_quiz">
                                 </div>
                             </div>
@@ -280,15 +372,18 @@
         <jsp:include page='../view-common/footer.jsp'></jsp:include>
 
         <jsp:include page='scripts/quiz_logic.jsp'></jsp:include>
-        <jsp:include page='scripts/candidatura.jsp'></jsp:include>
 
         <script type="text/javascript">
 
             let dataPos = JSON.parse(`<%=request.getAttribute("dataPos")%>`);
             let dataQuiz = JSON.parse(`<%=request.getAttribute("dataQuiz")%>`);
+            let dataUser = JSON.parse(`<%=request.getAttribute("dataUser")%>`);
+
+            let statoCandidatura = null;
 
             console.log(dataPos);
             console.log(dataQuiz);
+            console.log(dataUser);
 
             let dettaglioFotoPosizone = document.querySelector('#dettaglio_foto_posizione');
             let dettaglioNomePosizione = document.querySelector('#dettaglio_nome_posizione');
@@ -299,6 +394,7 @@
             dettaglioPosizoneDescrizione.innerHTML = dataPos.descrizione;
 
             let listaQuiz = document.querySelector('#lista_quiz');
+            let listaQuizDisabled = document.querySelector('#lista_quiz_disabled');
             let templateQuiz = document.querySelector('#template_quiz');
 
             let btnQuizSvolgi = document.querySelector('#button_svolgi_quiz');
@@ -318,6 +414,12 @@
                         .replaceAll('{nome_quiz}', quiz.nome)
                         .replaceAll('{badge_quiz}', getQuizBadge(quiz.isDone))
                         .replaceAll('{controlli_quiz}', getControlliQuiz(quiz.isDone, quiz.id, quiz.nome));
+                    listaQuizDisabled.innerHTML += templateQuiz.innerHTML
+                        .replaceAll('<!--', '')
+                        .replaceAll('-->', '')
+                        .replaceAll('{nome_quiz}', quiz.nome)
+                        .replaceAll('{badge_quiz}', getQuizBadge(quiz.isDone))
+                        .replaceAll('{controlli_quiz}', '<br>');
                     idQuizMostrati.push(quiz.id);
                 }
                 console.log(idQuizMostrati.length);
@@ -338,6 +440,8 @@
             }
 
         </script>
+
+        <jsp:include page='scripts/candidatura.jsp'></jsp:include>
 
     </body>
 

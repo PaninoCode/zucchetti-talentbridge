@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" id="menu_link_home" href="home">Home</a>
+                    <a class="nav-link" id="menu_link_home" href="http://localhost:8080/hrport/user/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="menu_link_profilo" href="profile">Profilo</a>
+                    <a class="nav-link" id="menu_link_profilo" href="http://localhost:8080/hrport/user/profile">Profilo</a>
                 </li>
             </ul>
         </div>

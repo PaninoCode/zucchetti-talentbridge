@@ -197,7 +197,7 @@ public class CandidaturaService {
 			
 			con.setAutoCommit(false);
 					
-			String SQL = "DELETE FROM Candidatura cn WHERE cn.idUtente = ? AND cn.idPos = ?;";
+			String SQL = "DELETE FROM Candidatura WHERE Candidatura.idUtente = ? AND Candidatura.idPos = ?;";
 			
 			PreparedStatement deleteCandidatura = con.prepareStatement(SQL);
 			
@@ -256,15 +256,15 @@ public class CandidaturaService {
 			//		+ "WHERE idPos=? AND idUtente=?";
 			
 			SQL="UPDATE Candidatura \r\n"
-					+ "SET stato='1'\r\n"
-					+ "SET punteggioTot = ?"
+					+ "SET stato=1,\r\n"
+					+ "punteggioTot = ?"
 					+ "WHERE idPos=? AND idUtente=?";
 			
 			PreparedStatement updateCandidatura = con.prepareStatement(SQL);
 			//updateCandidatura.setInt(1, punteggioTot);
-			updateCandidatura.setInt(1, idPos);
-			updateCandidatura.setInt(2, idUtente);
-			updateCandidatura.setInt(3, result.getInt("totPunteggio"));
+			updateCandidatura.setInt(1, result.getInt("totPunteggio"));
+			updateCandidatura.setInt(2, idPos);
+			updateCandidatura.setInt(3, idUtente);
 			
 			updateCandidatura.executeUpdate();
 			
