@@ -15,6 +15,10 @@
 
 			const result = await response.text();
 			console.log(result);
+
+			if(response.ok){
+				location.reload();
+			}
 	        
 	    } else {
 	        console.error('No file selected');
@@ -36,5 +40,7 @@
 		pdfDownloadBtn.addEventListener('click', e => { pdfDownloadLink.click(); });
 
 		anagraficaWidgetProPic.style.backgroundImage = "url('" + fotoUrl + "')";
+	}else{
+		uploadImageProfile.disabled = true;
 	}
 </script>

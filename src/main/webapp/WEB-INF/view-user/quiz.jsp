@@ -9,6 +9,8 @@
         <link href="<%=request.getContextPath()%>/resources/css/custom/custom.css" rel="stylesheet">
         <script type="text/javascript"
             src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     </head>
 
     <body class="bg-body-tertiary" data-quiz-status="opened" style="width: 100%; height: 100%;">
@@ -76,14 +78,17 @@
 
                         <span id="quiz_question_screen" style="display: none;">
                             <div class="row mb-3 d-flex flex-row">
-                                    <h4>
-                                        <span class="text-contents-numero-domanda"></span>. &nbsp; <span class="text-contents-testo-domanda"></span>
-                                    </h4>
+                                <h4>
+                                    <span class="text-contents-numero-domanda"></span>. &nbsp; <span
+                                        class="text-contents-testo-domanda"></span>
+                                </h4>
                             </div>
 
                             <span id="form_answer_template" class="d-none">
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input me-4 form-answer-radio" onclick="setSelectedAnswer();" data-id-risposta="{index_risposta}" data-id-domanda="{id_domanda}" style="transform: scale(2);" type="radio"
+                                    <input class="form-check-input me-4 form-answer-radio"
+                                        onclick="setSelectedAnswer();" data-id-risposta="{index_risposta}"
+                                        data-id-domanda="{id_domanda}" style="transform: scale(2);" type="radio"
                                         name="flexRadioDefault" id="form_answer_radio_{id_risposta}">
                                     <label class="form-check-label" for="form_answer_radio_{id_risposta}">
                                         {numero_risposta}. {testo_risposta}
@@ -181,11 +186,11 @@
             let quizSubmitConfirmBtn = document.querySelector('#btn_submit_confirm');
             let currentIndex = null;
             let numDomande = null;
-            let answers = []
+            let rememberAnswers = []
 
-            let timeInSeconds = 15*60;
+            let timeInSeconds = 15 * 60;
 
-            function setTimeTestFunc(){
+            function setTimeTestFunc() {
                 timeInSeconds = 15;
             }
 
@@ -274,9 +279,9 @@
                 setTimeout(function () {
 
                     window.opener.clearAnswerData();
-                    
+
                     window.opener.startQuiz(parseInt(document.querySelector('BODY').getAttribute('data-quiz-id')), function (isDone, numd) {
-                        if(isDone == true){ window.close(); }
+                        if (isDone == true) { window.close(); }
 
                         quizProgressBar.classList.remove('bg-info');
                         quizProgressBar.style.width = '0%';
@@ -324,12 +329,14 @@
                 endQuiz('usersubmitted');
             });
 
-            function setSelectedAnswer(){
+            function setSelectedAnswer() {
                 let answersEl = document.querySelectorAll('.form-answer-radio');
                 let answerData = null;
                 answersEl.forEach(answerEl => {
                     console.log(answerEl.checked);
-                    if(answerEl.checked){
+                    if (answerEl.checked) {
+                        console.log(answerEl.id);
+                        rememberAnswers[currentIndex] = answerEl.id;
                         answerData = {
                             questionId: currentIndex,
                             answerId: answerEl.getAttribute('data-id-risposta')
@@ -340,20 +347,20 @@
                 window.opener.saveAnswerData(answerData);
             }
 
-            function displayAnswerBlock(questionNumer, index){
+            function displayAnswerBlock(questionNumer, index) {
 
                 quizAvantiBtn.disabled = true;
                 quizIndietroBtn.disabled = true;
 
                 console.log(index);
 
-                if(index != 0){
+                if (index != 0) {
                     quizIndietroBtn.disabled = false;
                 }
 
                 console.log(numDomande - 1);
 
-                if(index < (numDomande - 1)){
+                if (index < (numDomande - 1)) {
                     quizAvantiBtn.disabled = false;
                 }
 
@@ -375,16 +382,36 @@
                 let indexRisposta = 0;
                 questionData.risposte.forEach(risposta => {
                     formAnswersContainer.innerHTML += formAnswerTemplate.innerHTML
-                                                        .replaceAll('{numero_risposta}', ++answerCounter)
-                                                        .replaceAll('{testo_risposta}', risposta.testo)
-                                                        .replaceAll('{id_risposta}', risposta.id)
-                                                        .replaceAll('{index_risposta}', indexRisposta)
-                                                        .replaceAll('{id_domanda}', questionData.id);
+                        .replaceAll('{numero_risposta}', ++answerCounter)
+                        .replaceAll('{testo_risposta}', sanitizeCode(risposta.testo))
+                        .replaceAll('{id_risposta}', risposta.id)
+                        .replaceAll('{index_risposta}', indexRisposta)
+                        .replaceAll('{id_domanda}', questionData.id);
                     indexRisposta++;
                 });
 
+                if(currentIndex <= rememberAnswers.length - 1){
+                    document.querySelector("#" + rememberAnswers[currentIndex]).checked = true;
+                }
+
+                hljs.highlightAll();
 
                 quizQuestionScreen.style.display = "block";
+            }
+
+
+            function sanitizeCode(str) {
+
+                let regexForHTML = /<[!-?-]*[\s\S][a-z][\s\S]*>/i;
+                let isValid = regexForHTML.test(str);
+
+                let htmlString = "<pre><code>" + str.replaceAll('<', '&lt;').replaceAll('>', '&gt;') + "</code></pre>";
+
+                if (isValid) {
+                    return htmlString;
+                } else {
+                    return str;
+                }
             }
         </script>
 

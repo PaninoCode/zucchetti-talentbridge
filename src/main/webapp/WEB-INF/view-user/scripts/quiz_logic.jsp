@@ -30,70 +30,6 @@
             resultsQuizBtn.addEventListener('click', e => {
                 getQuizAnswers({ idQuiz: quizId }, function (error, data) {
 
-                    // {
-                    //     "id": 1,
-                    //         "nome": "SQL Quiz",
-                    //             "listaDomande": [
-                    //                 {
-                    //                     "id": 1,
-                    //                     "testo": "Cosè SQL?",
-                    //                     "punteggio": 10,
-                    //                     "risposte": [
-                    //                         {
-                    //                             "id": 1,
-                    //                             "testo": "Structured Query Language",
-                    //                             "giusta": true
-                    //                         },
-                    //                         {
-                    //                             "id": 2,
-                    //                             "testo": "Simple Query Language",
-                    //                             "giusta": false
-                    //                         },
-                    //                         {
-                    //                             "id": 3,
-                    //                             "testo": "System Query Language",
-                    //                             "giusta": false
-                    //                         },
-                    //                         {
-                    //                             "id": 4,
-                    //                             "testo": "Sequential Query Language",
-                    //                             "giusta": false
-                    //                         }
-                    //                     ],
-                    //                     "idRispostaUtente": 1
-                    //                 },
-                    //                 {
-                    //                     "id": 2,
-                    //                     "testo": "Cosa significa SQL?",
-                    //                     "punteggio": 10,
-                    //                     "risposte": [
-                    //                         {
-                    //                             "id": 5,
-                    //                             "testo": "Structured Query Language",
-                    //                             "giusta": true
-                    //                         },
-                    //                         {
-                    //                             "id": 6,
-                    //                             "testo": "Simple Query Language",
-                    //                             "giusta": false
-                    //                         },
-                    //                         {
-                    //                             "id": 7,
-                    //                             "testo": "System Query Language",
-                    //                             "giusta": false
-                    //                         },
-                    //                         {
-                    //                             "id": 8,
-                    //                             "testo": "Sequential Query Language",
-                    //                             "giusta": false
-                    //                         }
-                    //                     ],
-                    //                     "idRispostaUtente": 5
-                    //                 },
-                    //             ],
-                    //                 "isDone": false
-                    // }
-
                     reulstsQuizModalNomeQuiz.innerHTML = data.nome;
 
                     let puntiGuadagnati = 0;
@@ -129,7 +65,7 @@
                                 <tr>\
                                     <th scope="row">' + rispostaRow + '</th>\
                                     <td>\
-                                        ' + risposta.testo + '\
+                                        ' + sanitizeCode(risposta.testo) + '\
                                     </td>\
                                     <td>';
 
@@ -182,6 +118,9 @@
                         reulstsQuizModalNomeResultsTable.innerHTML = '<div class="alert alert-info" role="alert">Non ci sono dettagli da mostrare relativi a questo risultato.</div><br>';
                     }
 
+                    hljs.highlightAll();
+
+                    
                     resultsQuizModal.show();
                 });
             });
@@ -435,6 +374,22 @@
 
         if (response.ok && result != null) {
             callback(null, result);
+        }
+    }
+
+
+
+    function sanitizeCode(str) {
+        
+        let regexForHTML = /<[!-?-]*[\s\S][a-z][\s\S]*>/i;
+        let isValid = regexForHTML.test(str);
+
+        let htmlString = "<pre><code>" + str.replaceAll('<', '&lt;').replaceAll('>', '&gt;') + "</code></pre>";
+
+        if (isValid) {
+            return htmlString;
+        } else {
+            return str;
         }
     }
 

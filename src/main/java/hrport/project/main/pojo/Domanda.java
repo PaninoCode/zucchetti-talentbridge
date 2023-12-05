@@ -111,10 +111,10 @@ public class Domanda {
 		}
 	}
 	
-	public int getFirstIndexSbagliataRisposta() {
-		for(int i=0; i<4; i++) {
+	public int getFirstIDSbagliataRisposta() {
+		for(int i=0; i<risposte.length; i++) {
 			if(!risposte[i].isGiusta()) {
-				return i+1;
+				return risposte[i].getId();
 			}
 		}
 		return -1;

@@ -107,7 +107,7 @@ public class PosizioneService {
 		try {
 			
 			con.setAutoCommit(false);
-			String SQLUserPositions = "SELECT pz.* FROM Posizione pz WHERE pz.aperta = 1";
+			String SQLUserPositions = "SELECT pz.* FROM Posizione pz";
 			
 			PreparedStatement UserPositions = con.prepareStatement(SQLUserPositions);
 			

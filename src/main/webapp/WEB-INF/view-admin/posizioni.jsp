@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Posizioni | Amministrazione - TalentBridge</title>
 <link href="/hrport/resources/css/custom/custom.css" rel="stylesheet">
+<script type="text/javascript" src="/hrport/resources/js/bootstrap.bundle.min.js"></script>
+
+</head>
 
 <script type="text/javascript" src="/hrport/resources/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -23,8 +26,8 @@
 	<span class="d-none" id="template_posizione">
 		<div class="col m-1 mb-2" style="width: 450px;">
 			<div class="card">
-				<img src="{position_img}" class="card-img-top"
-					style="aspect-ratio: 5/4;">
+				<div class="rounded shadow-sm mb-1 bg-dark" style="width: 100%; height: 220px; background-position: center center; background-size: cover; background-repeat: no-repeat; aspect-ratio: 5/4; background-image: [position_img];" id="position_propic">
+				</div>
 				<div class="card-body">
 					<h5 class="card-title">{position_title}</h5>
 					<p class="card-text">{position_description}</p>
@@ -175,10 +178,11 @@
 	            jobPositions2.forEach((position) => {
 	                if (position.aperta === state) {
 	                	console.log(position.aperta);
+						let fotoUrl = "http://localhost:8080/hrport/app/getAttachment/immagini_posizioni?imgPath=" + position.fotoUrl;
 	                    posizioniAperte.innerHTML += template_posizione.innerHTML
 	                        .replace('{position_title}', position.nome)
 	                        .replace('{position_description}', position.descrizione)
-	                        .replace('{position_img}', position.fotoUrl)
+	                        .replace('[position_img]', "url('" + fotoUrl + "')")
 	                        .replace('{position_status}', position.aperta)
 	                        .replace('{position_id}', position.idPos);
 	                    
@@ -198,20 +202,20 @@
 	        function printAllPositions() {
 	            jobPositions2.forEach((position) => {
 	            	
-	            	  //position Link
-	            	   if (positionLink) {
-	                        var linkElement = positionLink.querySelector('a');
-	                        
-	                        if (linkElement) {
-	                            linkElement.href = "dettaglio-posizione/" + position.idPos + "?input_stato=" + (position.aperta === true ? "aperta" : "chiusa");
-	                        }
-	                    }
+					//position Link
+					if (positionLink) {
+						var linkElement = positionLink.querySelector('a');
+						
+						if (linkElement) {
+							linkElement.href = "dettaglio-posizione/" + position.idPos + "?input_stato=" + (position.aperta === true ? "aperta" : "chiusa");
+						}
+					}
 	    	        	
-	            	
+	            	let fotoUrl = "http://localhost:8080/hrport/app/getAttachment/immagini_posizioni?imgPath=" + position.fotoUrl;
 	                posizioniAperte.innerHTML += template_posizione.innerHTML
 	                    .replace('{position_title}', position.nome)
 	                    .replace('{position_description}', position.descrizione)
-	                    .replace('{position_img}', position.fotoUrl)
+	                    .replace('[position_img]', "url('" + fotoUrl + "')")
 	                    .replace('{position_status}', position.aperta)
 	                    .replace('{position_id}', position.idPos);
 	                

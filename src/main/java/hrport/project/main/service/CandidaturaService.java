@@ -257,12 +257,14 @@ public class CandidaturaService {
 			
 			SQL="UPDATE Candidatura \r\n"
 					+ "SET stato='1'\r\n"
+					+ "SET punteggioTot = ?"
 					+ "WHERE idPos=? AND idUtente=?";
 			
 			PreparedStatement updateCandidatura = con.prepareStatement(SQL);
 			//updateCandidatura.setInt(1, punteggioTot);
 			updateCandidatura.setInt(1, idPos);
 			updateCandidatura.setInt(2, idUtente);
+			updateCandidatura.setInt(3, result.getInt("totPunteggio"));
 			
 			updateCandidatura.executeUpdate();
 			

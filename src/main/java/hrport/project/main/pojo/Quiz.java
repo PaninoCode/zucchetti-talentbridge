@@ -124,7 +124,7 @@ public class Quiz {
 			
 			if(idRisposte.isEmpty()) {
 				System.out.println("Size equivale a 0");
-				idRisposte.add(q.domandaIndex(0).getFirstIndexSbagliataRisposta());
+				idRisposte.add(q.domandaIndex(0).getFirstIDSbagliataRisposta());
 			}
 			
 			con.setAutoCommit(false);
