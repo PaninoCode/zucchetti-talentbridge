@@ -25,8 +25,6 @@ console.log(jsonQuiz);
 	    const fileInput = document.getElementById("foto_upload");
 	    const file = fileInput.files[0];
 	    
-	  
-	    
 	    let form = document.getElementById('insertForm');
         
 	    //POSIZIONE
@@ -41,22 +39,28 @@ console.log(jsonQuiz);
         		descrizione: descrizione
         }
         
-       
-        
         //QUIZ SELEZIONATO
-		let quizSelected = jsonQuiz[selectBoxQuiz.value-1]; 
+       
+		let quizSelected = [];
+        quizSelected.push(jsonQuiz[selectBoxQuiz.value-1]);
+       
+        console.log(quizSelected);
+        //jsonQuiz[selectBoxQuiz.value-1]; 
 		
 		
         if (file) {
-        	alert("ok");
+        	
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('posData', JSON.stringify(positionData));
+            formData.append('nome', nomePosizione);
+            formData.append('descrizione', descrizione);
             formData.append('quiz', JSON.stringify(quizSelected));
            
              for (var key of formData.entries()) {
         		console.log(key[0] + ', ' + key[1]);
    				 }
+             
+             alert("ok");
             try {
                 const response = await fetch('http://localhost:8080/hrport/admin/insert-new-position', {
                     method: 'POST',

@@ -38,10 +38,10 @@ public class InsertPosizione extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		String nome = request.getParameter("file");
+		String nome = request.getParameter("nome");
 		Boolean aperta = true;
 		String fotoUrl = null;
-		String descrizione = request.getParameter("posData[descrizione]");
+		String descrizione = request.getParameter("descrizione");
 		
 		System.out.println(descrizione);
 		
