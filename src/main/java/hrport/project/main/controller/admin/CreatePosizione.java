@@ -17,7 +17,7 @@ import hrport.project.main.service.QuizService;
  * Servlet implementation class AdminGetAllQuiz
  */
 @WebServlet("/admin/create-new-position")
-public class AdminGetAllQuiz extends HttpServlet {
+public class CreatePosizione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -33,13 +33,13 @@ public class AdminGetAllQuiz extends HttpServlet {
 			String jsonQuiz = gson.toJson(quiz);
 			
 			request.setAttribute("data", jsonQuiz);
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view-admin/add_posizione.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String error = e.getMessage();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("error", error);
-			request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view-admin/add_posizione.jsp").forward(request, response);
 		}
 		
 	}

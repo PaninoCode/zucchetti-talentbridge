@@ -10,13 +10,14 @@
         <link href="<%=request.getContextPath()%>/resources/css/custom/custom.css" rel="stylesheet">
         <script type="text/javascript"
             src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
+            
     </head>
 
     <body class="bg-body-tertiary">
 
         <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
-		<!-- CHANGE THIS to ADMIN -->
+		
         <jsp:include page='../view-common/admin_header.jsp'>
 		<jsp:param name="activeLinkId" value="posizioni" />
 	</jsp:include>

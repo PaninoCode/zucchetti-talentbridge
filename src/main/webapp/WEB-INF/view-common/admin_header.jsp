@@ -11,9 +11,14 @@
                 <li class="nav-item">
                     <a class="nav-link" id="menu_link_posizioni" href="http://localhost:8080/hrport/admin/posizioni">Posizioni</a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link" id="menu_link_candidati" href="http://localhost:8080/hrport/admin/create-new-position">Add Posizione</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" id="menu_link_candidati" href="http://localhost:8080/hrport/admin/candidati">Candidati</a>
                 </li>
+                
+              
 
             </ul>
         </div>

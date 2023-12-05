@@ -26,7 +26,7 @@ import hrport.project.main.utilities.UtilitiesFile;
  * Servlet implementation class InsertNewPosition
  */
 @WebServlet("/admin/insert-new-position")
-public class InsertNewPosition extends HttpServlet {
+public class InsertPosizione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -35,10 +35,13 @@ public class InsertNewPosition extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String nome = request.getParameter("nome");
+		
+		String nome = request.getParameter("file");
 		Boolean aperta = true;
 		String fotoUrl = null;
-		String descrizione = request.getParameter("descrizione");
+		String descrizione = request.getParameter("posData[descrizione]");
+		
+		System.out.println(descrizione);
 		
 		// il json deve essere un array di oggetti come in esempio {"id" : 1}, {"id" : 2}
 		String jsonListQuiz = request.getParameter("quiz");
@@ -55,9 +58,15 @@ public class InsertNewPosition extends HttpServlet {
             String fileName = UtilitiesFile.generateUniqueFileName(UtilitiesFile.getSubmittedFileName(filePart));
             Path filePath = Paths.get(path, fileName);
             
+            System.out.println(fileName);
+            System.out.println(filePath);
+            System.out.println(filePart);
+            
             fotoUrl = fileName;
             Posizione newPosition = new Posizione(nome, aperta, fotoUrl, descrizione);
-
+            
+           
+            
 //          scrive il file nella directory
             OutputStream out = Files.newOutputStream(filePath);
             byte[] buffer = new byte[1024];
@@ -71,6 +80,7 @@ public class InsertNewPosition extends HttpServlet {
             response.getWriter().println("Success");
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println(e.getMessage());
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("Error: " + e.getMessage());
 		}
