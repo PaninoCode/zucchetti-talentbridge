@@ -32,7 +32,6 @@ public class UpdatePosizione extends HttpServlet {
 
 	        //Metodo messo in UtilitiesFile. (CRTL + click to in "UtilitiesFile" to zoom)
 	        String fotoUrl = UtilitiesFile.handleFileUpload(idPos, filePart, getServletContext());
-
 	        Posizione oldPosition = PosizioneService.getPosizioneById(idPos);
 
 	        if (fotoUrl == null) {
