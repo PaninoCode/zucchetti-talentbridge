@@ -174,6 +174,14 @@
 	            
 	        }
 
+			function isOpen(bool){
+				let status_open = '<span class="badge text-bg-success text-light">Aperta</span>';
+            	let status_closed = '<span class="badge text-bg-danger text-light">Chiusa</span>';
+				if(bool) return status_open;
+				return status_closed;
+			}
+			
+
 	        function printPositions(state) {
 	            jobPositions2.forEach((position) => {
 	                if (position.aperta === state) {
@@ -183,7 +191,7 @@
 	                        .replace('{position_title}', position.nome)
 	                        .replace('{position_description}', position.descrizione)
 	                        .replace('[position_img]', "url('" + fotoUrl + "')")
-	                        .replace('{position_status}', position.aperta)
+	                        .replace('{position_status}', isOpen(position.aperta))
 	                        .replace('{position_id}', position.idPos);
 	                    
 	                    console.log(position.idPos);
@@ -216,7 +224,7 @@
 	                    .replace('{position_title}', position.nome)
 	                    .replace('{position_description}', position.descrizione)
 	                    .replace('[position_img]', "url('" + fotoUrl + "')")
-	                    .replace('{position_status}', position.aperta)
+	                    .replace('{position_status}', isOpen(position.aperta))
 	                    .replace('{position_id}', position.idPos);
 	                
 	                console.log(position.idPos);
