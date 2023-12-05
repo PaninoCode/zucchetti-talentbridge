@@ -24,13 +24,13 @@
 	<div style="height: 5rem;"></div>
 	
 	<span class="d-none" id="template_posizione">
-		<div class="col m-1 mb-2" style="width: 450px;">
+		<div class="col m-1 mb-2" style="width: 450px; height: 600px;">
 			<div class="card">
 				<div class="rounded shadow-sm mb-1 bg-dark" style="width: 100%; height: 220px; background-position: center center; background-size: cover; background-repeat: no-repeat; aspect-ratio: 5/4; background-image: [position_img];" id="position_propic">
 				</div>
 				<div class="card-body">
 					<h5 class="card-title">{position_title}</h5>
-					<p class="card-text">{position_description}</p>
+					<p class="card-text overflow-scroll" style="height: 120px;">{position_description}</p>
 					<div class="d-flex justify-content-end align-items-center">
 						<!-- <h5 class="d-flex justify-content-center align-items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

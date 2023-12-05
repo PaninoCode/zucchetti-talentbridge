@@ -28,6 +28,8 @@ public class LoggedInFilter implements Filter {
 				
 				response.sendRedirect(request.getContextPath() + "/login?returnTo=" + request.getRequestURL());
 				return;
+			} else if(request.getRequestURI().contains("app")) {
+				//niente
 			} else if(request.getRequestURI().contains("admin") && ((String) request.getSession(false).getAttribute("admin")).equalsIgnoreCase("false")) {
 				
 				response.sendRedirect(request.getContextPath() + "/login?returnTo=" + request.getRequestURL());
