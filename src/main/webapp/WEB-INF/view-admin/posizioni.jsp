@@ -21,8 +21,6 @@
 		<jsp:param name="activeLinkId" value="posizioni" />
 	</jsp:include>
 	
-	<div style="height: 5rem;"></div>
-	
 	<span class="d-none" id="template_posizione">
 		<div class="col m-1 mb-2" style="width: 450px; height: 600px;">
 			<div class="card">
