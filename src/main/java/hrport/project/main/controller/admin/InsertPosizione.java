@@ -2,6 +2,7 @@ package hrport.project.main.controller.admin;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import hrport.project.main.utilities.UtilitiesFile;
  * Servlet implementation class InsertNewPosition
  */
 @WebServlet("/admin/insert-new-position")
+@MultipartConfig
 public class InsertPosizione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
