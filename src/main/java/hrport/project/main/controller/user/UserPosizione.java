@@ -18,8 +18,10 @@ import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Candidatura;
 import hrport.project.main.pojo.Posizione;
 import hrport.project.main.pojo.Quiz;
+import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.CandidaturaService;
 import hrport.project.main.service.PosizioneService;
+import hrport.project.main.service.UtenteService;
 
 /**
  * Servlet implementation class UserPosizione
@@ -45,6 +47,7 @@ public class UserPosizione extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String dataPosizione = null;
 		String dataQuiz = null;
+		String dataUser = null;
 		Integer idUtente = (Integer) session.getAttribute("idUtente");
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
@@ -59,10 +62,11 @@ public class UserPosizione extends HttpServlet {
 				try {
 					Posizione posizione = PosizioneService.getPosizioneById(Integer.parseInt(posizioneId));
 					List<Quiz> quiz= Quiz.getQuizFromPosizioneUtente(Integer.parseInt(posizioneId), idUtente);
+					Utente utente = UtenteService.getUserByIdUtenteWithProfile(idUtente);
 					
 					dataPosizione = gson.toJson(posizione);
 					dataQuiz = gson.toJson(quiz);
-					
+					dataUser = gson.toJson(utente);					
 				
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
@@ -73,6 +77,7 @@ public class UserPosizione extends HttpServlet {
 				}
 				request.setAttribute("dataPos", dataPosizione);
 				request.setAttribute("dataQuiz", dataQuiz);
+				request.setAttribute("dataUser", dataUser);
 				
 				request.getRequestDispatcher("/WEB-INF/view-user/posizione.jsp").forward(request, response);
 				return;

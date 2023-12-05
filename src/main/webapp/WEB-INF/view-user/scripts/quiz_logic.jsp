@@ -128,6 +128,7 @@
     }
 
     function initQuizButtons() {
+
         openQuizBtns = document.querySelectorAll('.btn-quiz-open');
 
         openQuizBtns.forEach(openQuizBtn => {
