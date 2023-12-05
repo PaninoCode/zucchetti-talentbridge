@@ -112,7 +112,7 @@ public class Domanda {
 	}
 	
 	public int getFirstIDSbagliataRisposta() {
-		for(int i=0; i<4; i++) {
+		for(int i=0; i<risposte.length; i++) {
 			if(!risposte[i].isGiusta()) {
 				return risposte[i].getId();
 			}
