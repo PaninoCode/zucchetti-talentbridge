@@ -237,13 +237,13 @@ public class CandidaturaService {
 		try {
 			
 			con.setAutoCommit(false);	
-			String SQL = "UPDATE Candidatura \\r\\n\"\r\n"
+			String SQL = "UPDATE Candidatura "
 					+ "SET stato = ? \r\n"
 					+ "WHERE idCand = ?";
 			
 			PreparedStatement statement = con.prepareStatement(SQL);
 			statement.setInt(1, stato);
-			statement.setInt(1, idCand);
+			statement.setInt(2, idCand);
 			
 			statement.executeUpdate();
 			

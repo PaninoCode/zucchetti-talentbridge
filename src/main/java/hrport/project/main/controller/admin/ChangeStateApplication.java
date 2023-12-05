@@ -47,7 +47,6 @@ public class ChangeStateApplication extends HttpServlet {
 			PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             out.print(data);
             out.flush();
         }catch(Exception e) {
