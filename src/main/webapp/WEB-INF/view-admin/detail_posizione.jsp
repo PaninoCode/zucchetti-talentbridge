@@ -27,20 +27,34 @@
 				<h1>Posizione</h1>
 				<hr>
 
-				<div class="modal fade" id="expanded_image" tabindex="-1" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal fade" id="gestisci_candidato_modal" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content border border-2 border-primary">
 							<div class="modal-header bg-body-tertiary">
-								<h1 class="modal-title fs-5" id="exampleModalLabel">Immagine
-									posizione</h1>
+								<h1 class="modal-title fs-5">Gestisci Candidatura</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
-							<div class="modal-body bg-dark">
-								<img id="modal_expanded_image" class="w-100 h-100 rounded">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-6">
+										<button type="button" id="btn_scegli_candidato"
+											class="btn btn-primary text-light">
+											<h5 class="m-0">Scegli</h5>
+										</button>
+									</div>
+									<div class="col-6">
+										<button type="button" data-bs-dismiss="modal"
+											class="btn btn-primary text-light">
+											<h5 class="m-0">Chiudi</h5>
+										</button>
+									</div>
+								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+								<button type="button" data-bs-dismiss="modal" class="btn btn-primary text-light">
+									<h5 class="m-0">Chiudi</h5>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -130,6 +144,7 @@
 											<th>Cognome</th>
 											<th>Punteggio</th>
 											<th>Profilo</th>
+											<th>Gestisci</th>
 										</tr>
 									</thead>
 									<tbody id="profiles-data">
@@ -213,13 +228,23 @@
 					linkElement.textContent = "Profilo";
 					linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
 
+					let manageCell = document.createElement("td");
+					let manageElement = document.createElement('a');
+					manageElement.textContent = "Gestisci";
+					manageElement.href = "#";
+					manageElement.setAttribute('data-bs-toggle', 'modal');
+					manageElement.setAttribute('data-bs-target', '#gestisci_candidato_modal')
+					manageElement.setAttribute('data-id-cadidato', candidato.idCand);
+
 					linkCell.appendChild(linkElement);
+					manageCell.appendChild(manageElement);
 
 					row.appendChild(idCell);
 					row.appendChild(nomeCell);
 					row.appendChild(cognomeCell);
 					row.appendChild(posizioneCell);
 					row.appendChild(linkCell);
+					row.appendChild(manageCell);
 
 					tableBody.appendChild(row);
 
@@ -233,6 +258,48 @@
 			anagraficaWidgetProPic.style.backgroundImage = "url('" + fotoUrl + "')";
 
 			//console.log(JsonPosizione);
+
+			document.querySelector('#gestisci_candidato_modal').addEventListener('show.bs.modal', e => {
+				let btn = e.relatedTarget;
+				document.querySelector('#gestisci_candidato_modal').setAttribute('data-candidatura-id', btn.getAttribute('data-id-cadidato'));
+			});
+
+			document.querySelector('#btn_scegli_candidato').addEventListener('click', e => {
+				let data = {
+					idCand : parseInt(document.querySelector('#gestisci_candidato_modal').getAttribute('data-candidatura-id')),
+					stato: 2
+				}
+				updateApplicationStatus(data, function(error, data){
+					if(error != null){
+						console.log(error);
+						return;
+					}
+					console.log(data);
+				});
+			});
+
+			async function updateApplicationStatus(data, callback) {
+
+				const response = await fetch('http://localhost:8080/hrport/admin/change-status-application', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(data)
+				});
+
+				const result = await response.json();
+
+				// console.log(result);
+
+				if (result.error != null) {
+					callback(result.error, null);
+				}
+
+				if (response.ok) {
+					callback(null, result);
+				}
+			}
 
 			async function updatePosizione() {
 
@@ -297,10 +364,10 @@
 					.catch(error => {
 						console.error('Error:', error);
 					});
-				
-					setTimeout(function(){
-						window.location.href = "http://localhost:8080/hrport/admin/posizioni";
-					}, 500);
+
+				setTimeout(function () {
+					window.location.href = "http://localhost:8080/hrport/admin/posizioni";
+				}, 500);
 			}
 
 			let table = new DataTable('#myTable', {
