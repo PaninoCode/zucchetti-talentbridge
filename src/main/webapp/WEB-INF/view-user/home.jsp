@@ -45,6 +45,9 @@
                         </h5> -->
 
                             <div class="d-flex justify-content-center align-items-center">
+                                {application_status}
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center">
                                 {position_status}
                             </div>
                         </div>
@@ -126,11 +129,12 @@
             console.log(jsonUserOK);
             // console.log(jsonPositionsOK);
 
-
             let posizioniAperte = document.querySelector('#posizioni_aperte');
             let template_posizione = document.querySelector('#template_posizione');
 
             let posizioni_pagination = document.querySelector('#posizioni_pagination');
+
+            let application_true = '<span class="badge text-bg-info text-dark">Ti sei candidato per questa posizione</span>&nbsp;';
 
             let status_open = '<span class="badge text-bg-success text-light">Aperta</span>';
             let status_closed = '<span class="badge text-bg-danger text-light">Chiusa</span>';
@@ -185,15 +189,21 @@
 
                     if ((arrayPosizione[i].aperta && check_posizioni_aperte.checked) || (!arrayPosizione[i].aperta && check_posizioni_chiuse.checked)) {
                         let stautsPosizione = status_closed;
+                        let statusCandidatura = "";
 
                         if (arrayPosizione[i].aperta) stautsPosizione = status_open;
-
+                        jsonUserOK.posizioni.forEach(posizione => {
+                            if(posizione.position.idPos == arrayPosizione[i].idPos){
+                                statusCandidatura = application_true;
+                            }
+                        });
 
                         posizioniAperte.innerHTML += template_posizione.innerHTML
                             .replace('{position_title}', arrayPosizione[i].nome)
                             .replace('{position_description}', arrayPosizione[i].descrizione)
                             .replace('{position_img}', "http://localhost:8080/hrport/app/getAttachment/immagini_posizioni?imgPath=" + arrayPosizione[i].fotoUrl)
                             .replace('{position_status}', stautsPosizione)
+                            .replace('{application_status}', statusCandidatura)
                             .replace('{position_id}', arrayPosizione[i].idPos);
                     }
                 }
