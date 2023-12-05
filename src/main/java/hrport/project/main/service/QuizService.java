@@ -22,7 +22,7 @@ public class QuizService {
 			con.setAutoCommit(false);
 			String SQLUser = "SELECT q.idQuiz, q.nome\r\n"
 							+ "FROM Quiz q\r\n"
-							+ "JOIN posQuiz pq on q.idQuiz = pq.idQuiz\r\n";
+							+ "LEFT JOIN posQuiz pq on q.idQuiz = pq.idQuiz\r\n";
 			
 			PreparedStatement Quiz = con.prepareStatement(SQLUser);
 			

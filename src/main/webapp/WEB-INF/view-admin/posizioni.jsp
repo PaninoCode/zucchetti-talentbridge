@@ -11,14 +11,18 @@
 
 </head>
 
+<script type="text/javascript" src="/hrport/resources/js/bootstrap.bundle.min.js"></script>
+</head>
 <body class="bg-body-tertiary">
+
 	<jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
 	<jsp:include page='../view-common/admin_header.jsp'>
 		<jsp:param name="activeLinkId" value="posizioni" />
 	</jsp:include>
+	
 	<div style="height: 5rem;"></div>
-
+	
 	<span class="d-none" id="template_posizione">
 		<div class="col m-1 mb-2" style="width: 450px;">
 			<div class="card">

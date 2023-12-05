@@ -170,6 +170,18 @@
 		src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.js"></script>
 	<script
 		src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.7/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.js"></script>
+		<script>
+                                    let inputFotoUrl = document.querySelector('#input_id_foto_url');
+                                    let fotoUrlExample = document.querySelector('#foto_url_example');
+                                    let modalFotoUrlExample = document.querySelector('#modal_expanded_image');
+                                    inputFotoUrl.addEventListener('keyup', loadExamplePic);
+                                    loadExamplePic();
+
+                                    function loadExamplePic() {
+                                        fotoUrlExample.style.backgroundImage = "url('<%=request.getContextPath()%>/app/getImage?imgPath=" + inputFotoUrl.value + "')";
+                                        modalFotoUrlExample.src = "<%=request.getContextPath()%>/app/getImage?imgPath=" + inputFotoUrl.value;
+                                    }
+                                </script>
 	<script>
         	
       	//Object from database
