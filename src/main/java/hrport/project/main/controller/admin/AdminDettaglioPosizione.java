@@ -52,6 +52,8 @@ public class AdminDettaglioPosizione extends HttpServlet {
 					dataPosizione = gson.toJson(posizione);
 					candidatiList = gson.toJson(candidati);
 					
+					
+					
 				
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block

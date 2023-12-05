@@ -210,7 +210,7 @@
 		var tableBody = document.getElementById("profiles-data");
 		
 		JsonCandidati.forEach(function (candidato) {
-		
+			
 			if(candidato.position.idPos === JsonPosizione.idPos){
 	          	
 	            var row = document.createElement("tr");
