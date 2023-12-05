@@ -218,13 +218,53 @@ public class CandidaturaService {
 			
 	}
 	
+	public static void updateStatoCandidaturaAdmin(int idCand, int stato) throws Exception {
+		
+		Connection con = ConnectDatabase.getConnection();
+		
+		List<Integer> allowed_states = new ArrayList<Integer>() {/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
+			add(2);
+			add(3);
+		}};
+		
+		if(!allowed_states.contains(stato)) throw new Exception("stato non consentito per la modifica");
+		
+		try {
+			
+			con.setAutoCommit(false);	
+			String SQL = "UPDATE Candidatura \\r\\n\"\r\n"
+					+ "SET stato = ? \r\n"
+					+ "WHERE idCand = ?";
+			
+			PreparedStatement statement = con.prepareStatement(SQL);
+			statement.setInt(1, stato);
+			statement.setInt(1, idCand);
+			
+			statement.executeUpdate();
+			
+			con.commit();
+		} catch (Exception e) {
+			
+			con.rollback();
+			throw e;
+		} finally {
+			
+			con.close();
+		}
+	}
+	
 	public static void updateStatoCandidatura(int idPos, int idUtente) throws Exception{
 		
 		List<Quiz> quiz=Quiz.getQuizFromPosizioneUtente(idPos, idUtente);
 		ResultSet result = null;
 		
-		for (Iterator iterator = quiz.iterator(); iterator.hasNext();) {
-			Quiz quiz2 = (Quiz) iterator.next();
+		for (Iterator<Quiz> iterator = quiz.iterator(); iterator.hasNext();) {
+			Quiz quiz2 = iterator.next();
 			if(!quiz2.isDone()) 
 				return;
 			

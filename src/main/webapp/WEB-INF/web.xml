@@ -260,4 +260,14 @@
     <filter-name>userHasProfileFilter</filter-name>
     <url-pattern>/userHasProfileFilter</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangeStateApplication</display-name>
+    <servlet-name>ChangeStateApplication</servlet-name>
+    <servlet-class>hrport.project.main.controller.admin.ChangeStateApplication</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeStateApplication</servlet-name>
+    <url-pattern>/ChangeStateApplication</url-pattern>
+  </servlet-mapping>
 </web-app>
