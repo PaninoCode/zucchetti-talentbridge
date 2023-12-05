@@ -58,6 +58,9 @@ public class UpdatePosizione extends HttpServlet {
 			
 			ServletContext sc = getServletContext();
 			String path = sc.getRealPath("/WEB-INF/static/immagini_posizioni");
+			
+			Posizione oldPosition = PosizioneService.getPosizioneById(idPos);
+			
 			if(filePart != null) {
 				
 				InputStream fileContent = filePart.getInputStream();
@@ -74,16 +77,17 @@ public class UpdatePosizione extends HttpServlet {
 				while ((length = fileContent.read(buffer)) > 0) {
 					out.write(buffer, 0, length);
 				}
-			}
-			
-			Posizione oldPosition = PosizioneService.getPosizioneById(idPos);
-			
-			String pathPrevious = path + "/" + oldPosition.getFotoUrl();
-			File previousFile = new File(pathPrevious);
-			
-			if(previousFile.isFile()) {
 				
-				previousFile.delete();
+				String pathPrevious = path + "/" + oldPosition.getFotoUrl();
+				File previousFile = new File(pathPrevious);
+				
+				if(previousFile.isFile()) {
+					
+					previousFile.delete();
+				}
+			} else {
+				
+				fotoUrl = oldPosition.getFotoUrl();
 			}
 			
             Posizione newPosition = new Posizione(idPos, nome, aperta, fotoUrl, descrizione);
