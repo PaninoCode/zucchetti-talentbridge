@@ -1,6 +1,5 @@
 package hrport.project.main.controller.admin;
 
-import java.io.Console;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -42,8 +41,6 @@ public class AdminDettaglioPosizione extends HttpServlet {
 			String[] pathParts = pathInfo.split("/");
 			if (pathParts.length > 1) {
 				String posizioneId = pathParts[1];
-				
-				
 
 				try {
 					Posizione posizione = PosizioneService.getPosizioneById(Integer.parseInt(posizioneId));
@@ -51,9 +48,6 @@ public class AdminDettaglioPosizione extends HttpServlet {
 					
 					dataPosizione = gson.toJson(posizione);
 					candidatiList = gson.toJson(candidati);
-					
-					
-					
 				
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
