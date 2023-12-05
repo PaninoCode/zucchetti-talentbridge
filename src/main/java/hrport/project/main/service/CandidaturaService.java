@@ -25,7 +25,7 @@ public class CandidaturaService {
 		try {
 
 			con.setAutoCommit(false);
-			String SQLquery = "SELECT can.*, u.* FROM Candidatura can INNER JOIN utenti u ON can.idUtente = u.idUtente WHERE can.idPos = ?";
+			String SQLquery = "SELECT can.*, u.* FROM Candidatura can INNER JOIN utenti u ON can.idUtente = u.idUtente WHERE can.idPos = ? ORDER BY can.punteggioTot DESC";
 
 			PreparedStatement candidaturaStatement = con.prepareStatement(SQLquery);
 			candidaturaStatement.setInt(1, idPos);
