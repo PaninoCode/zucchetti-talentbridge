@@ -159,7 +159,7 @@
                                     <div class="row">
                                         <div class="col-10">
                                             <div class="mb-3">
-                                                <input type="file" class="form-control" id="anagrafica_foto_upload">
+                                                <input type="file" accept=".png,.jgp,.jpeg" class="form-control" id="anagrafica_foto_upload">
                                             </div>
                                         </div>
                                         <div class="col-2">
@@ -209,7 +209,7 @@
                                         <div class="row">
                                             <div class="col-10">
                                                 <div class="mb-3">
-                                                    <input type="file" class="form-control" id="curriculum_upload">
+                                                    <input type="file" accept=".pdf" class="form-control" id="curriculum_upload">
                                                 </div>
                                             </div>
                                             <div class="col-2">
