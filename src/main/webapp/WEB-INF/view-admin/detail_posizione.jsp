@@ -52,32 +52,9 @@
 				<div class="col-5">
 					<h2 class="mb-3">Dati posizione</h2>
 					<div class="card" style="width: 100%;">
-						<style>
-.foto-url-example {
-	aspect-ratio: 5/4;
-	height: 220px;
-	background-position: center center;
-	background-size: cover;
-}
-</style>
-						<div id="foto_url_example"
-							class="card-img-top foto-url-example position-relative">
-							<div class="w-100 h-100 position-absolute bg-dark opacity-25"></div>
-							<div class="position-absolute bottom-0 end-0">
-								<div id="expand_img_btn"
-									class="bg-dark rounded shadow-sm border border-light-subtle p-2 m-2"
-									style="cursor: pointer;" data-bs-toggle="modal"
-									data-bs-target="#expanded_image">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="#FFFFFF" class="bi bi-arrows-angle-expand"
-										viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-											d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707" />
-                                        </svg>
-								</div>
-							</div>
-						</div>
-						<form id="updateForm" class="card-body">
+						<div class="rounded shadow-sm mb-1 bg-dark" style="width: 100%; height: 220px; background-position: center center; background-size: cover; background-repeat: no-repeat; aspect-ratio: 5/4;" id="position_propic">
+                        </div>
+						<div id="updateForm" class="card-body">
 							<div class="row mb-3">
 								<label for="input_id_posizione" class="col-sm-3 col-form-label">ID
 									Posizione</label>
@@ -117,23 +94,10 @@
 								<label for="input_id_foto_url" class="col-sm-3 col-form-label">URL
 									Immagine</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="input_id_foto_url">
+									<input type="file" class="form-control" id="input_id_foto_url">
 								</div>
 							</div>
 							<div class="row mb-3 d-flex justify-content-end p-2"></div>
-							<script>
-                                    let inputFotoUrl = document.querySelector('#input_id_foto_url');
-                                    let fotoUrlExample = document.querySelector('#foto_url_example');
-                                    let modalFotoUrlExample = document.querySelector('#modal_expanded_image');
-                                    inputFotoUrl.addEventListener('keyup', loadExamplePic);
-                                    loadExamplePic();
-
-                                    function loadExamplePic() {
-                                        fotoUrlExample.style.backgroundImage = "url('<%=request.getContextPath()%>/app/getImage?imgPath=" + inputFotoUrl.value + "')";
-                                        modalFotoUrlExample.src = "<%=request.getContextPath()%>/app/getImage?imgPath=" + inputFotoUrl.value;
-                                    }
-                                </script>
-							<hr>
 							<div class="row mb-3">
 								<label for="input_descrizione" class="col-sm-3 col-form-label">Descrizione</label>
 								<div class="col-sm-9">
@@ -149,12 +113,12 @@
 									class="m-0 link-danger" onclick="deletePosizione()">
 									<h5 class="m-0">Elimina posizione</h5>
 								</button>
-								<button type="submit" id="updatePositionBtn"
+								<button id="updatePositionBtn"
 									class="btn btn-primary text-light" onclick="updatePosizione()">
 									<h5 class="m-0">Salva</h5>
 								</button>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 				<div class="col-7">
@@ -233,51 +197,57 @@
 		//Generate table candidati list
 		var tableBody = document.getElementById("profiles-data");
 		
-				JsonCandidati.forEach(function (candidato) {
-				
-				if(candidato.position.idPos === JsonPosizione.idPos){
-            	
-                var row = document.createElement("tr");
+		JsonCandidati.forEach(function (candidato) {
+		
+			if(candidato.position.idPos === JsonPosizione.idPos){
+	          	
+	            var row = document.createElement("tr");
+	
+	            var idCell = document.createElement("td");
+	            idCell.textContent = candidato.idCand;
+	
+	            var nomeCell = document.createElement("td");
+	            nomeCell.textContent = candidato.user.nome;
+	
+	            var cognomeCell = document.createElement("td");
+	            cognomeCell.textContent = candidato.user.cognome;
+	
+	            var posizioneCell = document.createElement("td");
+	            posizioneCell.textContent = candidato.punteggioTot;
+	
+	            var linkCell = document.createElement("td");
+	            var linkElement = document.createElement("a");
+	            linkElement.textContent = "Profilo";
+	            linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
+	
+	            linkCell.appendChild(linkElement);
+	
+	            row.appendChild(idCell);
+	            row.appendChild(nomeCell);
+	            row.appendChild(cognomeCell);
+	            row.appendChild(posizioneCell);
+	            row.appendChild(linkCell);
+	
+	            tableBody.appendChild(row);
+	            
+			}
 
-                var idCell = document.createElement("td");
-                idCell.textContent = candidato.idCand;
+        });
+        let fotoUrl = "http://localhost:8080/hrport/app/getAttachment/immagini_posizioni?imgPath=" + JsonPosizione.fotoUrl;
 
-                var nomeCell = document.createElement("td");
-                nomeCell.textContent = candidato.user.nome;
+   		let anagraficaWidgetProPic = document.querySelector('#position_propic');
 
-                var cognomeCell = document.createElement("td");
-                cognomeCell.textContent = candidato.user.cognome;
-
-                var posizioneCell = document.createElement("td");
-                posizioneCell.textContent = candidato.punteggioTot;
-
-                var linkCell = document.createElement("td");
-                var linkElement = document.createElement("a");
-                linkElement.textContent = "Profilo";
-                linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
-
-                linkCell.appendChild(linkElement);
-
-                row.appendChild(idCell);
-                row.appendChild(nomeCell);
-                row.appendChild(cognomeCell);
-                row.appendChild(posizioneCell);
-                row.appendChild(linkCell);
-
-                tableBody.appendChild(row);
-				}
-
-            });
+   		anagraficaWidgetProPic.style.backgroundImage = "url('" + fotoUrl + "')";
 			
         //console.log(JsonPosizione);
         
-        function updatePosizione() {
+        async function updatePosizione() {
             
             let form = document.getElementById('updateForm');
             let idPosizione = form.querySelector('#input_id_posizione').value;
             let nomePosizione = form.querySelector('#input_nome_posizione').value;
             let stato = form.querySelector('input[name="input_stato"]:checked').value === "aperta" ? true : false;
-            let idFotoUrl = form.querySelector('#input_id_foto_url').value;
+            let idFotoUrl = form.querySelector('#input_id_foto_url');
             let descrizione = form.querySelector('#input_descrizione').value;
             
 			
@@ -285,53 +255,59 @@
             		idPos: JsonPosizione.idPos,
             		nome: nomePosizione === "" ? JsonPosizione.nome : nomePosizione,
             		aperta: stato === "" ? JsonPosizione.aperta : stato,
-            		fotoUrl: idFotoUrl === "" ? JsonPosizione.fotoUrl : idFotoUrl,
             		descrizione: descrizione === "" ? JsonPosizione.descrizione : descrizione
             		
             }
+            
+    	    const file = idFotoUrl.files[0];
+    		console.log("entro")
+    	
+    	    const formData = new FormData();
+    		formData.append('idPos', positionData.idPos);
+			formData.append('nome', positionData.nome);
+			formData.append('aperta', positionData.aperta);
+			formData.append('descrizione', positionData.descrizione);
+    	    if (file) {
+    	    	
+    	        formData.append('file', file);
+    	    }    
                      
             //Update posizione
-            fetch('http://localhost:8080/hrport/admin/update-posizione', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(positionData),
-            })
-            .then(response => response.json())
-            .then(data => {
-            	 alert("Position Updated");
-            	 window.location.href = "http://localhost:8080/hrport/admin/posizioni";
-            })
-            .catch(error => {
-            	alert("error" + error);
-                console.error('Error:', error);
-            });
-            window.location.href = "http://localhost:8080/hrport/admin/posizioni";
+            await fetch('http://localhost:8080/hrport/admin/update-posizione', {
+	            method: 'POST',
+	            body: formData
+	        }).then((response) => {
+
+				const result = response.text();
+				console.log(result);
+			
+				if (response.ok) {
+					
+					console.log("success")
+					window.location.href = "http://localhost:8080/hrport/admin/posizioni"
+				}
+			});
         }
         
         //Delete posizione
         function deletePosizione() {
-    		fetch('http://localhost:8080/hrport/admin/delete-posizione/' + JsonPosizione.idPos, {
-        	method: 'DELETE',
-        	headers: {
-            'Content-Type': 'application/json',
-        },
-    	})
-    		.then(response => response.json())
-    		.then(data => {
-       		alert("Position Deleted");
-        	window.location.href = "http://localhost:8080/hrport/admin/posizioni";
-    	})
-    		.catch(error => {
-        	alert("error" + error);
-        	console.error('Error:', error);
-    	});
-    		window.location.href = "http://localhost:8080/hrport/admin/posizioni";
-}
-
-        
-            
+			fetch('http://localhost:8080/hrport/admin/delete-posizione/' + JsonPosizione.idPos, {
+				method: 'DELETE',
+				headers: {
+				'Content-Type': 'application/json',
+			},
+			})
+				.then(response => response.json())
+				.then(data => {
+				alert("Position Deleted");
+				window.location.href = "http://localhost:8080/hrport/admin/posizioni";
+			})
+				.catch(error => {
+				alert("error" + error);
+				console.error('Error:', error);
+			});
+				window.location.href = "http://localhost:8080/hrport/admin/posizioni";
+		}
             let table = new DataTable('#myTable', {
                 dom: "PlftipB",
                 buttons: [
