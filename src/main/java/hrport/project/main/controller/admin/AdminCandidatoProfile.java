@@ -2,35 +2,24 @@ package hrport.project.main.controller.admin;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import hrport.project.main.adaptergson.LocalDateAdapter;
-import hrport.project.main.pojo.Candidatura;
-import hrport.project.main.pojo.ProfiloUtente;
 import hrport.project.main.pojo.Utente;
-import hrport.project.main.service.CandidaturaService;
 import hrport.project.main.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class UserHome
- */
+
 @WebServlet("/admin/profilo/*")
 public class AdminCandidatoProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -45,7 +34,6 @@ public class AdminCandidatoProfile extends HttpServlet {
 	                System.out.println(userId);
 	                
 	                try {
-						
 						Utente utente = UtenteService.getUserByIdUtenteWithProfile(Integer.valueOf(userId));
 						dataUser = gson.toJson(utente);
 					} catch (NumberFormatException e) {

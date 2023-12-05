@@ -9,17 +9,12 @@ import com.google.gson.GsonBuilder;
 
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.pojo.Candidatura;
-import hrport.project.main.pojo.Posizione;
-import hrport.project.main.pojo.Utente;
 import hrport.project.main.service.CandidaturaService;
-import hrport.project.main.service.PosizioneService;
-import hrport.project.main.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class UserHome
@@ -35,19 +30,14 @@ public class AdminHome extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-
 		String candidatiJson = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
 		try {
-
 			List<Candidatura> candidati = CandidaturaService.getCandidateList();
-
 			candidatiJson = gson.toJson(candidati);
 
 		} catch (Exception e) {
-
 			String error = e.getMessage();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("data", error);
@@ -56,9 +46,6 @@ public class AdminHome extends HttpServlet {
 		}
 
 		request.setAttribute("candidati", candidatiJson);
-		
-
-		//request.getRequestDispatcher("/WEB-INF/view-admin/candidati.jsp").forward(request, response);
 		response.sendRedirect(request.getContextPath() + "/admin/candidati");
 		return;
 

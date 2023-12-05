@@ -15,37 +15,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class UserHome
- */
+
 @WebServlet("/admin/candidati")
 public class AdminCandidati extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-
 		String candidatiJson = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-		
 
 		try {
-
-			
 			List<Candidatura> candidati = CandidaturaService.getCandidateList();
-			
 			candidatiJson = gson.toJson(candidati);
 
 		} catch (Exception e) {
-
 			String error = e.getMessage();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("data", error);

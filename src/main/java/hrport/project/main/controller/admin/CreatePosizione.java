@@ -24,18 +24,15 @@ public class CreatePosizione extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Gson gson = new Gson();
 		
 		try {
-			
 			List<Quiz> quiz = QuizService.getAllQuiz();
 			String jsonQuiz = gson.toJson(quiz);
-			
 			request.setAttribute("data", jsonQuiz);
 			request.getRequestDispatcher("/WEB-INF/view-admin/add_posizione.jsp").forward(request, response);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
 			String error = e.getMessage();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("error", error);

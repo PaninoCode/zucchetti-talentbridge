@@ -15,7 +15,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class UserHome
@@ -31,22 +30,16 @@ public class AdminPosizioni extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
 
 		String candidatiJson = null;
 		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-		
 
 		try {
-
 			List<Posizione> positionsWithApplications = PosizioneService.getAllPositionsWithApplications();
-			
 			candidatiJson = gson.toJson(positionsWithApplications);
-			
 			request.setAttribute("data", candidatiJson);
 
 		} catch (Exception e) {
-
 			String error = e.getMessage();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			request.setAttribute("data", error);
@@ -57,11 +50,8 @@ public class AdminPosizioni extends HttpServlet {
 		String pathInfo = request.getPathInfo();
 
 		if(pathInfo != null) {
-			
 			request.setAttribute("idPosizione", pathInfo.substring(1));
 		}
-		
 		request.getRequestDispatcher("/WEB-INF/view-admin/posizioni.jsp").forward(request, response);
-
 	}
 }
