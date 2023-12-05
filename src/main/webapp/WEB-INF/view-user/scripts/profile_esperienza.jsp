@@ -33,12 +33,12 @@ let esperienzaCard = document.querySelector('#esperienza_card');
             .replaceAll('<!--', '')
             .replaceAll('-->', '')
             .replaceAll('{id_esperienza}', id)
-            .replace('{nome_azienda}', nomeAzienda)
-            .replace('{indirizzo_azienda}', indirizzoAzienda)
-            .replace('{posizione}', posizione)
-            .replace('{data_inizio}', dataInizio)
-            .replace('{data_fine}', dataFine)
-            .replace('{funzione}', funzione);
+            .replaceAll('{nome_azienda}', nomeAzienda)
+            .replaceAll('{indirizzo_azienda}', indirizzoAzienda)
+            .replaceAll('{posizione}', posizione)
+            .replaceAll('{data_inizio}', dataInizio)
+            .replaceAll('{data_fine}', dataFine)
+            .replaceAll('{funzione}', funzione);
 
         esperienzaAccordion.innerHTML += newItem;
 

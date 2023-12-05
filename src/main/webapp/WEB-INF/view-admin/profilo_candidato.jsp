@@ -248,15 +248,6 @@
                                             </h6><br>
                                             <h2><span class="badge bg-primary">{voto}</span></h2>
                                             <br><br>
-                                            <p>
-                                                <a style="cursor: pointer;" data-bs-toggle="modal"
-                                                    data-bs-target="#istruzione_modifica_modal" class="m-0 link-primary"
-                                                    data-istruzione-id="{id_istruzione}">Modifica istruzione</a>
-                                                    -
-                                                <a style="cursor: pointer;" data-bs-toggle="modal"
-                                                    data-bs-target="#istruzione_elimina_modal" class="m-0 link-danger"
-                                                    data-istruzione-id="{id_istruzione}">Elimina istruzione</a>
-                                            </p>
                                         </div>
                                     </div>
                                 </div> -->
@@ -304,17 +295,6 @@
                                                 {funzione}
                                             </p>
                                             <br><br>
-                                            <p>
-                                                <a style="cursor: pointer;" data-bs-toggle="modal"
-                                                    data-bs-target="#esperienza_modifica_modal" class="m-0 link-primary"
-                                                    data-bs-toggle="modal" data-esperienza-id="{id_esperienza}">Modifica
-                                                    esperienza</a>
-                                                -
-                                                <a style="cursor: pointer;" data-bs-toggle="modal"
-                                                    data-bs-target="#esperienza_elimina_modal" class="m-0 link-danger"
-                                                    data-bs-toggle="modal" data-esperienza-id="{id_esperienza}">Elimina
-                                                    esperienza</a>
-                                            </p>
                                         </div>
                                     </div>
                                 </div> -->

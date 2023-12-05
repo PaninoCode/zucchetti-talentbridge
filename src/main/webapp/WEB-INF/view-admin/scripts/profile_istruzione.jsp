@@ -12,12 +12,12 @@
             .replaceAll('<!--', '')
             .replaceAll('-->', '')
             .replaceAll('{id_istruzione}', id)
-            .replace('{titolo_di_studio}', titoloDiStudio)
-            .replace('{nome_istituto}', nomeIstituto)
-            .replace('{indirizzo_istituto}', indirizzoIstituto)
-            .replace('{data_inizio}', dataInizio)
-            .replace('{data_fine}', dataFine)
-            .replace('{voto}', voto);
+            .replaceAll('{titolo_di_studio}', titoloDiStudio)
+            .replaceAll('{nome_istituto}', nomeIstituto)
+            .replaceAll('{indirizzo_istituto}', indirizzoIstituto)
+            .replaceAll('{data_inizio}', dataInizio)
+            .replaceAll('{data_fine}', dataFine)
+            .replaceAll('{voto}', voto);
 
         istruzioneAccordion.innerHTML += newItem;
 
