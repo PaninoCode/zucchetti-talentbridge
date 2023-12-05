@@ -25,45 +25,25 @@
         <span class="d-none" id="template_posizione">
             <div class="col m-1 mb-2" style="width: 450px; height: 600px;">
                 <div class="card">
-                    <img src="{position_img}" class="card-img-top" style="aspect-ratio: 5/4;">
+                    <div class="rounded shadow-sm mb-1 bg-dark" style="width: 100%; height: 220px; background-position: center center; background-size: cover; background-repeat: no-repeat; aspect-ratio: 5/4; background-image: [position_img];" id="position_propic">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{position_title}</h5>
-                        <p class="card-text overflow-scroll" style="height: 120px;">
-                            {position_description}
-                        </p>
+                        <p class="card-text overflow-scroll" style="height: 120px;">{position_description}</p>
                         <div class="d-flex justify-content-end align-items-center">
-                            <!-- <h5 class="d-flex justify-content-center align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                <path
-                                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                <path
-                                    d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
-                            </svg>
-                            <span class="m-1"></span>
-                            {position_candidates}
-                        </h5> -->
-
+    
                             <div class="d-flex justify-content-center align-items-center">
-                                {application_status}
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center">
-                                {position_status}
-                            </div>
+                                {position_status}</div>
                         </div>
                         <span class="m-2"></span>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <a href="http://localhost:8080/hrport/user/posizione/{position_id}"
+                        <div id="positionLink" class="d-flex justify-content-end align-items-center">
+                            <a href="posizione/{position_id}"
                                 class="btn btn-primary text-light">
                                 <h5 class="m-0 d-flex justify-content-center align-items-center">
-                                    Dettagli
-                                    <span class="m-1"></span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-info-circle" viewBox="0 0 16 16">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                        <path
-                                            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-                                    </svg>
+                                    Dettagli <span class="m-1"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+                                      </svg>
                                 </h5>
                             </a>
                         </div>
@@ -198,10 +178,12 @@
                             }
                         });
 
+                        let fotoUrl = "http://localhost:8080/hrport/app/getAttachment/immagini_posizioni?imgPath=" + arrayPosizione[i].fotoUrl;
+
                         posizioniAperte.innerHTML += template_posizione.innerHTML
                             .replace('{position_title}', arrayPosizione[i].nome)
                             .replace('{position_description}', arrayPosizione[i].descrizione)
-                            .replace('{position_img}', "http://localhost:8080/hrport/app/getAttachment/immagini_posizioni?imgPath=" + arrayPosizione[i].fotoUrl)
+                            .replace('[position_img]', "url('" + fotoUrl + "')")
                             .replace('{position_status}', stautsPosizione)
                             .replace('{application_status}', statusCandidatura)
                             .replace('{position_id}', arrayPosizione[i].idPos);
