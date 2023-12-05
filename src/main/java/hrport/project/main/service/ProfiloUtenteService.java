@@ -168,6 +168,44 @@ public class ProfiloUtenteService {
 			con.close();
 		}
 	}
+	
+	public static boolean hasProfileInfo(Integer idUtente) throws Exception {
+
+		Connection con = ConnectDatabase.getConnection();
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+		ProfiloUtente profilo = null;
+
+		try {
+
+			con.setAutoCommit(false);
+
+			String SQLFind = "SELECT COUNT(*) FROM Profilo WHERE Profilo.idUtente = ?;";
+
+			PreparedStatement findProfilo = con.prepareStatement(SQLFind);
+
+			findProfilo.setInt(1, idUtente);
+
+			ResultSet findProfiloResultSet = findProfilo.executeQuery();
+
+			findProfiloResultSet.next();
+
+			con.commit();
+			
+			if (findProfiloResultSet.getInt(1) > 0) {
+				return true;
+			}else{
+				return false;
+			}
+		} catch (Exception e) {
+
+			con.rollback();
+			throw e;
+		} finally {
+
+			con.close();
+		}
+
+	}
 
 	public static void updateProfileInfo(Utente utente, String json) throws Exception {
 
