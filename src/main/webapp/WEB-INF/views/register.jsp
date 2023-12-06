@@ -24,6 +24,9 @@
             <div class="alert alert-danger d-none" style="width: 450px;" id="register_form_error_text" role="alert">
 
             </div>
+            <div class="alert alert-success d-none" style="width: 450px;" id="register_form_success_text" role="alert">
+
+            </div>
             <div class="container bg-white border border-2 border-primary rounded-4 shadow p-0 mb-5 position-relative"
                 style="width: 450px;">
 
@@ -178,6 +181,7 @@
             let registerCheckTos = document.querySelector('#register_check_tos');
 
             let registerFormErrorText = document.querySelector('#register_form_error_text');
+            let registerFormSuccessText = document.querySelector('#register_form_success_text');
 
             registerStepOneForm.addEventListener('submit', e => {
                 e.preventDefault()
@@ -228,10 +232,12 @@
                         registerFormSpinner.classList.add('d-none');
 
                         console.log(result);
-                        registerFormErrorText.classList.remove('d-none');
-                        registerFormErrorText.innerHTML = result.data;
+
 
                         if (response.ok) {
+
+                            registerFormSuccessText.classList.remove('d-none');
+                            registerFormSuccessText.innerHTML = "Registrazione effettuata, ora puoi accedere";
 
                             setTimeout(() => {
 
