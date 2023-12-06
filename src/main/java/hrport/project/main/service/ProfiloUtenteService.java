@@ -218,6 +218,7 @@ public class ProfiloUtenteService {
 			con.setAutoCommit(false);
 
 			profilo = gson.fromJson(json, ProfiloUtente.class);
+			profilo.vilidateProfileInfo();
 
 			String SQLFind = "SELECT COUNT(*) FROM Profilo WHERE Profilo.idUtente = ?;";
 
@@ -288,6 +289,7 @@ public class ProfiloUtenteService {
 			con.setAutoCommit(false);
 
 			profilo = gson.fromJson(json, ProfiloUtente.class);
+			profilo.vilidateProfileInfo();
 
 			String SQL = "INSERT INTO \"Profile\" (\"idUtente\", \"sesso\", \"dNascita\", \"indResidenza\", \"indDomicilio\", \"codiceFiscale\", \"statoOrigine\", \"comNascita\")\r\n"
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
