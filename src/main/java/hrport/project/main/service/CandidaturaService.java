@@ -230,6 +230,7 @@ public class CandidaturaService {
 		{
 			add(2);
 			add(3);
+			add(4);
 		}};
 		
 		if(!allowed_states.contains(stato)) throw new Exception("stato non consentito per la modifica");

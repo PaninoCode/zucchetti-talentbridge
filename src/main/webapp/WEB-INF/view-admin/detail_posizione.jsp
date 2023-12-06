@@ -36,17 +36,22 @@
 									aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
+								<p>
+									Chiudi questa candidatura e impostala come:
+								</p>
 								<div class="row">
-									<div class="col-6">
-										<button type="button" id="btn_scegli_candidato"
-											class="btn btn-primary text-light">
-											<h5 class="m-0">Scegli</h5>
-										</button>
+									<div class="col-9">
+										<select class="form-select" id="select_esegui_azione_candidato" aria-label="Default select example">
+											<option selected disabled>Scegliere azione</option>
+											<option value="2">Accettata</option>
+											<option value="3">Rifiutata</option>
+											<option value="4">Chiusa (Rifiuta senza motivo)</option>
+										</select>
 									</div>
-									<div class="col-6">
-										<button type="button" data-bs-dismiss="modal"
-											class="btn btn-primary text-light">
-											<h5 class="m-0">Chiudi</h5>
+									<div class="col-3">
+										<button type="button" id="btn_esegui_azione_candidato"
+											class="btn btn-primary text-light w-100">
+											<h5 class="m-0">Esegui</h5>
 										</button>
 									</div>
 								</div>
@@ -143,8 +148,8 @@
 											<th>Nome</th>
 											<th>Cognome</th>
 											<th>Punteggio</th>
+											<th>Stato candidatura</th>
 											<th>Profilo</th>
-											<th>Gestisci</th>
 										</tr>
 									</thead>
 									<tbody id="profiles-data">
@@ -200,10 +205,29 @@
 			descrizione.value = JsonPosizione.descrizione;
 
 
+			function getStatus(int){
+				switch(int){
+					case 0:
+						return "Incompleta"
+					case 1:
+						return "Completa"
+					case 2:
+						return "Accettata"
+					case 3:
+						return "Rifiutata"
+					case 4:
+						return "Chiusa"
+				}
+				return "...";
+			}
+
 
 
 			//Generate table candidati list
 			let tableBody = document.querySelector("#profiles-data");
+
+			let editIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/></svg>'
+			let viewIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>'
 
 			JsonCandidati.forEach(function (candidato) {
 
@@ -223,28 +247,42 @@
 					let posizioneCell = document.createElement("td");
 					posizioneCell.textContent = candidato.punteggioTot;
 
+					let statoCell = document.createElement("td");
+					statoElement = document.createElement('a');
+					statoElement.classList.add('icon-link');
+					statoElement.innerHTML = getStatus(candidato.stato) + editIconSvg;
+					statoElement.href = "#";
+					statoElement.setAttribute('data-bs-toggle', 'modal');
+					statoElement.setAttribute('data-bs-target', '#gestisci_candidato_modal')
+					statoElement.setAttribute('data-id-cadidato', candidato.idCand);
+
+
+
 					let linkCell = document.createElement("td");
 					let linkElement = document.createElement("a");
-					linkElement.textContent = "Profilo";
+					linkElement.classList.add('icon-link');
+					linkElement.innerHTML = "Profilo" + viewIconSvg;
+					linkElement.target = "_blank";
 					linkElement.href = "http://localhost:8080/hrport/admin/profilo/" + candidato.user.idUtente;
 
-					let manageCell = document.createElement("td");
-					let manageElement = document.createElement('a');
-					manageElement.textContent = "Gestisci";
-					manageElement.href = "#";
-					manageElement.setAttribute('data-bs-toggle', 'modal');
-					manageElement.setAttribute('data-bs-target', '#gestisci_candidato_modal')
-					manageElement.setAttribute('data-id-cadidato', candidato.idCand);
+					// let manageCell = document.createElement("td");
+					// let manageElement = document.createElement('a');
+					// manageElement.textContent = "Gestisci";
+					// manageElement.href = "#";
+					// manageElement.setAttribute('data-bs-toggle', 'modal');
+					// manageElement.setAttribute('data-bs-target', '#gestisci_candidato_modal')
+					// manageElement.setAttribute('data-id-cadidato', candidato.idCand);
 
 					linkCell.appendChild(linkElement);
-					manageCell.appendChild(manageElement);
+					statoCell.appendChild(statoElement);
 
 					row.appendChild(idCell);
 					row.appendChild(nomeCell);
 					row.appendChild(cognomeCell);
 					row.appendChild(posizioneCell);
+					row.appendChild(statoCell);
 					row.appendChild(linkCell);
-					row.appendChild(manageCell);
+					// row.appendChild(manageCell);
 
 					tableBody.appendChild(row);
 
@@ -264,17 +302,23 @@
 				document.querySelector('#gestisci_candidato_modal').setAttribute('data-candidatura-id', btn.getAttribute('data-id-cadidato'));
 			});
 
-			document.querySelector('#btn_scegli_candidato').addEventListener('click', e => {
-				let data = {
-					idCand : parseInt(document.querySelector('#gestisci_candidato_modal').getAttribute('data-candidatura-id')),
-					stato: 2
+			document.querySelector('#btn_esegui_azione_candidato').addEventListener('click', e => {
+				let status = parseInt(document.querySelector('#select_esegui_azione_candidato').value);
+				
+				if(isNaN(status) || status == undefined || status == null){
+					return;
 				}
-				updateApplicationStatus(data, function(error, data){
-					if(error != null){
+
+				let data = {
+					idCand: parseInt(document.querySelector('#gestisci_candidato_modal').getAttribute('data-candidatura-id')),
+					stato: status
+				}
+				updateApplicationStatus(data, function (error, data) {
+					if (error != null) {
 						console.log(error);
 						return;
 					}
-					console.log(data);
+					setTimeout(function(){ location.reload() }, 500);
 				});
 			});
 
