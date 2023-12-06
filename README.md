@@ -1,44 +1,20 @@
 # HRPortal
-Gestione dei candidati
+Progetto per il "Vivaio dei Talenti" di Zucchetti — Fork personale.
 
+## Istruzioni per l'avvio:
 
-## API Presenti
+- Importare la repository su Eclipse
+- Scaricare le dependencies con Maven
+- Creare un nuovo server Tomcat 10.1
+- Creare il database `hrport` su Microsoft SQL Server
+- Creare le tabelle con lo script <a href="https://github.com/PaninoCode/zucchetti-talentbridge/blob/main/sql/CREATE.sql" target="_blank">CREATE.sql</a>
+- Importare i primi dati con lo script <a href="https://github.com/PaninoCode/zucchetti-talentbridge/blob/main/sql/INIT.sql" target="_blank">INIT.sql</a>
 
-### GET
+## Istruzioni per l'accesso:
 
-- `/candidati:` Lista dei candidati, posizioni e candidato+posizione
-- `/app/get-info-user:` Tutti i dati dell'account
-- `/user/profile:` Tutti i dati del profilo
-- `/user/get-quiz` Tutti i dati di un quiz
+L'account amministratore di default è:
 
-### POST
+    Login:      admin@admin
+    Password:      admin
 
-- `/user/sendAnswers:` Invia le risposte al server
-- `/app/update-info-user:` Invia i dati dell'account al server
-
-## API Mancanti
-
-### POST
-
-- Skills
-- Modifica Posizione (priorità: aperta,chiusa)
-- Invio candidatura
-
-## Pagine
-
-### Presenti
-
-- /login
-- /register
-- /user/home
-- /admin/posizioni
-
-### Da finire
-
-- /admin/dettaglioPosizione
-- /admin/candidati
-- /user/profile
-- /user/completaQuiz
-
-### Mancanti
-- /admin/dattaglioCandidato
+Gli account utente possono essere creati usando la pagina di registrazione
