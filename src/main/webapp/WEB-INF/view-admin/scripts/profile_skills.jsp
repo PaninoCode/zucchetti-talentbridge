@@ -26,6 +26,8 @@
 
         skillsList.innerHTML = "";
 
+        userCategory.sort((a,b) => a.idCs - b.idCs);
+
         userCategory.forEach(category => {
             // console.log(category);
             skillsList.innerHTML += skillsCategoryTemplate.innerHTML
@@ -42,6 +44,8 @@
             htmlResult = "<p>Nessuna skill per questa categoria</p>";
             return htmlResult;
         }
+
+        kills.sort((a,b) => a.idSkill - b.idSkill);
 
         skills.forEach(skill => {
             htmlResult += skillPillTemplate.innerHTML

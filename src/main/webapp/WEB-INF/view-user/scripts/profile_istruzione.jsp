@@ -55,6 +55,8 @@
                 istruzioneInfoText.classList.remove('d-none');
             }
 
+            userEducation.sort((a,b) => a.idIst - b.idIst);
+
             userEducation.forEach(educationElement => {
                 buildIstruzione(educationElement.idIst, educationElement.titoloIstruzione, educationElement.istituto, educationElement.indirizzo, educationElement.dInizio, educationElement.dFine, educationElement.voto);
             });

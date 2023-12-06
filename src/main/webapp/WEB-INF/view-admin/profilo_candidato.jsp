@@ -197,7 +197,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="d-flex">
+                                            <div class="d-flex flex-wrap">
                                                 {skills_pills}
                                             </div>
                                         </div>

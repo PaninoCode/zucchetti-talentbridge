@@ -35,6 +35,8 @@
                 esperienzaInfoText.classList.remove('d-none');
             }
 
+            userExperiences.sort((a,b) => a.idEl - b.idEl);
+
             userExperiences.forEach(experiencesElement => {
                 buildEsperienza(experiencesElement.idEl, experiencesElement.azienda, experiencesElement.indirizzo, experiencesElement.posizione, experiencesElement.dInizio, experiencesElement.dFine, experiencesElement.funzione);
             });
