@@ -19,7 +19,7 @@
 	<jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
 	<jsp:include page='../view-common/admin_header.jsp'>
-		<jsp:param name="activeLinkId" value="posizioni" />
+		<jsp:param name="activeLinkId" value="add_posizione" />
 	</jsp:include>
 
 	<section style="min-height: 100vh;">
