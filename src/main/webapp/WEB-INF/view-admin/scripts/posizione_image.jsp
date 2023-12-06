@@ -55,7 +55,7 @@
                     console.log(key[0] + ', ' + key[1]);
                         }
                  
-                 alert("ok");
+                 alert("Posizione aggiunta");
                 try {
                     const response = await fetch('http://localhost:8080/hrport/admin/insert-new-position', {
                         method: 'POST',

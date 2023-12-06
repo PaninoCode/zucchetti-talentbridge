@@ -126,7 +126,7 @@
 								<hr class="mb-4">
 								<div class="d-flex flex-row justify-content-between align-items-center p-2 mb-4">
 									<!-- <a href="#" class="m-0 link-danger">Elimina posizione</a> -->
-									<a id="eliminaPositionBtn" class="m-0 link-danger" onclick="deletePosizione()">
+									<a id="eliminaPositionBtn" style="cursor: pointer;" class="m-0 link-danger" onclick="deletePosizione()">
 										<h5 class="m-0">Elimina posizione</h5>
 									</a>
 									<button id="updatePositionBtn" class="btn btn-primary text-light"

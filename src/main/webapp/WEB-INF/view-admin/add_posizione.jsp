@@ -89,7 +89,7 @@
 								<label for="positionSelect" class="col-sm-3 col-form-label">
 									Seleziona quiz</label>
 								<div class="col-sm-9">
-									<select id="quizSelect" ></select>
+									<select id="quizSelect" multiple></select>
 									
 								</div>
 							</div>
@@ -109,7 +109,7 @@
 								class="d-flex flex-row justify-content-between align-items-center p-2 mb-4">
 								
 								
-								<button type="submit" id="updatePositionBtn"
+								<button type="button" id="updatePositionBtn"
 									class="btn btn-primary text-light" onclick="addPosizione()">
 									<h5 class="m-0">Salva</h5>
 								</button>
