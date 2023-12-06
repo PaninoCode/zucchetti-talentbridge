@@ -22,6 +22,13 @@
 
     let dataApplication = null;
 
+    if(!dataPos.aperta){
+        candidaturaStatusClosedGeneric.classList.remove('d-none');
+        btnRitiraCandidatura.disabled = true;
+        btnRitiraCandidaturaModal.disabled = true;
+        btnInviaCandidatura.disabled = true;
+    }
+
     if (dataPos.hasOwnProperty('applications')) {
         dataPos.applications.forEach(application => {
             if (application.user.idUtente == dataUser.idUtente) {

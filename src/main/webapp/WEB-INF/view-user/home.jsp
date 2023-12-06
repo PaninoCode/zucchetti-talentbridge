@@ -33,7 +33,7 @@
                         <div class="d-flex justify-content-end align-items-center">
     
                             <div class="d-flex justify-content-center align-items-center">
-                                {position_status}</div>
+                                {application_status}&nbsp;{position_status}</div>
                         </div>
                         <span class="m-2"></span>
                         <div id="positionLink" class="d-flex justify-content-end align-items-center">

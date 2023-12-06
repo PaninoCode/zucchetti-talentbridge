@@ -16,8 +16,8 @@
         <jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
 
 
-        <jsp:include page='../view-common/user_header.jsp'>
-            <jsp:param name="activeLinkId" value="profilo" />
+        <jsp:include page='../view-common/admin_header.jsp'>
+            <jsp:param name="activeLinkId" value="candidati" />
         </jsp:include>
 
         <section style="min-height: 100vh;">

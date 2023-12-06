@@ -273,7 +273,7 @@
 
                                 <br>
                                 <div class="row d-flex justify-content-center">
-                                    <div class="col-6">
+                                    <div class="col-6" id="controls_candidatura">
                                         <button type="button" id="btn_invia_candidatura"
                                             class="w-100 btn btn-primary text-light d-none" data-quiz-id="{id_quiz}">
                                             <h5 class="m-0 d-flex justify-content-center align-items-center">

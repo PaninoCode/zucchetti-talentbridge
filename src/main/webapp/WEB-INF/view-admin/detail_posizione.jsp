@@ -45,7 +45,7 @@
 											<option selected disabled>Scegliere azione</option>
 											<option value="2">Accettata</option>
 											<option value="3">Rifiutata</option>
-											<option value="4">Chiusa (Rifiuta senza motivo)</option>
+											<!-- <option value="4">Chiusa (Rifiuta senza motivo)</option> -->
 										</select>
 									</div>
 									<div class="col-3">
