@@ -220,4 +220,22 @@ public class ProfiloUtente {
 	public void setCategory(Set<CategoriaSkills> category) {
 		this.category = category;
 	}
+	
+	public void vilidateProfileInfo() throws Exception {
+		
+		// telefono
+		String telefono = getTelefono();
+		if(telefono.length() > 10) throw new Exception("il campo telefono deve essere inferiore a 10 caratteri");
+		try {
+			
+			Integer.valueOf(telefono);
+		} catch (NumberFormatException e) {
+			// TODO: handle exception
+			throw new Exception("il campo telefono deve essere composto da soli numeri");
+		}
+		
+		//codice fiscale
+		String codiceFiscale = getCodiceFiscale();
+		if(codiceFiscale.length() != 16) throw new Exception("il campo codice fiscale deve essere di 16 caratteri");
+	}
 }
