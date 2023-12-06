@@ -1,13 +1,14 @@
 package hrport.project.main.service;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,7 +16,6 @@ import com.google.gson.GsonBuilder;
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.CategoriaSkills;
-import hrport.project.main.pojo.Istruzione;
 import hrport.project.main.pojo.Skill;
 
 public class CategorySkillsService {
@@ -25,7 +25,14 @@ public class CategorySkillsService {
 		Connection con = ConnectDatabase.getConnection();
 		
 		ResultSet resultSetCategories = null;
-		Set<CategoriaSkills> categories = new HashSet<>();
+		Set<CategoriaSkills> categories = new TreeSet<>(new Comparator<CategoriaSkills>() {
+
+			@Override
+			public int compare(CategoriaSkills o1, CategoriaSkills o2) {
+				// TODO Auto-generated method stub
+				return o1.getIdCs().compareTo(o2.getIdCs());
+			}
+		});
 		
 		try {
 			
