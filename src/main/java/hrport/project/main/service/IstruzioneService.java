@@ -5,8 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,7 +16,6 @@ import com.google.gson.GsonBuilder;
 import hrport.project.main.adaptergson.LocalDateAdapter;
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Istruzione;
-import hrport.project.main.pojo.ProfiloUtente;
 
 public class IstruzioneService {
 
@@ -23,7 +24,14 @@ public class IstruzioneService {
 		Connection con = ConnectDatabase.getConnection();
 		
 		ResultSet resultSetIstr = null;
-		Set<Istruzione> education = new HashSet<>();
+		Set<Istruzione> education = new TreeSet<>(new Comparator<Istruzione>() {
+
+			@Override
+			public int compare(Istruzione o1, Istruzione o2) {
+				// TODO Auto-generated method stub
+				return o1.getIdIst().compareTo(o2.getIdIst());
+			}
+		});
 		
 		try {
 			

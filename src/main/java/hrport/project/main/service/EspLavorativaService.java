@@ -5,8 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,7 +24,14 @@ public class EspLavorativaService {
 		Connection con = ConnectDatabase.getConnection();
 		
 		ResultSet resultSetEsp = null;
-		Set<EspLavorativa> experiences = new HashSet<>();
+		Set<EspLavorativa> experiences = new TreeSet<>(new Comparator<EspLavorativa>() {
+
+			@Override
+			public int compare(EspLavorativa o1, EspLavorativa o2) {
+				// TODO Auto-generated method stub
+				return o1.getIdEl().compareTo(o2.getIdEl());
+			}
+		});
 		
 		try {
 			

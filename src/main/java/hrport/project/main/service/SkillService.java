@@ -3,8 +3,10 @@ package hrport.project.main.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import hrport.project.main.connectdb.ConnectDatabase;
 import hrport.project.main.pojo.Skill;
@@ -16,7 +18,14 @@ public class SkillService {
 		Connection con = ConnectDatabase.getConnection();
 		
 		ResultSet resultSetSkills = null;
-		Set<Skill> education = new HashSet<>();
+		Set<Skill> education = new TreeSet<>(new Comparator<Skill>() {
+
+			@Override
+			public int compare(Skill o1, Skill o2) {
+				// TODO Auto-generated method stub
+				return o1.getIdSkill().compareTo(o2.getIdSkill());
+			}
+		});
 		
 		try {
 			
