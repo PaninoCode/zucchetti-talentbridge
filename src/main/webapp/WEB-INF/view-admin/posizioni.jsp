@@ -10,9 +10,6 @@
 <script type="text/javascript" src="/hrport/resources/js/bootstrap.bundle.min.js"></script>
 
 </head>
-
-<script type="text/javascript" src="/hrport/resources/js/bootstrap.bundle.min.js"></script>
-</head>
 <body class="bg-body-tertiary">
 
 	<jsp:include page='../view-common/account_edit_modal.jsp'></jsp:include>
