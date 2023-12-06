@@ -45,7 +45,7 @@
             return htmlResult;
         }
 
-        kills.sort((a,b) => a.idSkill - b.idSkill);
+        skills.sort((a,b) => a.idSkill - b.idSkill);
 
         skills.forEach(skill => {
             htmlResult += skillPillTemplate.innerHTML
