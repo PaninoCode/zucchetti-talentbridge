@@ -163,6 +163,10 @@ public class CandidaturaService {
 		try {
 			
 			con.setAutoCommit(false);
+			
+			Posizione posizione = PosizioneService.getPosizioneByIdWithoutApplications(idPos);
+			
+			if(!posizione.getAperta()) throw new Exception("Non puoi candidarti per una posizione chiusa");
 					
 			String SQL = "INSERT INTO \"Candidatura\" (\"idUtente\", \"idPos\", \"stato\")\r\n"
 					+ "VALUES (?, ?, ?);";

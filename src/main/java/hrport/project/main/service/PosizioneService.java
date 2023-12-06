@@ -176,6 +176,49 @@ public class PosizioneService {
 		return positions;
 	}
 	
+	public static Posizione getPosizioneByIdWithoutApplications(Integer idPosizione) throws Exception {
+
+		Connection con = ConnectDatabase.getConnection();
+		ResultSet resultSet = null;
+		
+		
+		try {
+
+			con.setAutoCommit(false);
+			String sQLquery = "SELECT * from posizione WHERE idPos = ?";
+
+			PreparedStatement posStatement = con.prepareStatement(sQLquery);
+			
+			posStatement.setInt(1, idPosizione);
+
+			resultSet = posStatement.executeQuery();
+			
+			resultSet.next();
+				
+				Posizione posizione = new Posizione(
+						resultSet.getInt("idPos"),
+						resultSet.getString("nome"),
+						resultSet.getBoolean("aperta"),
+						resultSet.getString("fotoUrl"),
+						resultSet.getString("descrizione"));	
+				
+				//System.out.println(candidatura);
+			
+			con.commit();
+			return posizione;
+			
+		} catch (Exception e) {
+
+			resultSet.close();
+			con.rollback();
+			throw e;
+		} finally {
+			resultSet.close();
+			con.close();
+		}
+		
+	}
+	
 	public static Posizione getPosizioneById(Integer idPosizione) throws Exception {
 
 		Connection con = ConnectDatabase.getConnection();
