@@ -86,7 +86,7 @@
                                                 <div class="mb-3">
                                                     <label for="anagrafica_numero_telefono" class="form-label">Numero di
                                                         telefono</label>
-                                                    <input type="tel" class="form-control"
+                                                    <input type="tel" class="form-control" maxlength="10" minlength="9"
                                                         id="anagrafica_numero_telefono" disabled required>
                                                 </div>
                                             </div>
@@ -105,7 +105,7 @@
                                                 <div class="mb-3">
                                                     <label for="anagrafica_codice_fiscale" class="form-label">Codice
                                                         Fiscale</label>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" class="form-control" maxlength="16" minlength="16"
                                                         id="anagrafica_codice_fiscale" disabled required>
                                                 </div>
                                             </div>
