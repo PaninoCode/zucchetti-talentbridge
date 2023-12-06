@@ -50,7 +50,7 @@ public class AttachmentServlet extends HttpServlet {
 		
 		if(!isFile){
 			//request.getRequestDispatcher("/WEB-INF/static/errors/404.jsp").forward(request, response);
-			filename = sc.getRealPath("/WEB-INF/static/errors/404.jpg");
+			filename = sc.getRealPath("/WEB-INF/static/errors/" + value + "_404.png");
 		}
 
 		// Get the MIME type of the image
